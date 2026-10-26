@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Farm Analytics - AgriTrack</title>
+
+    <link rel="stylesheet"
+          href="assets/css/style.css">
+
+</head>
+
+
+<body>
+
+
+<!-- Navigation -->
+
+<nav>
+
+    <h2>AgriTrack</h2>
+
+    <ul>
+
+        <li>
+            <a href="index.html">Home</a>
+        </li>
+
+        <li>
+            <a href="dashboard.html">Dashboard</a>
+        </li>
+
+        <li>
+            <a href="crop.html">Crop</a>
+        </li>
+
+        <li>
+            <a href="iot.html">IoT</a>
+        </li>
+
+        <li>
+            <a href="weather.html">Weather</a>
+        </li>
+
+        <li>
+            <a href="expenses.html">Expenses</a>
+        </li>
+
+        <li>
+            <a href="analytics.html">Analytics</a>
+        </li>
+
+    </ul>
+
+</nav>
+
+
+<!-- Header -->
+
+<header>
+
+    <h1>📊 Farm Analytics</h1>
+
+    <p>
+        Analyze your farming data and improve productivity
+    </p>
+
+</header>
+
+
+<!-- Summary Cards -->
+
+<section class="analytics-summary">
+
+
+    <div class="analytics-card">
+
+        <h3>🌱 Crop Performance</h3>
+
+        <h2 id="cropPerformance">
+            Good
+        </h2>
+
+        <p>
+            Overall crop condition
+        </p>
+
+    </div>
+
+
+    <div class="analytics-card">
+
+        <h3>💰 Total Expenses</h3>
+
+        <h2 id="analyticsExpense">
+            ₹0
+        </h2>
+
+        <p>
+            Current farm expenses
+        </p>
+
+    </div>
+
+
+    <div class="analytics-card">
+
+        <h3>💧 Soil Moisture</h3>
+
+        <h2 id="analyticsMoisture">
+            65%
+        </h2>
+
+        <p>
+            Current soil condition
+        </p>
+
+    </div>
+
+
+    <div class="analytics-card">
+
+        <h3>🌾 Yield Prediction</h3>
+
+        <h2 id="yieldPrediction">
+            High
+        </h2>
+
+        <p>
+            Expected crop productivity
+        </p>
+
+    </div>
+
+</section>
+
+
+<!-- Charts -->
+
+<section class="analytics-charts">
+
+
+    <div class="analytics-chart-card">
+
+        <h2>🌱 Crop Growth Analysis</h2>
+
+        <canvas id="cropGrowthChart"></canvas>
+
+    </div>
+
+
+    <div class="analytics-chart-card">
+
+        <h2>💰 Expense Analysis</h2>
+
+        <canvas id="expenseChart"></canvas>
+
+    </div>
+
+
+    <div class="analytics-chart-card">
+
+        <h2>💧 Soil Moisture Trend</h2>
+
+        <canvas id="soilAnalyticsChart"></canvas>
+
+    </div>
+
+</section>
+
+
+<!-- Farm Performance -->
+
+<section class="farm-performance">
+
+    <h2>🌾 Overall Farm Performance</h2>
+
+    <div class="performance-circle">
+
+        <span id="performanceValue">
+            85%
+        </span>
+
+    </div>
+
+    <h3 id="performanceStatus">
+        Excellent
+    </h3>
+
+    <p>
+        Your farm is performing well based on
+        current crop, soil and expense data.
+    </p>
+
+</section>
+
+
+<!-- Smart Recommendations -->
+
+<section class="analytics-recommendations">
+
+    <h2>💡 Smart Recommendations</h2>
+
+    <ul id="analyticsRecommendations">
+
+        <li>
+            🌱 Continue monitoring crop growth.
+        </li>
+
+        <li>
+            💧 Maintain suitable soil moisture.
+        </li>
+
+        <li>
+            💰 Monitor farm expenses regularly.
+        </li>
+
+    </ul>
+
+</section>
+
+
+<!-- Footer -->
+
+<footer>
+
+    <p>
+        © 2026 AgriTrack | Smart Farming Solution
+    </p>
+
+</footer>
+
+
+<!-- Chart.js -->
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+
+<!-- AgriTrack JavaScript -->
+
+<script src="assets/js/app.js"></script>
+
+
+</body>
+
+</html>

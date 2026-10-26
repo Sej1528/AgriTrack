@@ -1,0 +1,1793 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title id="pageTitle">Crop Management - AgriTrack</title>
+
+    <link rel="stylesheet"
+          href="assets/css/style.css">
+
+<style>
+.crop-stage-selection{margin:30px 0;padding:25px;background:#fff;border-radius:15px;box-shadow:0 4px 15px rgba(0,0,0,.08);text-align:center}.crop-stage-selection h2{color:#2e7d32;margin-bottom:10px}.stage-selection-message{margin:15px 0 20px;color:#555}.stage-choice-container{display:grid;grid-template-columns:repeat(5,1fr);gap:12px}.stage-choice{padding:15px 8px;background:#f1f8e9;border:2px solid transparent;border-radius:12px;cursor:pointer;transition:.2s}.stage-choice:hover{transform:translateY(-3px)}.stage-choice.selected-stage{border-color:#4caf50;box-shadow:0 0 0 3px #c8e6c9;background:#e8f5e9}.stage-icon{display:block;font-size:30px;margin-bottom:8px}.stage-name{display:block;font-weight:bold;color:#2e7d32;font-size:14px}.selected-stage-message{margin-top:20px;padding:15px;border-left:5px solid #4caf50;background:#f1f8e9;border-radius:8px}@media(max-width:700px){.stage-choice-container{grid-template-columns:repeat(2,1fr)}}
+</style>
+</head>
+
+
+<body>
+
+
+<!-- Navigation -->
+
+<nav>
+
+    <!-- Language Selection -->
+
+    <div class="language-selector">
+
+        <label for="languageSelect">🌐</label>
+
+        <select id="languageSelect" onchange="changeLanguage()">
+
+            <option value="en">English</option>
+
+            <option value="mr">मराठी</option>
+
+            <option value="hi">हिंदी</option>
+
+        </select>
+
+    </div>
+
+
+    <h2>AgriTrack</h2>
+
+    <ul>
+
+        <li>
+            <a href="index.html" data-translate="home">
+                Home
+            </a>
+        </li>
+
+        <li>
+            <a href="dashboard.html" data-translate="dashboard">
+                Dashboard
+            </a>
+        </li>
+
+        <li>
+            <a href="farm-data.html" data-translate="iot">
+    Farm Data
+</a>
+        </li>
+
+        <li>
+            <a href="crop.html" data-translate="crop">
+                Crop
+            </a>
+        </li>
+
+        <li>
+            <a href="weather.html" data-translate="weather">
+                Weather
+            </a>
+        </li>
+
+    </ul>
+
+</nav>
+
+
+<!-- Header -->
+
+<header>
+
+    <h1 data-translate="cropManagement">
+        🌱 Crop Management
+    </h1>
+
+    <p data-translate="cropDescription">
+        Monitor crop growth, nutrient requirements
+        and plant health
+    </p>
+
+</header>
+
+
+<!-- Crop Selection -->
+
+<section class="crop-selection">
+
+    <h2 data-translate="selectCrop">
+        Select Your Crop
+    </h2>
+
+    <p data-translate="selectCropInstruction">
+        Click on the crop photo to select
+    </p>
+
+
+  <!-- Crop Images -->
+
+<div class="crop-image-container">
+        <!-- Tomato -->
+
+        <div class="crop-image-card"
+             onclick="selectCrop('tomato')">
+
+            <img
+                src="https://images.unsplash.com/photo-1546094096-0df4bcaaa337?auto=format&fit=crop&w=500&q=80"
+                alt="Tomato">
+
+            <div class="crop-image-name">
+                🍅
+            </div>
+
+        </div>
+
+
+        <!-- Wheat -->
+
+        <div class="crop-image-card"
+             onclick="selectCrop('wheat')">
+
+            <img
+                src="https://images.unsplash.com/photo-1574323347407-f5e1ad6d020b?auto=format&fit=crop&w=500&q=80"
+                alt="Wheat">
+
+            <div class="crop-image-name">
+                🌾
+            </div>
+
+        </div>
+
+
+        <!-- Rice -->
+
+        <div class="crop-image-card"
+             onclick="selectCrop('rice')">
+
+            <img
+                src="https://images.unsplash.com/photo-1536304993881-ff6e9eefa2a6?auto=format&fit=crop&w=500&q=80"
+                alt="Rice">
+
+            <div class="crop-image-name">
+                🍚
+            </div>
+
+        </div>
+
+
+   <!-- Onion -->
+
+<div class="crop-image-card"
+     onclick="selectCrop('onion')">
+
+    <img
+        src="https://images.unsplash.com/photo-1618512496248-a07fe83aa8cb?auto=format&fit=crop&w=500&q=80"
+        alt="Onion">
+
+    <div class="crop-image-name">
+        🧅
+    </div>
+
+</div>
+
+
+        <!-- Cotton -->
+
+        <div class="crop-image-card"
+             onclick="selectCrop('cotton')">
+
+            <img
+                src="https://images.unsplash.com/photo-1605000797499-95a51c5269ae?auto=format&fit=crop&w=500&q=80"
+                alt="Cotton">
+
+            <div class="crop-image-name">
+                🌿
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- Selected Crop -->
+
+    <div id="selectedCropMessage">
+
+        <p data-translate="selectYourCrop">
+            👆 Select your crop
+        </p>
+
+    </div>
+
+</section>
+
+
+<!-- Crop Stage Selection -->
+<section class="crop-stage-selection">
+<h2 data-translate="selectCurrentCropStage">🌱 Select Current Crop Stage</h2>
+<p class="stage-selection-message" data-translate="selectCurrentCropStageInstruction">Select the stage that matches your crop now.</p>
+<div class="stage-choice-container">
+<div class="stage-choice" onclick="selectCropStage('seedling',1)"><span class="stage-icon">🌱</span><span class="stage-name" data-translate="stageChoiceSeedling">Seedling</span></div>
+<div class="stage-choice" onclick="selectCropStage('vegetative',2)"><span class="stage-icon">🌿</span><span class="stage-name" data-translate="stageChoiceVegetative">Vegetative Growth</span></div>
+<div class="stage-choice" onclick="selectCropStage('flowering',3)"><span class="stage-icon">🌼</span><span class="stage-name" data-translate="stageChoiceFlowering">Flowering</span></div>
+<div class="stage-choice" onclick="selectCropStage('fruiting',4)"><span class="stage-icon">🍅</span><span class="stage-name" data-translate="stageChoiceFruiting">Fruit Development</span></div>
+<div class="stage-choice" onclick="selectCropStage('harvest',5)"><span class="stage-icon">🌾</span><span class="stage-name" data-translate="stageChoiceHarvest">Harvest</span></div>
+</div>
+<div id="selectedStageMessage" class="selected-stage-message"><strong data-translate="selectCurrentCropStagePrompt">👆 Select your current crop stage</strong></div>
+</section>
+
+<!-- Crop Overview -->
+
+<section class="crop-dashboard">
+
+
+    <!-- Planting Information -->
+
+    <div class="crop-card">
+
+        <h3 data-translate="plantingInformation">
+            📅 Planting Information
+        </h3>
+
+        <p>
+
+            <strong data-translate="sowingDate">
+                Sowing Date:
+            </strong>
+
+            <span id="sowingDate">
+                10 July 2026
+            </span>
+
+        </p>
+
+
+        <p>
+
+            <strong data-translate="daysSincePlanting">
+                Days Since Planting:
+            </strong>
+
+            <span id="daysSincePlanting">
+                33 Days
+            </span>
+
+        </p>
+
+
+        <p>
+
+            <strong data-translate="expectedHarvest">
+                Expected Harvest:
+            </strong>
+
+            <span id="harvestDate">
+                15 September 2026
+            </span>
+
+        </p>
+
+
+        <p>
+
+            <strong data-translate="cropDuration">
+                Crop Duration:
+            </strong>
+
+            <span id="cropDuration">
+                65–80 Days
+            </span>
+
+        </p>
+
+    </div>
+
+
+    <!-- Current Growth Stage -->
+
+    <div class="crop-card">
+
+        <h3 data-translate="currentGrowthStage">
+            🌿 Current Growth Stage
+        </h3>
+
+        <h2 id="growthStage">
+            🌼 Flowering
+        </h2>
+
+        <p>
+
+            <span data-translate="currentStage">
+                Current Stage:
+            </span>
+
+            <span id="stageNumber">
+                3 of 5
+            </span>
+
+        </p>
+
+
+        <div class="crop-progress">
+
+            <div
+                class="crop-progress-fill"
+                id="cropProgressFill">
+            </div>
+
+        </div>
+
+
+        <p>
+
+            <span data-translate="growthProgress">
+                Growth Progress:
+            </span>
+
+            <span id="growthProgress">
+                60%
+            </span>
+
+        </p>
+
+    </div>
+
+
+    <!-- Plant Health -->
+
+    <div class="crop-card">
+
+        <h3 data-translate="plantHealth">
+            ❤️ Plant Health
+        </h3>
+
+        <h2 id="plantHealth"
+            class="health-good">
+
+            🟢 Good
+
+        </h2>
+
+
+        <p id="healthMessage"
+           data-translate="noMajorProblems">
+
+            No major problems detected.
+
+        </p>
+
+
+        <p data-translate="continueMonitoring">
+
+            Continue regular monitoring.
+
+        </p>
+
+    </div>
+
+</section>
+
+
+<!-- Crop Requirements -->
+
+<section class="crop-requirements">
+
+    <h2 data-translate="idealCropConditions">
+        🌡️ Ideal Crop Conditions
+    </h2>
+
+
+    <div class="requirement-container">
+
+
+        <div class="requirement-card">
+
+            <h3 data-translate="temperature">
+                🌡 Temperature
+            </h3>
+
+            <h2 id="idealTemperature">
+                20–30°C
+            </h2>
+
+            <p data-translate="idealTemperatureRange">
+                Ideal temperature range
+            </p>
+
+        </div>
+
+
+        <div class="requirement-card">
+
+            <h3 data-translate="soilMoisture">
+                💧 Soil Moisture
+            </h3>
+
+            <h2 id="idealMoisture">
+                60–80%
+            </h2>
+
+            <p data-translate="recommendedMoisture">
+                Recommended moisture
+            </p>
+
+        </div>
+
+
+        <div class="requirement-card">
+
+            <h3 data-translate="humidity">
+                💨 Humidity
+            </h3>
+
+            <h2 id="idealHumidity">
+                60–70%
+            </h2>
+
+            <p data-translate="suitableHumidity">
+                Suitable humidity
+            </p>
+
+        </div>
+
+
+        <div class="requirement-card">
+
+            <h3 data-translate="sunlight">
+                ☀️ Sunlight
+            </h3>
+
+            <h2 id="idealSunlight">
+                6–8 hrs
+            </h2>
+
+            <p data-translate="dailySunlight">
+                Daily sunlight requirement
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- Smart Crop Recommendation -->
+
+<section class="crop-recommendation">
+
+    <h2 data-translate="smartCropRecommendation">🌱 Smart Crop Recommendation</h2>
+
+    <p data-translate="smartCropDescription">
+        Get crop suggestions based on your saved soil report
+        and weather information.
+    </p>
+
+    <button type="button" onclick="getSmartCropRecommendation()" data-translate="getCropRecommendation">
+        🔍 Get Crop Recommendation
+    </button>
+
+    <div id="smartCropResult" class="smart-crop-result">
+
+        <p data-translate="selectSoilWeatherFirst">
+            Select your soil report and weather data first.
+        </p>
+
+    </div>
+
+</section>
+
+<!-- Recommendations -->
+
+<section class="recommendations">
+
+    <h2 data-translate="smartRecommendations">
+        💡 Smart Recommendations
+    </h2>
+
+
+    <div class="recommendation-container">
+
+
+        <!-- Irrigation -->
+
+        <div class="recommendation-card">
+
+            <h3 data-translate="irrigation">
+                💧 Irrigation
+            </h3>
+
+            <h2 id="irrigationRecommendation"
+                data-translate="recommended">
+
+                Recommended
+
+            </h2>
+
+            <p id="irrigationMessage"
+               data-translate="irrigationMonitoring">
+
+                Continue regular irrigation monitoring.
+
+            </p>
+
+        </div>
+
+
+        <!-- Fertilizer -->
+
+        <div class="recommendation-card">
+
+            <h3 data-translate="fertilizer">
+                🌾 Fertilizer
+            </h3>
+
+            <h2 id="fertilizerRecommendation">
+                Potassium
+            </h2>
+
+            <p id="fertilizerMessage"
+               data-translate="potassiumImportant">
+
+                Potassium is important during the
+                flowering stage.
+
+            </p>
+
+        </div>
+
+
+        <!-- Weather -->
+
+        <div class="recommendation-card">
+
+            <h3 data-translate="weatherAdvice">
+                🌦️ Weather Advice
+            </h3>
+
+            <h2 id="weatherAdvice"
+                data-translate="monitorRainfall">
+
+                Monitor Rainfall
+
+            </h2>
+
+            <p id="weatherMessage"
+               data-translate="checkWeather">
+
+                Check the weather forecast before
+                additional irrigation.
+
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- Growth Stages -->
+
+<section class="growth-stages">
+
+    <h2 data-translate="cropGrowthStages">
+        🌱 Crop Growth Stages
+    </h2>
+
+
+    <div class="stage-container">
+
+
+        <!-- Stage 1 -->
+
+        <div class="stage-card completed">
+
+            <h3>
+                🌱
+                <span data-translate="stage1">
+                    Stage 1
+                </span>
+            </h3>
+
+            <h4 data-translate="seedling">
+                Seedling
+            </h4>
+
+            <p>
+
+                <span data-translate="nutrients">
+                    Nutrients:
+                </span>
+
+                Nitrogen
+
+            </p>
+
+            <span data-translate="completed">
+                ✅ Completed
+            </span>
+
+        </div>
+
+
+        <!-- Stage 2 -->
+
+        <div class="stage-card completed">
+
+            <h3>
+                🌿
+                <span data-translate="stage2">
+                    Stage 2
+                </span>
+            </h3>
+
+            <h4 data-translate="vegetativeGrowth">
+                Vegetative Growth
+            </h4>
+
+            <p>
+
+                <span data-translate="nutrients">
+                    Nutrients:
+                </span>
+
+                Nitrogen + Phosphorus
+
+            </p>
+
+            <span data-translate="completed">
+                ✅ Completed
+            </span>
+
+        </div>
+
+
+        <!-- Stage 3 -->
+
+        <div class="stage-card current">
+
+            <h3>
+                🌼
+                <span data-translate="stage3">
+                    Stage 3
+                </span>
+            </h3>
+
+            <h4 data-translate="flowering">
+                Flowering
+            </h4>
+
+            <p>
+
+                <span data-translate="nutrients">
+                    Nutrients:
+                </span>
+
+                Phosphorus + Potassium
+
+            </p>
+
+            <span data-translate="currentStageLabel">
+                🔵 Current Stage
+            </span>
+
+        </div>
+
+
+        <!-- Stage 4 -->
+
+        <div class="stage-card upcoming">
+
+            <h3>
+                🍅
+                <span data-translate="stage4">
+                    Stage 4
+                </span>
+            </h3>
+
+            <h4 data-translate="fruitDevelopment">
+                Fruit Development
+            </h4>
+
+            <p>
+
+                <span data-translate="nutrients">
+                    Nutrients:
+                </span>
+
+                Calcium + Potassium
+
+            </p>
+
+            <span data-translate="upcoming">
+                ⏳ Upcoming
+            </span>
+
+        </div>
+
+
+        <!-- Stage 5 -->
+
+        <div class="stage-card upcoming">
+
+            <h3>
+                🌾
+                <span data-translate="stage5">
+                    Stage 5
+                </span>
+            </h3>
+
+            <h4 data-translate="harvest">
+                Harvest
+            </h4>
+
+            <p data-translate="prepareHarvest">
+                Prepare crop for harvesting.
+            </p>
+
+            <span data-translate="upcoming">
+                ⏳ Upcoming
+            </span>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- Footer -->
+
+<footer>
+
+    <p data-translate="footer">
+        © 2026 AgriTrack | Smart Farming Solution
+    </p>
+
+</footer>
+
+
+<script src="assets/js/app.js"></script>
+
+
+<script>
+function getCurrentCropStageLanguage() {
+    const languageSelect = document.getElementById("languageSelect");
+    return languageSelect ? languageSelect.value : "en";
+}
+
+function getCropStageText(stage, language) {
+    const stageTexts = {
+        en: { seedling:"🌱 Seedling", vegetative:"🌿 Vegetative Growth", flowering:"🌼 Flowering", fruiting:"🍅 Fruit Development", harvest:"🌾 Harvest" },
+        mr: { seedling:"🌱 रोप अवस्था", vegetative:"🌿 शाकीय वाढ", flowering:"🌼 फुलोरा", fruiting:"🍅 फळांची वाढ", harvest:"🌾 कापणी" },
+        hi: { seedling:"🌱 पौध अवस्था", vegetative:"🌿 वानस्पतिक वृद्धि", flowering:"🌼 फूल आने की अवस्था", fruiting:"🍅 फल विकास", harvest:"🌾 कटाई" }
+    };
+    return (stageTexts[language] || stageTexts.en)[stage] || "🌱 Select Stage";
+}
+
+function getStageNumberText(stageNumber, language) {
+    if (language === "mr") return stageNumber + " पैकी 5";
+    if (language === "hi") return "5 में से " + stageNumber;
+    return stageNumber + " of 5";
+}
+
+function updateSelectedCropStageLanguage() {
+    const savedStage = JSON.parse(localStorage.getItem("selectedCropStage"));
+    if (!savedStage) return;
+
+    const language = getCurrentCropStageLanguage();
+    const selectedStage = getCropStageText(savedStage.stage, language);
+    const stageNumberText = getStageNumberText(savedStage.stageNumber, language);
+
+    const selectedStageMessage = document.getElementById("selectedStageMessage");
+    const messages = {
+        en: { title:"✅ Selected Crop Stage", stage:"Stage" },
+        mr: { title:"✅ निवडलेली पिकाची अवस्था", stage:"अवस्था" },
+        hi: { title:"✅ चयनित फसल अवस्था", stage:"अवस्था" }
+    };
+    const message = messages[language] || messages.en;
+
+    if (selectedStageMessage) {
+        selectedStageMessage.innerHTML = `<strong>${message.title}</strong><p>${selectedStage}</p><p>${language === "en" ? "Stage " + stageNumberText : message.stage + " " + stageNumberText}</p>`;
+    }
+
+    const growthStage = document.getElementById("growthStage");
+    const stageNumberElement = document.getElementById("stageNumber");
+    if (growthStage) growthStage.textContent = selectedStage;
+    if (stageNumberElement) stageNumberElement.textContent = stageNumberText;
+}
+
+function resetCropStage() {
+    localStorage.removeItem("selectedCropStage");
+    document.querySelectorAll(".stage-choice").forEach(function(card) {
+        card.classList.remove("selected-stage");
+    });
+    const growthStage = document.getElementById("growthStage");
+    const stageNumber = document.getElementById("stageNumber");
+    const growthProgress = document.getElementById("growthProgress");
+    const cropProgressFill = document.getElementById("cropProgressFill");
+    const selectedStageMessage = document.getElementById("selectedStageMessage");
+    if (growthStage) growthStage.textContent = "🌱 Select Stage";
+    if (stageNumber) stageNumber.textContent = "-";
+    if (growthProgress) growthProgress.textContent = "0%";
+    if (cropProgressFill) cropProgressFill.style.width = "0%";
+    if (selectedStageMessage) selectedStageMessage.innerHTML = "<strong>👆 Select your current crop stage</strong>";
+
+    document.getElementById("fertilizerRecommendation").textContent = "Recommended";
+    document.getElementById("fertilizerMessage").textContent = "Select a crop stage to see recommendations.";
+    document.getElementById("irrigationRecommendation").textContent = "Recommended";
+    document.getElementById("irrigationMessage").textContent = "Select a crop stage to see recommendations.";
+}
+
+// Override crop selection so changing crop always clears the old stage.
+function selectCrop(crop) {
+    document.querySelectorAll(".crop-image-card").forEach(function(card) {
+        card.classList.remove("selected-crop");
+    });
+
+    const selectedCard = document.querySelector(`.crop-image-card[onclick="selectCrop('${crop}')"]`);
+    if (selectedCard) selectedCard.classList.add("selected-crop");
+
+    const cropNames = {
+        tomato:"🍅 Tomato", wheat:"🌾 Wheat", rice:"🍚 Rice", onion:"🧅 Onion", cotton:"🌿 Cotton"
+    };
+
+    const selectedCropMessage = document.getElementById("selectedCropMessage");
+    if (selectedCropMessage) {
+        selectedCropMessage.innerHTML = `<h3>✅ Selected Crop</h3><p>${cropNames[crop] || crop}</p>`;
+    }
+
+    localStorage.setItem("selectedCrop", crop);
+    resetCropStage();
+}
+
+function selectCropStage(stage, stageNumber) {
+    const selectedCrop = localStorage.getItem("selectedCrop");
+    if (!selectedCrop) {
+        alert("Please select a crop first.");
+        return;
+    }
+
+    document.querySelectorAll(".stage-choice").forEach(function(card) {
+        card.classList.remove("selected-stage");
+    });
+
+    const selectedCard = document.querySelector(`.stage-choice[onclick="selectCropStage('${stage}',${stageNumber})"]`);
+    if (selectedCard) selectedCard.classList.add("selected-stage");
+
+    const savedStage = { crop:selectedCrop, stage:stage, stageNumber:stageNumber };
+    localStorage.setItem("selectedCropStage", JSON.stringify(savedStage));
+
+    const progress = stageNumber * 20;
+    const growthProgress = document.getElementById("growthProgress");
+    const cropProgressFill = document.getElementById("cropProgressFill");
+    if (growthProgress) growthProgress.textContent = progress + "%";
+    if (cropProgressFill) cropProgressFill.style.width = progress + "%";
+
+    updateSelectedCropStageLanguage();
+    updateCropStageRecommendations();
+}
+
+function updateCropStageRecommendations() {
+    const savedStage = JSON.parse(localStorage.getItem("selectedCropStage"));
+    const currentCrop = localStorage.getItem("selectedCrop");
+
+    if (!savedStage || !currentCrop || savedStage.crop !== currentCrop) {
+        return;
+    }
+
+    const data = {
+        tomato: {
+            seedling: [
+                ["Nitrogen", "नायट्रोजन", "नाइट्रोजन"],
+                ["Support healthy early plant growth.", "पिकाच्या सुरुवातीच्या निरोगी वाढीस मदत करते.", "पौधे की शुरुआती स्वस्थ वृद्धि में सहायता करता है।"],
+                ["Light Irrigation", "हलके सिंचन", "हल्की सिंचाई"],
+                ["Keep the soil moist but avoid waterlogging.", "माती ओलसर ठेवा, पण पाणी साचू देऊ नका.", "मिट्टी में नमी रखें, लेकिन पानी जमा न होने दें।"]
+            ],
+            vegetative: [
+                ["Nitrogen + Phosphorus", "नायट्रोजन + स्फुरद", "नाइट्रोजन + फास्फोरस"],
+                ["Support leaf and stem development.", "पाने आणि खोडाच्या वाढीस मदत करते.", "पत्तियों और तने की वृद्धि में सहायता करता है।"],
+                ["Regular Irrigation", "नियमित सिंचन", "नियमित सिंचाई"],
+                ["Maintain consistent soil moisture.", "मातीतील ओलावा योग्य प्रमाणात ठेवा.", "मिट्टी की नमी उचित स्तर पर बनाए रखें।"]
+            ],
+            flowering: [
+                ["Phosphorus + Potassium", "स्फुरद + पालाश", "फास्फोरस + पोटैशियम"],
+                ["Support flowering and fruit formation.", "फुलोरा आणि फळधारणेस मदत करते.", "फूल आने और फल बनने में सहायता करता है।"],
+                ["Regular Irrigation", "नियमित सिंचन", "नियमित सिंचाई"],
+                ["Avoid moisture stress during flowering.", "फुलोऱ्याच्या काळात पाण्याचा ताण येऊ देऊ नका.", "फूल आने के समय नमी की कमी न होने दें।"]
+            ],
+            fruiting: [
+                ["Potassium", "पालाश", "पोटैशियम"],
+                ["Support fruit development and quality.", "फळांची वाढ आणि गुणवत्ता सुधारण्यास मदत करते.", "फल के विकास और गुणवत्ता में सहायता करता है।"],
+                ["Regular Irrigation", "नियमित सिंचन", "नियमित सिंचाई"],
+                ["Maintain adequate moisture during fruit development.", "फळांच्या वाढीच्या काळात योग्य ओलावा ठेवा.", "फल विकास के दौरान पर्याप्त नमी बनाए रखें।"]
+            ],
+            harvest: [
+                ["Reduce Fertilizer", "खताचे प्रमाण कमी करा", "उर्वरक की मात्रा कम करें"],
+                ["Focus on harvesting and crop monitoring.", "कापणी आणि पिकाच्या निरीक्षणावर लक्ष द्या.", "कटाई और फसल की निगरानी पर ध्यान दें।"],
+                ["Moderate Irrigation", "मध्यम सिंचन", "मध्यम सिंचाई"],
+                ["Avoid excessive irrigation near harvest.", "कापणीच्या जवळ जास्त सिंचन टाळा.", "कटाई के समय अधिक सिंचाई से बचें।"]
+            ]
+        },
+        wheat: {
+            seedling: [
+                ["Nitrogen + Phosphorus", "नायट्रोजन + स्फुरद", "नाइट्रोजन + फास्फोरस"],
+                ["Support healthy early wheat growth.", "गव्हाच्या सुरुवातीच्या निरोगी वाढीस मदत करते.", "गेहूं की शुरुआती स्वस्थ वृद्धि में सहायता करता है।"],
+                ["Light Irrigation", "हलके सिंचन", "हल्की सिंचाई"],
+                ["Maintain moisture without waterlogging.", "ओलावा ठेवा, पण पाणी साचू देऊ नका.", "नमी बनाए रखें, लेकिन पानी जमा न होने दें।"]
+            ],
+            vegetative: [
+                ["Nitrogen", "नायट्रोजन", "नाइट्रोजन"],
+                ["Support leaf and stem development.", "पाने आणि खोडाच्या वाढीस मदत करते.", "पत्तियों और तने की वृद्धि में सहायता करता है।"],
+                ["Regular Irrigation", "नियमित सिंचन", "नियमित सिंचाई"],
+                ["Maintain adequate soil moisture.", "मातीतील योग्य ओलावा ठेवा.", "मिट्टी में उचित नमी बनाए रखें।"]
+            ],
+            flowering: [
+                ["Nitrogen + Potassium", "नायट्रोजन + पालाश", "नाइट्रोजन + पोटैशियम"],
+                ["Support flowering and grain formation.", "फुलोरा आणि दाणे तयार होण्यास मदत करते.", "फूल आने और दाना बनने में सहायता करता है।"],
+                ["Regular Irrigation", "नियमित सिंचन", "नियमित सिंचाई"],
+                ["Avoid moisture stress during flowering.", "फुलोऱ्याच्या काळात पाण्याचा ताण टाळा.", "फूल आने के समय नमी की कमी से बचें।"]
+            ],
+            fruiting: [
+                ["Potassium", "पालाश", "पोटैशियम"],
+                ["Support grain development.", "दाण्यांच्या वाढीस मदत करते.", "दाने के विकास में सहायता करता है।"],
+                ["Moderate Irrigation", "मध्यम सिंचन", "मध्यम सिंचाई"],
+                ["Maintain suitable moisture during grain development.", "दाण्यांच्या वाढीच्या काळात योग्य ओलावा ठेवा.", "दाने के विकास के दौरान उचित नमी बनाए रखें।"]
+            ],
+            harvest: [
+                ["Reduce Fertilizer", "खताचे प्रमाण कमी करा", "उर्वरक की मात्रा कम करें"],
+                ["Focus on harvesting and crop monitoring.", "कापणी आणि पिकाच्या निरीक्षणावर लक्ष द्या.", "कटाई और फसल की निगरानी पर ध्यान दें।"],
+                ["Reduce Irrigation", "सिंचन कमी करा", "सिंचाई कम करें"],
+                ["Avoid excessive irrigation near harvest.", "कापणीच्या जवळ जास्त सिंचन टाळा.", "कटाई के समय अधिक सिंचाई से बचें।"]
+            ]
+        },
+        rice: {
+            seedling: [
+                ["Nitrogen + Phosphorus", "नायट्रोजन + स्फुरद", "नाइट्रोजन + फास्फोरस"],
+                ["Support healthy early rice growth.", "भाताच्या सुरुवातीच्या निरोगी वाढीस मदत करते.", "धान की शुरुआती स्वस्थ वृद्धि में सहायता करता है।"],
+                ["Light Irrigation", "हलके सिंचन", "हल्की सिंचाई"],
+                ["Keep the soil adequately moist.", "मातीमध्ये योग्य ओलावा ठेवा.", "मिट्टी में पर्याप्त नमी रखें।"]
+            ],
+            vegetative: [
+                ["Nitrogen", "नायट्रोजन", "नाइट्रोजन"],
+                ["Support leaf and tiller development.", "पाने आणि फुटव्यांच्या वाढीस मदत करते.", "पत्तियों और कल्लों की वृद्धि में सहायता करता है।"],
+                ["Regular Irrigation", "नियमित सिंचन", "नियमित सिंचाई"],
+                ["Maintain adequate water availability.", "पुरेसे पाणी उपलब्ध ठेवा.", "पर्याप्त पानी की उपलब्धता बनाए रखें।"]
+            ],
+            flowering: [
+                ["Nitrogen + Potassium", "नायट्रोजन + पालाश", "नाइट्रोजन + पोटैशियम"],
+                ["Support flowering and grain formation.", "फुलोरा आणि दाणे तयार होण्यास मदत करते.", "फूल आने और दाना बनने में सहायता करता है।"],
+                ["Regular Irrigation", "नियमित सिंचन", "नियमित सिंचाई"],
+                ["Avoid water stress during flowering.", "फुलोऱ्याच्या काळात पाण्याचा ताण टाळा.", "फूल आने के समय पानी की कमी से बचें।"]
+            ],
+            fruiting: [
+                ["Potassium", "पालाश", "पोटैशियम"],
+                ["Support grain development and quality.", "दाण्यांची वाढ आणि गुणवत्ता सुधारण्यास मदत करते.", "दाने के विकास और गुणवत्ता में सहायता करता है।"],
+                ["Regular Irrigation", "नियमित सिंचन", "नियमित सिंचाई"],
+                ["Maintain suitable moisture during grain development.", "दाण्यांच्या वाढीच्या काळात योग्य ओलावा ठेवा.", "दाने के विकास के दौरान उचित नमी बनाए रखें।"]
+            ],
+            harvest: [
+                ["Reduce Fertilizer", "खताचे प्रमाण कमी करा", "उर्वरक की मात्रा कम करें"],
+                ["Focus on crop maturity and harvesting.", "पिकाची परिपक्वता आणि कापणीवर लक्ष द्या.", "फसल की परिपक्वता और कटाई पर ध्यान दें।"],
+                ["Reduce Irrigation", "सिंचन कमी करा", "सिंचाई कम करें"],
+                ["Avoid excessive water near harvest.", "कापणीच्या जवळ जास्त पाणी देणे टाळा.", "कटाई के समय अधिक पानी देने से बचें।"]
+            ]
+        },
+        onion: {
+            seedling: [
+                ["Nitrogen + Phosphorus", "नायट्रोजन + स्फुरद", "नाइट्रोजन + फास्फोरस"],
+                ["Support healthy early onion growth.", "कांद्याच्या सुरुवातीच्या निरोगी वाढीस मदत करते.", "प्याज की शुरुआती स्वस्थ वृद्धि में सहायता करता है।"],
+                ["Light Irrigation", "हलके सिंचन", "हल्की सिंचाई"],
+                ["Keep soil evenly moist.", "मातीमध्ये समान ओलावा ठेवा.", "मिट्टी में समान नमी रखें।"]
+            ],
+            vegetative: [
+                ["Nitrogen", "नायट्रोजन", "नाइट्रोजन"],
+                ["Support healthy leaf development.", "निरोगी पानांच्या वाढीस मदत करते.", "स्वस्थ पत्तियों की वृद्धि में सहायता करता है।"],
+                ["Regular Irrigation", "नियमित सिंचन", "नियमित सिंचाई"],
+                ["Maintain consistent soil moisture.", "मातीतील ओलावा स्थिर ठेवा.", "मिट्टी की नमी स्थिर बनाए रखें।"]
+            ],
+            flowering: [
+                ["Phosphorus + Potassium", "स्फुरद + पालाश", "फास्फोरस + पोटैशियम"],
+                ["Support bulb development.", "कांद्याच्या गाठीच्या वाढीस मदत करते.", "कंद के विकास में सहायता करता है।"],
+                ["Regular Irrigation", "नियमित सिंचन", "नियमित सिंचाई"],
+                ["Avoid moisture stress.", "पाण्याचा ताण टाळा.", "नमी की कमी से बचें।"]
+            ],
+            fruiting: [
+                ["Potassium", "पालाश", "पोटैशियम"],
+                ["Support bulb size and quality.", "कांद्याच्या गाठीचा आकार आणि गुणवत्ता सुधारण्यास मदत करते.", "कंद के आकार और गुणवत्ता में सहायता करता है।"],
+                ["Moderate Irrigation", "मध्यम सिंचन", "मध्यम सिंचाई"],
+                ["Maintain suitable moisture during bulb development.", "गाठ वाढीच्या काळात योग्य ओलावा ठेवा.", "कंद विकास के दौरान उचित नमी बनाए रखें।"]
+            ],
+            harvest: [
+                ["Reduce Fertilizer", "खताचे प्रमाण कमी करा", "उर्वरक की मात्रा कम करें"],
+                ["Focus on bulb maturity and harvesting.", "कांद्याची परिपक्वता आणि कापणीवर लक्ष द्या.", "कंद की परिपक्वता और कटाई पर ध्यान दें।"],
+                ["Reduce Irrigation", "सिंचन कमी करा", "सिंचाई कम करें"],
+                ["Reduce irrigation before harvest.", "कापणीपूर्वी सिंचन कमी करा.", "कटाई से पहले सिंचाई कम करें।"]
+            ]
+        },
+        cotton: {
+            seedling: [
+                ["Nitrogen + Phosphorus", "नायट्रोजन + स्फुरद", "नाइट्रोजन + फास्फोरस"],
+                ["Support healthy early cotton growth.", "कापसाच्या सुरुवातीच्या निरोगी वाढीस मदत करते.", "कपास की शुरुआती स्वस्थ वृद्धि में सहायता करता है।"],
+                ["Light Irrigation", "हलके सिंचन", "हल्की सिंचाई"],
+                ["Maintain adequate moisture without waterlogging.", "योग्य ओलावा ठेवा, पण पाणी साचू देऊ नका.", "पर्याप्त नमी रखें, लेकिन पानी जमा न होने दें।"]
+            ],
+            vegetative: [
+                ["Nitrogen", "नायट्रोजन", "नाइट्रोजन"],
+                ["Support leaf and stem development.", "पाने आणि खोडाच्या वाढीस मदत करते.", "पत्तियों और तने की वृद्धि में सहायता करता है।"],
+                ["Regular Irrigation", "नियमित सिंचन", "नियमित सिंचाई"],
+                ["Maintain suitable soil moisture.", "मातीतील योग्य ओलावा ठेवा.", "मिट्टी में उचित नमी बनाए रखें।"]
+            ],
+            flowering: [
+                ["Phosphorus + Potassium", "स्फुरद + पालाश", "फास्फोरस + पोटैशियम"],
+                ["Support flowering and boll formation.", "फुलोरा आणि बोंड तयार होण्यास मदत करते.", "फूल आने और बॉल बनने में सहायता करता है।"],
+                ["Regular Irrigation", "नियमित सिंचन", "नियमित सिंचाई"],
+                ["Avoid moisture stress during flowering.", "फुलोऱ्याच्या काळात पाण्याचा ताण टाळा.", "फूल आने के समय नमी की कमी से बचें।"]
+            ],
+            fruiting: [
+                ["Potassium", "पालाश", "पोटैशियम"],
+                ["Support boll development and quality.", "बोंडांची वाढ आणि गुणवत्ता सुधारण्यास मदत करते.", "बॉल के विकास और गुणवत्ता में सहायता करता है।"],
+                ["Regular Irrigation", "नियमित सिंचन", "नियमित सिंचाई"],
+                ["Maintain adequate moisture during boll development.", "बोंडांच्या वाढीच्या काळात योग्य ओलावा ठेवा.", "बॉल के विकास के दौरान पर्याप्त नमी बनाए रखें।"]
+            ],
+            harvest: [
+                ["Reduce Fertilizer", "खताचे प्रमाण कमी करा", "उर्वरक की मात्रा कम करें"],
+                ["Focus on boll maturity and harvesting.", "बोंडांची परिपक्वता आणि कापणीवर लक्ष द्या.", "बॉल की परिपक्वता और कटाई पर ध्यान दें।"],
+                ["Reduce Irrigation", "सिंचन कमी करा", "सिंचाई कम करें"],
+                ["Avoid excessive irrigation near harvest.", "कापणीच्या जवळ जास्त सिंचन टाळा.", "कटाई के समय अधिक सिंचाई से बचें।"]
+            ]
+        }
+    };
+
+    const result = data[currentCrop]?.[savedStage.stage];
+    if (!result) return;
+
+    const language = getCurrentCropStageLanguage();
+    const index = language === "mr" ? 1 : language === "hi" ? 2 : 0;
+
+    document.getElementById("fertilizerRecommendation").textContent = result[0][index];
+    document.getElementById("fertilizerMessage").textContent = result[1][index];
+    document.getElementById("irrigationRecommendation").textContent = result[2][index];
+    document.getElementById("irrigationMessage").textContent = result[3][index];
+}
+
+function updateAllCropStageInformation() {
+    updateSelectedCropStageLanguage();
+    updateCropStageRecommendations();
+}
+
+document.addEventListener("DOMContentLoaded", function() {
+    const savedCrop = localStorage.getItem("selectedCrop");
+    const savedStage = JSON.parse(localStorage.getItem("selectedCropStage"));
+
+    if (savedCrop && savedStage && savedStage.crop === savedCrop) {
+        selectCropStage(savedStage.stage, savedStage.stageNumber);
+    } else {
+        resetCropStage();
+    }
+});
+</script>
+
+<!-- ==========================================
+     COMPLETE LANGUAGE TRANSLATION
+     ========================================== -->
+
+<script>
+
+function updateSmartCropResultLanguage() {
+    const result = document.getElementById("smartCropResult");
+    if (!result) return;
+
+    const saved = JSON.parse(localStorage.getItem("smartCropRecommendation"));
+    if (!saved) {
+        const language = document.getElementById("languageSelect")?.value || "en";
+        const empty = {
+            en: "Select your soil report and weather data first.",
+            mr: "प्रथम मातीचा अहवाल आणि हवामानाची माहिती निवडा.",
+            hi: "पहले अपनी मिट्टी की रिपोर्ट और मौसम की जानकारी चुनें।"
+        };
+        result.innerHTML = `<p>${empty[language] || empty.en}</p>`;
+    }
+}
+
+function changeLanguage() {
+
+    const language =
+        document.getElementById("languageSelect").value;
+
+
+    const translations = {
+
+        en: {
+
+            home: "Home",
+            dashboard: "Dashboard",
+            iot: "IoT",
+            crop: "Crop",
+            weather: "Weather",
+
+            cropManagement:
+                "🌱 Crop Management",
+
+            cropDescription:
+                "Monitor crop growth, nutrient requirements and plant health",
+
+            selectCrop:
+                "Select Your Crop",
+
+            selectCropInstruction:
+                "Click on the crop photo to select",
+
+            selectYourCrop:
+                "👆 Select your crop",
+
+            selectCurrentCropStage:
+                "🌱 Select Current Crop Stage",
+
+            selectCurrentCropStageInstruction:
+                "Select the stage that matches your crop now.",
+
+            selectCurrentCropStagePrompt:
+                "👆 Select your current crop stage",
+
+            stageChoiceSeedling:
+                "Seedling",
+
+            stageChoiceVegetative:
+                "Vegetative Growth",
+
+            stageChoiceFlowering:
+                "Flowering",
+
+            stageChoiceFruiting:
+                "Fruit Development",
+
+            stageChoiceHarvest:
+                "Harvest",
+
+            plantingInformation:
+                "📅 Planting Information",
+
+            sowingDate:
+                "Sowing Date:",
+
+            daysSincePlanting:
+                "Days Since Planting:",
+
+            expectedHarvest:
+                "Expected Harvest:",
+
+            cropDuration:
+                "Crop Duration:",
+
+            currentGrowthStage:
+                "🌿 Current Growth Stage",
+
+            currentStage:
+                "Current Stage:",
+
+            growthProgress:
+                "Growth Progress:",
+
+            plantHealth:
+                "❤️ Plant Health",
+
+            noMajorProblems:
+                "No major problems detected.",
+
+            continueMonitoring:
+                "Continue regular monitoring.",
+
+            idealCropConditions:
+                "🌡️ Ideal Crop Conditions",
+
+            temperature:
+                "🌡 Temperature",
+
+            idealTemperatureRange:
+                "Ideal temperature range",
+
+            soilMoisture:
+                "💧 Soil Moisture",
+
+            recommendedMoisture:
+                "Recommended moisture",
+
+            humidity:
+                "💨 Humidity",
+
+            suitableHumidity:
+                "Suitable humidity",
+
+            sunlight:
+                "☀️ Sunlight",
+
+            dailySunlight:
+                "Daily sunlight requirement",
+
+            smartRecommendations:
+                "💡 Smart Recommendations",
+
+            irrigation:
+                "💧 Irrigation",
+
+            recommended:
+                "Recommended",
+
+            irrigationMonitoring:
+                "Continue regular irrigation monitoring.",
+
+            fertilizer:
+                "🌾 Fertilizer",
+
+            potassiumImportant:
+                "Potassium is important during the flowering stage.",
+
+            weatherAdvice:
+                "🌦️ Weather Advice",
+
+            monitorRainfall:
+                "Monitor Rainfall",
+
+            checkWeather:
+                "Check the weather forecast before additional irrigation.",
+
+            cropGrowthStages:
+                "🌱 Crop Growth Stages",
+
+            stage1:
+                "Stage 1",
+
+            stage2:
+                "Stage 2",
+
+            stage3:
+                "Stage 3",
+
+            stage4:
+                "Stage 4",
+
+            stage5:
+                "Stage 5",
+
+            seedling:
+                "Seedling",
+
+            vegetativeGrowth:
+                "Vegetative Growth",
+
+            flowering:
+                "Flowering",
+
+            fruitDevelopment:
+                "Fruit Development",
+
+            harvest:
+                "Harvest",
+
+            nutrients:
+                "Nutrients:",
+
+            completed:
+                "✅ Completed",
+
+            currentStageLabel:
+                "🔵 Current Stage",
+
+            upcoming:
+                "⏳ Upcoming",
+
+            prepareHarvest:
+                "Prepare crop for harvesting.",
+
+            smartCropRecommendation:
+                "🌱 Smart Crop Recommendation",
+
+            smartCropDescription:
+                "Get crop suggestions based on your saved soil report and weather information.",
+
+            getCropRecommendation:
+                "🔍 Get Crop Recommendation",
+
+            selectSoilWeatherFirst:
+                "Select your soil report and weather data first.",
+
+            footer:
+                "© 2026 AgriTrack | Smart Farming Solution"
+
+        },
+
+
+        mr: {
+
+            home: "मुख्यपृष्ठ",
+            dashboard: "डॅशबोर्ड",
+            iot: "IoT",
+            crop: "पीक",
+            weather: "हवामान",
+
+            cropManagement:
+                "🌱 पीक व्यवस्थापन",
+
+            cropDescription:
+                "पिकांची वाढ, पोषक गरजा आणि वनस्पतींच्या आरोग्यावर लक्ष ठेवा",
+
+            selectCrop:
+                "तुमचे पीक निवडा",
+
+            selectCropInstruction:
+                "पीक निवडण्यासाठी त्याच्या फोटोवर क्लिक करा",
+
+            selectYourCrop:
+                "👆 तुमचे पीक निवडा",
+
+            selectCurrentCropStage:
+                "🌱 सध्याची पिकाची अवस्था निवडा",
+
+            selectCurrentCropStageInstruction:
+                "तुमच्या पिकाला सध्या लागू होणारी अवस्था निवडा.",
+
+            selectCurrentCropStagePrompt:
+                "👆 तुमच्या पिकाची सध्याची अवस्था निवडा",
+
+            stageChoiceSeedling:
+                "रोप अवस्था",
+
+            stageChoiceVegetative:
+                "शाकीय वाढ",
+
+            stageChoiceFlowering:
+                "फुलोरा",
+
+            stageChoiceFruiting:
+                "फळांची वाढ",
+
+            stageChoiceHarvest:
+                "कापणी",
+
+            plantingInformation:
+                "📅 लागवड माहिती",
+
+            sowingDate:
+                "पेरणीची तारीख:",
+
+            daysSincePlanting:
+                "लागवडीपासून दिवस:",
+
+            expectedHarvest:
+                "अपेक्षित कापणी:",
+
+            cropDuration:
+                "पिकाचा कालावधी:",
+
+            currentGrowthStage:
+                "🌿 सध्याची वाढीची अवस्था",
+
+            currentStage:
+                "सध्याची अवस्था:",
+
+            growthProgress:
+                "वाढीची प्रगती:",
+
+            plantHealth:
+                "❤️ पिकाचे आरोग्य",
+
+            noMajorProblems:
+                "कोणतीही मोठी समस्या आढळली नाही.",
+
+            continueMonitoring:
+                "नियमित निरीक्षण सुरू ठेवा.",
+
+            idealCropConditions:
+                "🌡️ पिकासाठी योग्य परिस्थिती",
+
+            temperature:
+                "🌡 तापमान",
+
+            idealTemperatureRange:
+                "योग्य तापमान श्रेणी",
+
+            soilMoisture:
+                "💧 मातीतील ओलावा",
+
+            recommendedMoisture:
+                "शिफारस केलेला ओलावा",
+
+            humidity:
+                "💨 आर्द्रता",
+
+            suitableHumidity:
+                "योग्य आर्द्रता",
+
+            sunlight:
+                "☀️ सूर्यप्रकाश",
+
+            dailySunlight:
+                "दररोज आवश्यक सूर्यप्रकाश",
+
+            smartRecommendations:
+                "💡 स्मार्ट शिफारसी",
+
+            irrigation:
+                "💧 सिंचन",
+
+            recommended:
+                "शिफारस केलेले",
+
+            irrigationMonitoring:
+                "नियमित सिंचनाचे निरीक्षण सुरू ठेवा.",
+
+            fertilizer:
+                "🌾 खत",
+
+            potassiumImportant:
+                "फुलोऱ्याच्या अवस्थेत पोटॅशियम महत्त्वाचे आहे.",
+
+            weatherAdvice:
+                "🌦️ हवामान सल्ला",
+
+            monitorRainfall:
+                "पावसाचे निरीक्षण करा",
+
+            checkWeather:
+                "अतिरिक्त सिंचन करण्यापूर्वी हवामानाचा अंदाज तपासा.",
+
+            cropGrowthStages:
+                "🌱 पिकाच्या वाढीच्या अवस्था",
+
+            stage1:
+                "अवस्था 1",
+
+            stage2:
+                "अवस्था 2",
+
+            stage3:
+                "अवस्था 3",
+
+            stage4:
+                "अवस्था 4",
+
+            stage5:
+                "अवस्था 5",
+
+            seedling:
+                "रोप अवस्था",
+
+            vegetativeGrowth:
+                "शाकीय वाढ",
+
+            flowering:
+                "फुलोरा",
+
+            fruitDevelopment:
+                "फळांची वाढ",
+
+            harvest:
+                "कापणी",
+
+            nutrients:
+                "पोषक घटक:",
+
+            completed:
+                "✅ पूर्ण",
+
+            currentStageLabel:
+                "🔵 सध्याची अवस्था",
+
+            upcoming:
+                "⏳ आगामी",
+
+            prepareHarvest:
+                "पिकाच्या कापणीची तयारी करा.",
+
+            smartCropRecommendation:
+                "🌱 स्मार्ट पीक शिफारस",
+
+            smartCropDescription:
+                "तुमच्या जतन केलेल्या मातीच्या अहवाल आणि हवामानाच्या माहितीनुसार पिकांची शिफारस मिळवा.",
+
+            getCropRecommendation:
+                "🔍 पिकाची शिफारस मिळवा",
+
+            selectSoilWeatherFirst:
+                "प्रथम मातीचा अहवाल आणि हवामानाची माहिती निवडा.",
+
+            footer:
+                "© 2026 AgriTrack | स्मार्ट शेती उपाय"
+
+        },
+
+
+        hi: {
+
+            home: "होम",
+            dashboard: "डैशबोर्ड",
+            iot: "IoT",
+            crop: "फसल",
+            weather: "मौसम",
+
+            cropManagement:
+                "🌱 फसल प्रबंधन",
+
+            cropDescription:
+                "फसल की वृद्धि, पोषक तत्वों की आवश्यकताओं और पौधों के स्वास्थ्य की निगरानी करें",
+
+            selectCrop:
+                "अपनी फसल चुनें",
+
+            selectCropInstruction:
+                "फसल चुनने के लिए उसकी फोटो पर क्लिक करें",
+
+            selectYourCrop:
+                "👆 अपनी फसल चुनें",
+
+            selectCurrentCropStage:
+                "🌱 वर्तमान फसल अवस्था चुनें",
+
+            selectCurrentCropStageInstruction:
+                "अपनी फसल की वर्तमान अवस्था चुनें।",
+
+            selectCurrentCropStagePrompt:
+                "👆 अपनी फसल की वर्तमान अवस्था चुनें",
+
+            stageChoiceSeedling:
+                "पौध अवस्था",
+
+            stageChoiceVegetative:
+                "वानस्पतिक वृद्धि",
+
+            stageChoiceFlowering:
+                "फूल आने की अवस्था",
+
+            stageChoiceFruiting:
+                "फल विकास",
+
+            stageChoiceHarvest:
+                "कटाई",
+
+            plantingInformation:
+                "📅 बुवाई की जानकारी",
+
+            sowingDate:
+                "बुवाई की तारीख:",
+
+            daysSincePlanting:
+                "बुवाई के बाद दिन:",
+
+            expectedHarvest:
+                "अनुमानित कटाई:",
+
+            cropDuration:
+                "फसल की अवधि:",
+
+            currentGrowthStage:
+                "🌿 वर्तमान वृद्धि अवस्था",
+
+            currentStage:
+                "वर्तमान अवस्था:",
+
+            growthProgress:
+                "वृद्धि की प्रगति:",
+
+            plantHealth:
+                "❤️ फसल का स्वास्थ्य",
+
+            noMajorProblems:
+                "कोई बड़ी समस्या नहीं मिली।",
+
+            continueMonitoring:
+                "नियमित निगरानी जारी रखें।",
+
+            idealCropConditions:
+                "🌡️ फसल के लिए आदर्श परिस्थितियाँ",
+
+            temperature:
+                "🌡 तापमान",
+
+            idealTemperatureRange:
+                "आदर्श तापमान सीमा",
+
+            soilMoisture:
+                "💧 मिट्टी की नमी",
+
+            recommendedMoisture:
+                "अनुशंसित नमी",
+
+            humidity:
+                "💨 आर्द्रता",
+
+            suitableHumidity:
+                "उपयुक्त आर्द्रता",
+
+            sunlight:
+                "☀️ सूर्यप्रकाश",
+
+            dailySunlight:
+                "प्रतिदिन आवश्यक सूर्यप्रकाश",
+
+            smartRecommendations:
+                "💡 स्मार्ट सुझाव",
+
+            irrigation:
+                "💧 सिंचाई",
+
+            recommended:
+                "अनुशंसित",
+
+            irrigationMonitoring:
+                "नियमित सिंचाई की निगरानी जारी रखें।",
+
+            fertilizer:
+                "🌾 उर्वरक",
+
+            potassiumImportant:
+                "फूल आने की अवस्था में पोटैशियम महत्वपूर्ण है।",
+
+            weatherAdvice:
+                "🌦️ मौसम सलाह",
+
+            monitorRainfall:
+                "वर्षा की निगरानी करें",
+
+            checkWeather:
+                "अतिरिक्त सिंचाई से पहले मौसम का पूर्वानुमान देखें।",
+
+            cropGrowthStages:
+                "🌱 फसल की वृद्धि अवस्थाएँ",
+
+            stage1:
+                "अवस्था 1",
+
+            stage2:
+                "अवस्था 2",
+
+            stage3:
+                "अवस्था 3",
+
+            stage4:
+                "अवस्था 4",
+
+            stage5:
+                "अवस्था 5",
+
+            seedling:
+                "पौध अवस्था",
+
+            vegetativeGrowth:
+                "वानस्पतिक वृद्धि",
+
+            flowering:
+                "फूल आने की अवस्था",
+
+            fruitDevelopment:
+                "फल विकास",
+
+            harvest:
+                "कटाई",
+
+            nutrients:
+                "पोषक तत्व:",
+
+            completed:
+                "✅ पूर्ण",
+
+            currentStageLabel:
+                "🔵 वर्तमान अवस्था",
+
+            upcoming:
+                "⏳ आगामी",
+
+            prepareHarvest:
+                "फसल की कटाई के लिए तैयारी करें।",
+
+            smartCropRecommendation:
+                "🌱 स्मार्ट फसल सलाह",
+
+            smartCropDescription:
+                "आपकी सेव की गई मिट्टी की रिपोर्ट और मौसम की जानकारी के आधार पर फसल सुझाव प्राप्त करें।",
+
+            getCropRecommendation:
+                "🔍 फसल की सलाह प्राप्त करें",
+
+            selectSoilWeatherFirst:
+                "पहले अपनी मिट्टी की रिपोर्ट और मौसम की जानकारी चुनें।",
+
+            footer:
+                "© 2026 AgriTrack | स्मार्ट खेती समाधान"
+
+        }
+
+    };
+
+
+    localStorage.setItem("selectedLanguage", language);
+
+    const selectedLanguage =
+        translations[language];
+
+
+    document
+        .querySelectorAll("[data-translate]")
+        .forEach(function(element) {
+
+            const key =
+                element.getAttribute("data-translate");
+
+            if (selectedLanguage[key]) {
+
+                element.textContent =
+                    selectedLanguage[key];
+
+            }
+
+        });
+
+
+    document.documentElement.lang =
+        language;
+
+    updateSelectedCropStageLanguage();
+    updateCropStageRecommendations();
+    updateSmartCropResultLanguage();
+
+
+    if (language === "mr") {
+
+        document.title =
+            "पीक व्यवस्थापन - AgriTrack";
+
+    }
+
+    else if (language === "hi") {
+
+        document.title =
+            "फसल प्रबंधन - AgriTrack";
+
+    }
+
+    else {
+
+        document.title =
+            "Crop Management - AgriTrack";
+
+    }
+
+}
+
+
+/* Start with English */
+
+document.addEventListener(
+    "DOMContentLoaded",
+    function() {
+
+        const languageSelect =
+            document.getElementById("languageSelect");
+
+        if (languageSelect) {
+
+            languageSelect.value = "en";
+
+            changeLanguage();
+
+        }
+
+    }
+);
+
+</script>
+
+
+</body>
+
+</html>

@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Vendor Requests - AgriTrack</title>
+
+    <link rel="stylesheet"
+          href="assets/css/style.css">
+
+    <style>
+
+        .requests-page {
+            max-width: 900px;
+            margin: 30px auto;
+            padding: 20px;
+        }
+
+        .request-card {
+            background: white;
+            padding: 25px;
+            margin-bottom: 20px;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.12);
+        }
+
+        .request-card h2 {
+            color: #2e7d32;
+            margin-top: 0;
+        }
+
+        .request-card p {
+            margin: 10px 0;
+            line-height: 1.5;
+        }
+
+        .request-status {
+            display: inline-block;
+            padding: 7px 12px;
+            border-radius: 20px;
+            background: #fff3cd;
+            color: #856404;
+            font-weight: bold;
+        }
+
+        .request-actions {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .accept-button,
+        .reject-button {
+            flex: 1;
+            padding: 12px;
+            border: none;
+            border-radius: 8px;
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .accept-button {
+            background: #4caf50;
+        }
+
+        .accept-button:hover {
+            background: #388e3c;
+        }
+
+        .reject-button {
+            background: #d32f2f;
+        }
+
+        .reject-button:hover {
+            background: #b71c1c;
+        }
+
+        .empty-requests {
+            text-align: center;
+            background: #f1f8e9;
+            padding: 35px;
+            border-radius: 15px;
+        }
+
+        .accepted {
+            background: #dff0d8;
+            color: #2e7d32;
+        }
+
+        .rejected {
+            background: #f8d7da;
+            color: #842029;
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<nav>
+
+    <h2>AgriTrack</h2>
+
+    <ul>
+
+        <li>
+            <a href="index.html">Home</a>
+        </li>
+
+        <li>
+            <a href="dashboard.html">Dashboard</a>
+        </li>
+
+        <li>
+            <a href="profile.html">Profile</a>
+        </li>
+
+        <li>
+            <a href="equipment.html">Equipment</a>
+        </li>
+
+    </ul>
+
+</nav>
+
+
+<header>
+
+    <h1>📩 Equipment Requests</h1>
+
+    <p>
+        Manage requests from farmers
+    </p>
+
+</header>
+
+
+<section class="requests-page">
+
+    <div id="requestsContainer">
+    </div>
+
+</section>
+
+
+<footer>
+
+    <p>
+        © 2026 AgriTrack | Smart Farming Solution
+    </p>
+
+</footer>
+
+
+<script src="assets/js/app.js"></script>
+
+
+<script>
+
+/* =========================================
+   LOAD EQUIPMENT REQUEST
+========================================= */
+
+function loadEquipmentRequest() {
+
+    const container =
+        document.getElementById(
+            "requestsContainer"
+        );
+
+
+    const savedRequest =
+        JSON.parse(
+            localStorage.getItem(
+                "equipmentRequest"
+            )
+        );
+
+
+    /* No request */
+
+    if (!savedRequest) {
+
+        container.innerHTML = `
+
+            <div class="empty-requests">
+
+                <h2>
+                    📭 No Equipment Requests
+                </h2>
+
+                <p>
+                    There are currently no
+                    equipment requests from farmers.
+                </p>
+
+            </div>
+
+        `;
+
+        return;
+
+    }
+
+
+    /* Display request */
+
+    let statusClass = "";
+
+    if (
+        savedRequest.status ===
+        "Accepted"
+    ) {
+
+        statusClass = "accepted";
+
+    }
+
+    if (
+        savedRequest.status ===
+        "Rejected"
+    ) {
+
+        statusClass = "rejected";
+
+    }
+
+
+    container.innerHTML = `
+
+        <div class="request-card">
+
+            <h2>
+                🚜
+                ${savedRequest.equipmentName}
+            </h2>
+
+
+            <p>
+
+                <strong>
+                    Equipment Type:
+                </strong>
+
+                ${savedRequest.equipmentType}
+
+            </p>
+
+
+            <p>
+
+                <strong>
+                    Vendor:
+                </strong>
+
+                ${savedRequest.vendorName}
+
+            </p>
+
+
+            <p>
+
+                <strong>
+                    📞 Contact:
+                </strong>
+
+                ${savedRequest.vendorContact}
+
+            </p>
+
+
+            <p>
+
+                <strong>
+                    💰 Rental Price:
+                </strong>
+
+                ₹${savedRequest.equipmentPrice}/day
+
+            </p>
+
+
+            <p>
+
+                <strong>
+                    📍 Location:
+                </strong>
+
+                ${savedRequest.equipmentLocation}
+
+            </p>
+
+
+            <p>
+
+                <strong>
+                    📅 Request Date:
+                </strong>
+
+                ${savedRequest.requestDate}
+
+            </p>
+
+
+            <p>
+
+                <strong>
+                    Status:
+                </strong>
+
+                <span
+                    class="request-status ${statusClass}"
+                    id="requestStatus">
+
+                    ${getStatusIcon(savedRequest.status)}
+                    ${savedRequest.status}
+
+                </span>
+
+            </p>
+
+
+            ${
+                savedRequest.status ===
+                "Pending"
+                ? `
+
+                    <div class="request-actions">
+
+                        <button
+                            class="accept-button"
+                            onclick="updateRequestStatus('Accepted')">
+
+                            ✅ Accept
+
+                        </button>
+
+
+                        <button
+                            class="reject-button"
+                            onclick="updateRequestStatus('Rejected')">
+
+                            ❌ Reject
+
+                        </button>
+
+                    </div>
+
+                `
+                : ""
+            }
+
+        </div>
+
+    `;
+
+}
+
+
+/* =========================================
+   STATUS ICON
+========================================= */
+
+function getStatusIcon(status) {
+
+    if (status === "Accepted") {
+
+        return "✅";
+
+    }
+
+    if (status === "Rejected") {
+
+        return "❌";
+
+    }
+
+    return "🟡";
+
+}
+
+
+/* =========================================
+   UPDATE REQUEST STATUS
+========================================= */
+
+function updateRequestStatus(newStatus) {
+
+    const savedRequest =
+        JSON.parse(
+            localStorage.getItem(
+                "equipmentRequest"
+            )
+        );
+
+
+    if (!savedRequest) {
+
+        alert(
+            "Equipment request not found."
+        );
+
+        return;
+
+    }
+
+
+    savedRequest.status =
+        newStatus;
+
+
+    localStorage.setItem(
+        "equipmentRequest",
+        JSON.stringify(
+            savedRequest
+        )
+    );
+
+
+    loadEquipmentRequest();
+
+
+    if (newStatus === "Accepted") {
+
+        alert(
+            "✅ Equipment request accepted."
+        );
+
+    }
+
+    if (newStatus === "Rejected") {
+
+        alert(
+            "❌ Equipment request rejected."
+        );
+
+    }
+
+}
+
+
+/* =========================================
+   LOAD PAGE
+========================================= */
+
+document.addEventListener(
+    "DOMContentLoaded",
+    function() {
+
+        loadEquipmentRequest();
+
+    }
+);
+
+</script>
+
+
+</body>
+
+</html>

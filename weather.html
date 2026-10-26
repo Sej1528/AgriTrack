@@ -1,0 +1,551 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather & Alerts - AgriTrack</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+
+<body>
+
+<!-- Navigation -->
+<nav>
+    <h2>AgriTrack</h2>
+
+    <ul>
+        <li><a href="index.html" data-translate="home">Home</a></li>
+        <li><a href="dashboard.html" data-translate="dashboard">Dashboard</a></li>
+        <li><a href="crop.html" data-translate="crop">Crop</a></li>
+        <li><a href="farm-data.html" data-translate="farmData">Farm Data</a></li>
+        <li><a href="weather.html" data-translate="weather">Weather</a></li>
+        <li><a href="profile.html" data-translate="profile">Profile</a></li>
+        <li><a href="expenses.html" data-translate="expenses">Expenses</a></li>
+    </ul>
+
+    <div class="language-selector">
+        <label for="languageSelect">🌐</label>
+        <select id="languageSelect" onchange="changeWeatherLanguage()">
+            <option value="en">English</option>
+            <option value="mr">मराठी</option>
+            <option value="hi">हिंदी</option>
+        </select>
+    </div>
+</nav>
+
+<!-- Header -->
+<header>
+    <h1 data-translate="weatherMonitoring">🌦️ Weather Monitoring</h1>
+
+    <p data-translate="weatherDescription">
+        Weather information and intelligent farming recommendations
+    </p>
+
+    <p id="weatherLastUpdated">
+        <span data-translate="lastUpdated">Last Updated:</span> --
+    </p>
+</header>
+<!-- Location Selection -->
+<section class="container">
+    <div class="card">
+        <h2 data-translate="farmLocation">📍 Farm Location</h2>
+
+        <p data-translate="enterLocation">
+            Enter your farm location to get weather data.
+        </p>
+
+        <input
+            type="text"
+            id="locationInput"
+            placeholder="Example: Pune, Maharashtra"
+            data-translate-placeholder="locationPlaceholder"
+            value="Pune, Maharashtra"
+        >
+
+        <button type="button" onclick="getWeather()" data-translate="getWeather">
+            🌦️ Get Weather
+        </button>
+
+        <p id="weatherLoading"></p>
+    </div>
+</section>
+
+<!-- Current Weather -->
+<section class="weather-container">
+
+    <div class="weather-card">
+        <h3 data-translate="temperature">🌡️ Temperature</h3>
+        <h2 id="weatherTemperature">--</h2>
+        <p id="temperatureAdvice" data-translate="waitingWeather">
+            Waiting for weather data
+        </p>
+    </div>
+
+    <div class="weather-card">
+        <h3 data-translate="humidity">💧 Humidity</h3>
+        <h2 id="weatherHumidity">--</h2>
+        <p id="humidityAdvice" data-translate="waitingWeather">
+            Waiting for weather data
+        </p>
+    </div>
+
+    <div class="weather-card">
+        <h3 data-translate="rainProbability">🌧️ Rain Probability</h3>
+        <h2 id="rainProbability">--</h2>
+        <p id="rainAdvice" data-translate="waitingWeather">
+            Waiting for weather data
+        </p>
+    </div>
+
+    <div class="weather-card">
+        <h3 data-translate="windSpeed">💨 Wind Speed</h3>
+        <h2 id="windSpeed">--</h2>
+        <p id="windAdvice" data-translate="waitingWeather">
+            Waiting for weather data
+        </p>
+    </div>
+
+    <div class="weather-card">
+        <h3 data-translate="weatherCondition">☀️ Weather Condition</h3>
+        <h2 id="weatherCondition">--</h2>
+        <p data-translate="currentCondition">Current condition</p>
+    </div>
+
+    <div class="weather-card">
+        <h3 data-translate="irrigationRecommendation">
+            💧 Irrigation Recommendation
+        </h3>
+
+        <h2 id="irrigationAdvice">--</h2>
+
+        <p id="irrigationAdviceText" data-translate="waitingWeatherPeriod">
+            Waiting for weather data.
+        </p>
+    </div>
+
+</section>
+<!-- Farming Tips -->
+<section class="container">
+    <h2 data-translate="farmingTips">🌱 Farming Tips</h2>
+
+    <div class="weather-container">
+        <div class="weather-card">
+            <h3 data-translate="cropCare">🌿 Crop Care</h3>
+            <p id="cropCareTip" data-translate="waitingWeather">
+                Waiting for weather data
+            </p>
+        </div>
+
+        <div class="weather-card">
+            <h3 data-translate="irrigationTips">💧 Irrigation Tips</h3>
+            <p id="irrigationTip" data-translate="waitingWeather">
+                Waiting for weather data
+            </p>
+        </div>
+
+        <div class="weather-card">
+            <h3 data-translate="fertilizerTips">🌾 Fertilizer Tips</h3>
+            <p id="fertilizerTip" data-translate="waitingWeather">
+                Waiting for weather data
+            </p>
+        </div>
+    </div>
+</section>
+
+<!-- Weather Alert -->
+<section class="container">
+    <div class="card">
+        <h2 data-translate="weatherAlertTitle">⚠️ Weather Alert</h2>
+        <p id="weatherAlert" data-translate="waitingWeather">
+            Waiting for weather data
+        </p>
+    </div>
+</section>
+
+<!-- Smart Alerts -->
+<section class="container">
+    <div class="card">
+        <h2 data-translate="smartWeatherAlerts">🔔 Smart Weather Alerts</h2>
+
+        <ul id="weatherAlerts">
+            <li data-translate="enterLocationAlert">
+                Enter your farm location and click Get Weather.
+            </li>
+        </ul>
+    </div>
+</section>
+
+<!-- Footer -->
+<footer>
+    <p data-translate="footerText">
+        © 2026 AgriTrack | Smart Agriculture Management System
+    </p>
+</footer>
+<script>
+const WEATHER_API = "https://api.open-meteo.com/v1/forecast";
+const GEOCODING_API = "https://geocoding-api.open-meteo.com/v1/search";
+
+const weatherTranslations = {
+    en: {
+        home: "Home", dashboard: "Dashboard", crop: "Crop",
+        farmData: "Farm Data", weather: "Weather",
+        profile: "Profile", expenses: "Expenses",
+        weatherMonitoring: "🌦️ Weather Monitoring",
+        weatherDescription: "Weather information and intelligent farming recommendations",
+        lastUpdated: "Last Updated:",
+        farmLocation: "📍 Farm Location",
+        enterLocation: "Enter your farm location to get weather data.",
+        locationPlaceholder: "Example: Pune, Maharashtra",
+        getWeather: "🌦️ Get Weather",
+        temperature: "🌡️ Temperature", humidity: "💧 Humidity",
+        rainProbability: "🌧️ Rain Probability", windSpeed: "💨 Wind Speed",
+        weatherCondition: "☀️ Weather Condition",
+        irrigationRecommendation: "💧 Irrigation Recommendation",
+        currentCondition: "Current condition",
+        farmingTips: "🌱 Farming Tips", cropCare: "🌿 Crop Care",
+        irrigationTips: "💧 Irrigation Tips", fertilizerTips: "🌾 Fertilizer Tips",
+        weatherAlertTitle: "⚠️ Weather Alert",
+        smartWeatherAlerts: "🔔 Smart Weather Alerts",
+        enterLocationAlert: "Enter your farm location and click Get Weather.",
+        waitingWeather: "Waiting for weather data",
+        waitingWeatherPeriod: "Waiting for weather data.",
+        footerText: "© 2026 AgriTrack | Smart Agriculture Management System",
+        loading: "Fetching weather data...",
+        locationError: "Location not found. Enter a valid city or region.",
+        weatherError: "Unable to fetch weather data. Check your internet and try again.",
+        updated: "Weather updated successfully.",
+        clear: "Clear sky", mainlyClear: "Mainly clear", partlyCloudy: "Partly cloudy",
+        overcast: "Overcast", fog: "Fog", drizzle: "Drizzle", rain: "Rain",
+        snow: "Snow", showers: "Rain showers", thunderstorm: "Thunderstorm",
+        hot: "High temperature. Provide water to crops and avoid midday spraying.",
+        cold: "Low temperature. Monitor crops for cold stress.",
+        tempNormal: "Temperature is suitable for routine crop monitoring.",
+        humidHigh: "High humidity may encourage fungal diseases. Check leaves regularly.",
+        humidLow: "Low humidity may increase water loss. Monitor soil moisture.",
+        humidNormal: "Humidity is within a moderate range.",
+        rainHigh: "Rain is likely. Check drainage and postpone irrigation if appropriate.",
+        rainLow: "Low rain probability. Check soil moisture before watering.",
+        windHigh: "Strong winds may damage crops. Avoid spraying during strong winds.",
+        windNormal: "Wind conditions appear moderate.",
+        irrigationNo: "🌧️ IRRIGATION NOT REQUIRED",
+        irrigationNoText: "Rain probability is 40% or higher. Check soil moisture before irrigating.",
+        irrigationYes: "💧 IRRIGATION MAY BE REQUIRED",
+        irrigationYesText: "Rain probability is below 40%. Check soil moisture before irrigating.",
+        cropTip: "Monitor leaves and stems for signs of heat, pests, or disease.",
+        irrigationTip: "Use soil moisture and crop needs to decide when to irrigate.",
+        fertilizerTip: "Avoid applying fertilizer just before heavy rain.",
+        alertRain: "Rain may occur. Check drainage and protect harvested produce.",
+        alertWind: "Strong winds are possible. Secure supports and avoid spraying.",
+        alertHot: "High temperature expected. Monitor crops and soil moisture.",
+        alertNormal: "No major weather alert based on the current forecast.",
+        weatherCode: "Weather condition"
+    },
+    mr: {
+        home: "मुख्यपृष्ठ", dashboard: "डॅशबोर्ड", crop: "पीक",
+        farmData: "शेती माहिती", weather: "हवामान",
+        profile: "प्रोफाइल", expenses: "खर्च",
+        weatherMonitoring: "🌦️ हवामान निरीक्षण",
+        weatherDescription: "हवामान माहिती आणि शेतीसाठी उपयुक्त शिफारसी",
+        lastUpdated: "शेवटचे अद्यतन:",
+        farmLocation: "📍 शेताचे ठिकाण",
+        enterLocation: "हवामान माहिती मिळवण्यासाठी शेताचे ठिकाण भरा.",
+        locationPlaceholder: "उदा. पुणे, महाराष्ट्र",
+        getWeather: "🌦️ हवामान मिळवा",
+        temperature: "🌡️ तापमान", humidity: "💧 आर्द्रता",
+        rainProbability: "🌧️ पावसाची शक्यता", windSpeed: "💨 वाऱ्याचा वेग",
+        weatherCondition: "☀️ हवामान स्थिती",
+        irrigationRecommendation: "💧 सिंचन शिफारस",
+        currentCondition: "सध्याची स्थिती",
+        farmingTips: "🌱 शेतीविषयक सूचना", cropCare: "🌿 पीक काळजी",
+        irrigationTips: "💧 सिंचन सूचना", fertilizerTips: "🌾 खत सूचना",
+        weatherAlertTitle: "⚠️ हवामान इशारा",
+        smartWeatherAlerts: "🔔 हवामान सूचना",
+        enterLocationAlert: "शेताचे ठिकाण भरा आणि हवामान मिळवा बटण दाबा.",
+        waitingWeather: "हवामान माहितीची प्रतीक्षा आहे",
+        waitingWeatherPeriod: "हवामान माहितीची प्रतीक्षा आहे.",
+        footerText: "© 2026 AgriTrack | स्मार्ट शेती व्यवस्थापन प्रणाली",
+        loading: "हवामान माहिती मिळवत आहे...",
+        locationError: "ठिकाण सापडले नाही. योग्य शहर किंवा प्रदेश भरा.",
+        weatherError: "हवामान माहिती मिळाली नाही. इंटरनेट तपासून पुन्हा प्रयत्न करा.",
+        updated: "हवामान माहिती अद्ययावत झाली.",
+        clear: "निरभ्र आकाश", mainlyClear: "मुख्यतः निरभ्र", partlyCloudy: "अंशतः ढगाळ",
+        overcast: "पूर्ण ढगाळ", fog: "धुके", drizzle: "रिमझिम पाऊस", rain: "पाऊस",
+        snow: "बर्फवृष्टी", showers: "पावसाच्या सरी", thunderstorm: "वादळी पाऊस",
+        hot: "तापमान जास्त आहे. पिकांना पाणी द्या आणि दुपारी फवारणी टाळा.",
+        cold: "तापमान कमी आहे. पिकांवर थंडीचा परिणाम होतो का ते पाहा.",
+        tempNormal: "तापमान सामान्य पीक निरीक्षणासाठी योग्य आहे.",
+        humidHigh: "आर्द्रता जास्त आहे. बुरशीजन्य रोगांसाठी पानांची नियमित तपासणी करा.",
+        humidLow: "आर्द्रता कमी आहे. पाण्याची गरज आणि जमिनीतील ओलावा तपासा.",
+        humidNormal: "आर्द्रता मध्यम पातळीवर आहे.",
+        rainHigh: "पावसाची शक्यता आहे. निचरा तपासा आणि गरजेनुसार सिंचन पुढे ढकला.",
+        rainLow: "पावसाची शक्यता कमी आहे. पाणी देण्यापूर्वी जमिनीतील ओलावा तपासा.",
+        windHigh: "वारा जोरात असू शकतो. अशा वेळी फवारणी टाळा.",
+        windNormal: "वाऱ्याचा वेग मध्यम आहे.",
+        irrigationNo: "🌧️ सिंचनाची गरज कमी",
+        irrigationNoText: "पावसाची शक्यता 40% किंवा जास्त आहे. सिंचनापूर्वी जमिनीतील ओलावा तपासा.",
+        irrigationYes: "💧 सिंचनाची गरज असू शकते",
+        irrigationYesText: "पावसाची शक्यता 40% पेक्षा कमी आहे. सिंचनापूर्वी जमिनीतील ओलावा तपासा.",
+        cropTip: "पाने आणि खोडावर उष्णता, कीड किंवा रोगांची लक्षणे तपासा.",
+        irrigationTip: "सिंचनाचा निर्णय जमिनीतील ओलावा आणि पिकाच्या गरजेनुसार घ्या.",
+        fertilizerTip: "मुसळधार पावसाच्या आधी खत देणे टाळा.",
+        alertRain: "पाऊस पडू शकतो. निचरा तपासा आणि काढणी केलेल्या मालाचे संरक्षण करा.",
+        alertWind: "जोरदार वारे वाहू शकतात. आधार मजबूत करा आणि फवारणी टाळा.",
+        alertHot: "तापमान जास्त असू शकते. पिके आणि जमिनीतील ओलावा तपासा.",
+        alertNormal: "सध्याच्या अंदाजानुसार मोठा हवामान इशारा नाही.",
+        weatherCode: "हवामान स्थिती"
+    },
+    hi: {
+        home: "होम", dashboard: "डैशबोर्ड", crop: "फसल",
+        farmData: "खेत की जानकारी", weather: "मौसम",
+        profile: "प्रोफ़ाइल", expenses: "खर्च",
+        weatherMonitoring: "🌦️ मौसम की जानकारी",
+        weatherDescription: "मौसम की जानकारी और खेती के लिए उपयोगी सुझाव",
+        lastUpdated: "अंतिम अपडेट:",
+        farmLocation: "📍 खेत का स्थान",
+        enterLocation: "मौसम की जानकारी पाने के लिए अपने खेत का स्थान दर्ज करें।",
+        locationPlaceholder: "उदाहरण: पुणे, महाराष्ट्र",
+        getWeather: "🌦️ मौसम देखें",
+        temperature: "🌡️ तापमान", humidity: "💧 नमी",
+        rainProbability: "🌧️ बारिश की संभावना", windSpeed: "💨 हवा की गति",
+        weatherCondition: "☀️ मौसम की स्थिति",
+        irrigationRecommendation: "💧 सिंचाई की सलाह",
+        currentCondition: "वर्तमान स्थिति",
+        farmingTips: "🌱 खेती के सुझाव", cropCare: "🌿 फसल की देखभाल",
+        irrigationTips: "💧 सिंचाई के सुझाव", fertilizerTips: "🌾 खाद के सुझाव",
+        weatherAlertTitle: "⚠️ मौसम चेतावनी",
+        smartWeatherAlerts: "🔔 मौसम अलर्ट",
+        enterLocationAlert: "खेत का स्थान दर्ज करें और मौसम देखें बटन दबाएँ।",
+        waitingWeather: "मौसम की जानकारी की प्रतीक्षा है",
+        waitingWeatherPeriod: "मौसम की जानकारी की प्रतीक्षा है।",
+        footerText: "© 2026 AgriTrack | स्मार्ट कृषि प्रबंधन प्रणाली",
+        loading: "मौसम की जानकारी प्राप्त हो रही है...",
+        locationError: "स्थान नहीं मिला। सही शहर या क्षेत्र दर्ज करें।",
+        weatherError: "मौसम की जानकारी नहीं मिल सकी। इंटरनेट जाँचकर फिर प्रयास करें।",
+        updated: "मौसम की जानकारी अपडेट हो गई।",
+        clear: "साफ़ आसमान", mainlyClear: "मुख्यतः साफ़", partlyCloudy: "आंशिक बादल",
+        overcast: "घने बादल", fog: "कोहरा", drizzle: "बूँदाबाँदी", rain: "बारिश",
+        snow: "बर्फ़बारी", showers: "बारिश की बौछारें", thunderstorm: "आंधी-तूफ़ान",
+        hot: "तापमान अधिक है। फसलों को पानी दें और दोपहर में छिड़काव न करें।",
+        cold: "तापमान कम है। फसलों पर ठंड के प्रभाव पर ध्यान दें।",
+        tempNormal: "तापमान सामान्य फसल निगरानी के लिए उपयुक्त है।",
+        humidHigh: "नमी अधिक है। फफूंद से होने वाले रोगों के लिए पत्तों की जाँच करें।",
+        humidLow: "नमी कम है। पानी की जरूरत और मिट्टी की नमी पर ध्यान दें।",
+        humidNormal: "नमी सामान्य स्तर पर है।",
+        rainHigh: "बारिश की संभावना है। जल निकासी जाँचें और जरूरत हो तो सिंचाई टालें।",
+        rainLow: "बारिश की संभावना कम है। पानी देने से पहले मिट्टी की नमी जाँचें।",
+        windHigh: "तेज़ हवा चल सकती है। तेज़ हवा में छिड़काव न करें।",
+        windNormal: "हवा की गति सामान्य है।",
+        irrigationNo: "🌧️ सिंचाई की जरूरत नहीं हो सकती",
+        irrigationNoText: "बारिश की संभावना 40% या अधिक है। सिंचाई से पहले मिट्टी की नमी जाँचें।",
+        irrigationYes: "💧 सिंचाई की जरूरत हो सकती है",
+        irrigationYesText: "बारिश की संभावना 40% से कम है। सिंचाई से पहले मिट्टी की नमी जाँचें।",
+        cropTip: "पत्तों और तनों पर गर्मी, कीट या बीमारी के लक्षण देखें।",
+        irrigationTip: "मिट्टी की नमी और फसल की जरूरत के अनुसार सिंचाई करें।",
+        fertilizerTip: "तेज़ बारिश से पहले खाद डालने से बचें।",
+        alertRain: "बारिश हो सकती है। जल निकासी जाँचें और कटी हुई फसल को सुरक्षित रखें।",
+        alertWind: "तेज़ हवा चल सकती है। सहारे मजबूत करें और छिड़काव से बचें।",
+        alertHot: "तापमान अधिक हो सकता है। फसलों और मिट्टी की नमी पर ध्यान दें।",
+        alertNormal: "वर्तमान पूर्वानुमान के अनुसार कोई बड़ा मौसम अलर्ट नहीं है।",
+        weatherCode: "मौसम की स्थिति"
+    }
+};
+
+function getWeatherLanguage() {
+    return document.getElementById("languageSelect")?.value ||
+        localStorage.getItem("selectedLanguage") || "en";
+}
+
+function wt(key) {
+    const lang = getWeatherLanguage();
+    return weatherTranslations[lang]?.[key] ||
+        weatherTranslations.en[key] || key;
+}
+
+function changeWeatherLanguage() {
+    const lang = document.getElementById("languageSelect").value;
+    localStorage.setItem("selectedLanguage", lang);
+    document.documentElement.lang = lang;
+
+    document.querySelectorAll("[data-translate]").forEach(element => {
+        const key = element.dataset.translate;
+        if (weatherTranslations[lang][key]) {
+            element.textContent = weatherTranslations[lang][key];
+        }
+    });
+
+    document.querySelectorAll("[data-translate-placeholder]").forEach(element => {
+        const key = element.dataset.translatePlaceholder;
+        if (weatherTranslations[lang][key]) {
+            element.placeholder = weatherTranslations[lang][key];
+        }
+    });
+
+    const saved = localStorage.getItem("weatherData");
+    if (saved) {
+        try {
+            renderWeather(JSON.parse(saved));
+        } catch (error) {
+            console.warn("Could not restore saved weather data.", error);
+        }
+    }
+}
+
+function getWeatherCondition(code) {
+    if (code === 0) return wt("clear");
+    if (code === 1) return wt("mainlyClear");
+    if (code === 2) return wt("partlyCloudy");
+    if (code === 3) return wt("overcast");
+    if (code === 45 || code === 48) return wt("fog");
+    if ([51, 53, 55].includes(code)) return wt("drizzle");
+    if ([61, 63, 65, 66, 67].includes(code)) return wt("rain");
+    if ([71, 73, 75, 77].includes(code)) return wt("snow");
+    if ([80, 81, 82, 85, 86].includes(code)) return wt("showers");
+    if ([95, 96, 99].includes(code)) return wt("thunderstorm");
+    return wt("partlyCloudy");
+}
+
+function renderWeather(data) {
+    document.getElementById("weatherTemperature").textContent =
+        `${data.temperature} °C`;
+    document.getElementById("weatherHumidity").textContent =
+        `${data.humidity}%`;
+    document.getElementById("rainProbability").textContent =
+        `${data.rain}%`;
+    document.getElementById("windSpeed").textContent =
+        `${data.wind} km/h`;
+    document.getElementById("weatherCondition").textContent =
+        getWeatherCondition(data.weatherCode);
+
+    document.getElementById("temperatureAdvice").textContent =
+        data.temperature >= 35 ? wt("hot") :
+        data.temperature <= 10 ? wt("cold") : wt("tempNormal");
+
+    document.getElementById("humidityAdvice").textContent =
+        data.humidity >= 80 ? wt("humidHigh") :
+        data.humidity <= 30 ? wt("humidLow") : wt("humidNormal");
+
+    document.getElementById("rainAdvice").textContent =
+        data.rain >= 40 ? wt("rainHigh") : wt("rainLow");
+
+    document.getElementById("windAdvice").textContent =
+        data.wind >= 30 ? wt("windHigh") : wt("windNormal");
+
+    document.getElementById("irrigationAdvice").textContent =
+        data.rain >= 40 ? wt("irrigationNo") : wt("irrigationYes");
+
+    document.getElementById("irrigationAdviceText").textContent =
+        data.rain >= 40 ? wt("irrigationNoText") : wt("irrigationYesText");
+
+    document.getElementById("cropCareTip").textContent = wt("cropTip");
+    document.getElementById("irrigationTip").textContent = wt("irrigationTip");
+    document.getElementById("fertilizerTip").textContent = wt("fertilizerTip");
+
+    document.getElementById("weatherAlert").textContent =
+        data.temperature >= 35 ? wt("alertHot") :
+        data.wind >= 30 ? wt("alertWind") :
+        data.rain >= 70 ? wt("alertRain") : wt("alertNormal");
+
+    const alerts = [];
+    if (data.temperature >= 35) alerts.push(wt("alertHot"));
+    if (data.wind >= 30) alerts.push(wt("alertWind"));
+    if (data.rain >= 40) alerts.push(wt("alertRain"));
+    if (alerts.length === 0) alerts.push(wt("alertNormal"));
+
+    const alertList = document.getElementById("weatherAlerts");
+    alertList.replaceChildren();
+
+    alerts.forEach(message => {
+        const li = document.createElement("li");
+        li.textContent = message;
+        alertList.appendChild(li);
+    });
+
+    document.getElementById("weatherLastUpdated").textContent =
+        `${wt("lastUpdated")} ${data.updatedAt}`;
+
+    document.getElementById("weatherLoading").textContent = "";
+}
+
+async function getWeather() {
+    const location = document.getElementById("locationInput").value.trim();
+    const loading = document.getElementById("weatherLoading");
+
+    if (!location) {
+        loading.textContent = wt("locationError");
+        return;
+    }
+
+    loading.textContent = wt("loading");
+
+    try {
+        const geoUrl = `${GEOCODING_API}?name=${encodeURIComponent(location)}&count=1&language=en&format=json`;
+        const geoResponse = await fetch(geoUrl);
+        if (!geoResponse.ok) throw new Error("Geocoding request failed");
+
+        const geoData = await geoResponse.json();
+        if (!geoData.results || geoData.results.length === 0) {
+            loading.textContent = wt("locationError");
+            return;
+        }
+
+        const place = geoData.results[0];
+
+        const params = new URLSearchParams({
+            latitude: place.latitude,
+            longitude: place.longitude,
+            current: "temperature_2m,relative_humidity_2m,weather_code,wind_speed_10m",
+            daily: "precipitation_probability_max",
+            timezone: "auto",
+            forecast_days: "1"
+        });
+
+        const response = await fetch(`${WEATHER_API}?${params.toString()}`);
+        if (!response.ok) throw new Error("Weather request failed");
+
+        const weather = await response.json();
+        const current = weather.current;
+
+        const data = {
+            location: place.name,
+            country: place.country || "",
+            latitude: place.latitude,
+            longitude: place.longitude,
+            temperature: Math.round(current.temperature_2m),
+            humidity: current.relative_humidity_2m,
+            rain: weather.daily?.precipitation_probability_max?.[0] ?? 0,
+            wind: Math.round(current.wind_speed_10m),
+            weatherCode: current.weather_code,
+            updatedAt: new Date().toLocaleString()
+        };
+
+        localStorage.setItem("weatherData", JSON.stringify(data));
+        renderWeather(data);
+        loading.textContent = wt("updated");
+    } catch (error) {
+        console.error("Weather error:", error);
+        loading.textContent = wt("weatherError");
+    }
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+    const languageSelect = document.getElementById("languageSelect");
+    languageSelect.value = localStorage.getItem("selectedLanguage") || "en";
+    changeWeatherLanguage();
+
+    const savedWeather = localStorage.getItem("weatherData");
+    if (savedWeather) {
+        try {
+            renderWeather(JSON.parse(savedWeather));
+        } catch (error) {
+            console.warn("Saved weather data could not be loaded.", error);
+        }
+    }
+});
+</script>
+
+<script src="assets/js/app.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,861 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Equipment Rental - AgriTrack</title>
+
+    <link rel="stylesheet"
+          href="assets/css/style.css">
+
+    <style>
+
+        .equipment-page {
+            max-width: 1000px;
+            margin: 30px auto;
+            padding: 20px;
+        }
+
+        .search-box {
+            background: white;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.10);
+            margin-bottom: 25px;
+        }
+
+        .search-box h2 {
+            color: #2e7d32;
+            margin-top: 0;
+        }
+
+        .search-box input,
+        .search-box select {
+            width: 100%;
+            padding: 12px;
+            margin-top: 8px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            box-sizing: border-box;
+        }
+
+        .equipment-list {
+            display: grid;
+            grid-template-columns: repeat(
+                auto-fit,
+                minmax(280px, 1fr)
+            );
+            gap: 20px;
+        }
+
+        .equipment-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.12);
+        }
+
+        .equipment-card img {
+            width: 100%;
+            height: 220px;
+            object-fit: contain;
+            background: #f5f5f5;
+            display: block;
+        }
+
+        .equipment-details {
+            padding: 20px;
+        }
+
+        .equipment-details h2 {
+            color: #2e7d32;
+            margin-top: 0;
+        }
+
+        .equipment-details p {
+            margin: 10px 0;
+            line-height: 1.5;
+        }
+
+        .equipment-price {
+            font-size: 22px;
+            font-weight: bold;
+            color: #1b5e20;
+            margin: 15px 0;
+        }
+
+        .available {
+            color: #2e7d32;
+            font-weight: bold;
+        }
+
+        .not-available {
+            color: #d32f2f;
+            font-weight: bold;
+        }
+
+        .request-button,
+        .status-button {
+            width: 100%;
+            padding: 12px;
+            margin-top: 15px;
+            border: none;
+            border-radius: 8px;
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .request-button {
+            background: #4caf50;
+        }
+
+        .request-button:hover {
+            background: #388e3c;
+        }
+
+        .request-button:disabled {
+            background: #9e9e9e;
+            cursor: not-allowed;
+        }
+
+        .status-button {
+            background: #1976d2;
+        }
+
+        .status-button:hover {
+            background: #1565c0;
+        }
+
+        .no-equipment {
+            text-align: center;
+            background: #f1f8e9;
+            padding: 30px;
+            border-radius: 12px;
+        }
+
+        .request-success {
+            margin-top: 20px;
+            padding: 20px;
+            background: #f1f8e9;
+            border-left: 5px solid #4caf50;
+            border-radius: 10px;
+            display: none;
+        }
+
+        .request-success h3 {
+            color: #2e7d32;
+            margin-top: 0;
+        }
+
+        .status-box {
+            margin-top: 20px;
+            padding: 20px;
+            border-radius: 10px;
+            display: none;
+        }
+
+        .status-pending {
+            background: #fff3cd;
+            border-left: 5px solid #ffc107;
+        }
+
+        .status-accepted {
+            background: #dff0d8;
+            border-left: 5px solid #4caf50;
+        }
+
+        .status-rejected {
+            background: #f8d7da;
+            border-left: 5px solid #d32f2f;
+        }
+
+        .status-box h3 {
+            margin-top: 0;
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<nav>
+
+    <h2>AgriTrack</h2>
+
+    <ul>
+
+        <li>
+            <a href="index.html">Home</a>
+        </li>
+
+        <li>
+            <a href="dashboard.html">Dashboard</a>
+        </li>
+
+        <li>
+            <a href="crop.html">Crop</a>
+        </li>
+
+        <li>
+            <a href="profile.html">Profile</a>
+        </li>
+
+    </ul>
+
+</nav>
+
+
+<header>
+
+    <h1>🚜 Equipment Rental</h1>
+
+    <p>
+        Find agricultural equipment from nearby vendors
+    </p>
+
+</header>
+
+
+<section class="equipment-page">
+
+
+    <!-- Search -->
+
+    <div class="search-box">
+
+        <h2>
+            🔎 Search Equipment
+        </h2>
+
+
+        <label>
+            Equipment Type
+        </label>
+
+        <select
+            id="equipmentSearchType"
+            onchange="displayVendorEquipment()">
+
+            <option value="All">
+                All Equipment
+            </option>
+
+            <option value="Tractor">
+                🚜 Tractor
+            </option>
+
+            <option value="Rotavator">
+                🌱 Rotavator
+            </option>
+
+            <option value="Cultivator">
+                🌾 Cultivator
+            </option>
+
+            <option value="Harvester">
+                🌾 Harvester
+            </option>
+
+            <option value="Other">
+                🔧 Other Equipment
+            </option>
+
+        </select>
+
+
+        <label>
+            Search by Location
+        </label>
+
+        <input
+            type="text"
+            id="equipmentSearchLocation"
+            placeholder="Example: Solapur"
+            oninput="displayVendorEquipment()">
+
+    </div>
+
+
+    <!-- Equipment List -->
+
+    <div
+        class="equipment-list"
+        id="equipmentList">
+    </div>
+
+
+    <!-- Request Success -->
+
+    <div
+        class="request-success"
+        id="requestSuccess">
+
+        <h3>
+            ✅ Equipment Request Sent
+        </h3>
+
+        <p>
+            Your request has been saved successfully.
+        </p>
+
+        <p>
+            <strong>Status:</strong>
+            🟡 Pending
+        </p>
+
+    </div>
+
+
+    <!-- Request Status -->
+
+    <div
+        class="status-box"
+        id="requestStatusBox">
+
+    </div>
+
+
+    <button
+        class="status-button"
+        onclick="checkRequestStatus()">
+
+        🔄 Check Request Status
+
+    </button>
+
+
+</section>
+
+
+<footer>
+
+    <p>
+        © 2026 AgriTrack | Smart Farming Solution
+    </p>
+
+</footer>
+
+
+<script src="assets/js/app.js"></script>
+
+
+<script>
+
+/* =========================================
+   DISPLAY VENDOR EQUIPMENT
+========================================= */
+
+function displayVendorEquipment() {
+
+    const equipmentList =
+        document.getElementById(
+            "equipmentList"
+        );
+
+
+    const savedEquipment =
+        JSON.parse(
+            localStorage.getItem(
+                "vendorEquipment"
+            )
+        );
+
+
+    if (!savedEquipment) {
+
+        equipmentList.innerHTML = `
+
+            <div class="no-equipment">
+
+                <h2>
+                    🚜 No Equipment Available
+                </h2>
+
+                <p>
+                    Vendors have not added any
+                    equipment yet.
+                </p>
+
+            </div>
+
+        `;
+
+        return;
+
+    }
+
+
+    const searchType =
+        document.getElementById(
+            "equipmentSearchType"
+        ).value;
+
+
+    const searchLocation =
+        document.getElementById(
+            "equipmentSearchLocation"
+        ).value
+        .toLowerCase()
+        .trim();
+
+
+    /* Type filter */
+
+    if (
+        searchType !== "All" &&
+        savedEquipment.equipmentType !== searchType
+    ) {
+
+        equipmentList.innerHTML = `
+
+            <div class="no-equipment">
+
+                <h2>
+                    🔎 No Matching Equipment
+                </h2>
+
+                <p>
+                    No equipment found for
+                    the selected type.
+                </p>
+
+            </div>
+
+        `;
+
+        return;
+
+    }
+
+
+    /* Location filter */
+
+    if (
+        searchLocation !== "" &&
+        !savedEquipment.equipmentLocation
+            .toLowerCase()
+            .includes(searchLocation)
+    ) {
+
+        equipmentList.innerHTML = `
+
+            <div class="no-equipment">
+
+                <h2>
+                    📍 No Equipment Found
+                </h2>
+
+                <p>
+                    No equipment found in
+                    this location.
+                </p>
+
+            </div>
+
+        `;
+
+        return;
+
+    }
+
+
+    const availabilityClass =
+        savedEquipment.equipmentAvailability ===
+        "Available"
+            ? "available"
+            : "not-available";
+
+
+    const availabilityIcon =
+        savedEquipment.equipmentAvailability ===
+        "Available"
+            ? "🟢"
+            : "🔴";
+
+
+    const buttonDisabled =
+        savedEquipment.equipmentAvailability !==
+        "Available"
+            ? "disabled"
+            : "";
+
+
+    equipmentList.innerHTML = `
+
+        <div class="equipment-card">
+
+            <img
+                src="${savedEquipment.equipmentImage}"
+                alt="${savedEquipment.equipmentName}">
+
+
+            <div class="equipment-details">
+
+                <h2>
+                    🚜
+                    ${savedEquipment.equipmentName}
+                </h2>
+
+
+                <p>
+
+                    <strong>
+                        Equipment Type:
+                    </strong>
+
+                    ${savedEquipment.equipmentType}
+
+                </p>
+
+
+                <p>
+
+                    <strong>
+                        Vendor:
+                    </strong>
+
+                    ${savedEquipment.vendorName}
+
+                </p>
+
+
+                <p>
+
+                    <strong>
+                        📞 Contact:
+                    </strong>
+
+                    ${savedEquipment.vendorContact}
+
+                </p>
+
+
+                <p>
+
+                    <strong>
+                        📍 Location:
+                    </strong>
+
+                    ${savedEquipment.equipmentLocation}
+
+                </p>
+
+
+                <div class="equipment-price">
+
+                    ₹${savedEquipment.equipmentPrice}/day
+
+                </div>
+
+
+                <p class="${availabilityClass}">
+
+                    ${availabilityIcon}
+
+                    ${savedEquipment.equipmentAvailability}
+
+                </p>
+
+
+                <button
+                    class="request-button"
+                    onclick="requestEquipment()"
+                    ${buttonDisabled}>
+
+                    📩 Request Equipment
+
+                </button>
+
+            </div>
+
+        </div>
+
+    `;
+
+}
+
+
+/* =========================================
+   REQUEST EQUIPMENT
+========================================= */
+
+function requestEquipment() {
+
+    const savedEquipment =
+        JSON.parse(
+            localStorage.getItem(
+                "vendorEquipment"
+            )
+        );
+
+
+    if (!savedEquipment) {
+
+        alert(
+            "Equipment information not found."
+        );
+
+        return;
+
+    }
+
+
+    if (
+        savedEquipment.equipmentAvailability !==
+        "Available"
+    ) {
+
+        alert(
+            "This equipment is currently not available."
+        );
+
+        return;
+
+    }
+
+
+    const equipmentRequest = {
+
+        equipmentName:
+            savedEquipment.equipmentName,
+
+        equipmentType:
+            savedEquipment.equipmentType,
+
+        vendorName:
+            savedEquipment.vendorName,
+
+        vendorContact:
+            savedEquipment.vendorContact,
+
+        equipmentPrice:
+            savedEquipment.equipmentPrice,
+
+        equipmentLocation:
+            savedEquipment.equipmentLocation,
+
+        requestDate:
+            new Date().toLocaleString(),
+
+        status:
+            "Pending"
+
+    };
+
+
+    localStorage.setItem(
+        "equipmentRequest",
+        JSON.stringify(
+            equipmentRequest
+        )
+    );
+
+
+    document.getElementById(
+        "requestSuccess"
+    ).style.display = "block";
+
+
+    document.getElementById(
+        "requestSuccess"
+    ).scrollIntoView({
+        behavior: "smooth"
+    });
+
+
+    alert(
+        "✅ Equipment request sent successfully."
+    );
+
+}
+
+
+/* =========================================
+   CHECK REQUEST STATUS
+========================================= */
+
+function checkRequestStatus() {
+
+    const request =
+        JSON.parse(
+            localStorage.getItem(
+                "equipmentRequest"
+            )
+        );
+
+
+    const statusBox =
+        document.getElementById(
+            "requestStatusBox"
+        );
+
+
+    if (!request) {
+
+        statusBox.className =
+            "status-box status-pending";
+
+        statusBox.innerHTML = `
+
+            <h3>
+                📭 No Request Found
+            </h3>
+
+            <p>
+                You have not requested any
+                equipment yet.
+            </p>
+
+        `;
+
+        statusBox.style.display =
+            "block";
+
+        return;
+
+    }
+
+
+    let statusClass =
+        "status-pending";
+
+    let statusIcon =
+        "🟡";
+
+    let statusMessage =
+        "Your request is waiting for vendor approval.";
+
+
+    if (
+        request.status ===
+        "Accepted"
+    ) {
+
+        statusClass =
+            "status-accepted";
+
+        statusIcon =
+            "✅";
+
+        statusMessage =
+            "The vendor has accepted your equipment request.";
+
+    }
+
+
+    if (
+        request.status ===
+        "Rejected"
+    ) {
+
+        statusClass =
+            "status-rejected";
+
+        statusIcon =
+            "❌";
+
+        statusMessage =
+            "The vendor has rejected your equipment request.";
+
+    }
+
+
+    statusBox.className =
+        "status-box " + statusClass;
+
+
+    statusBox.innerHTML = `
+
+        <h3>
+
+            ${statusIcon}
+
+            Request Status:
+            ${request.status}
+
+        </h3>
+
+
+        <p>
+
+            <strong>
+                Equipment:
+            </strong>
+
+            ${request.equipmentName}
+
+        </p>
+
+
+        <p>
+
+            <strong>
+                Vendor:
+            </strong>
+
+            ${request.vendorName}
+
+        </p>
+
+
+        <p>
+
+            <strong>
+                Price:
+            </strong>
+
+            ₹${request.equipmentPrice}/day
+
+        </p>
+
+
+        <p>
+
+            ${statusMessage}
+
+        </p>
+
+    `;
+
+
+    statusBox.style.display =
+        "block";
+
+
+    statusBox.scrollIntoView({
+        behavior: "smooth"
+    });
+
+}
+
+
+/* =========================================
+   LOAD EQUIPMENT
+========================================= */
+
+document.addEventListener(
+    "DOMContentLoaded",
+    function() {
+
+        displayVendorEquipment();
+
+    }
+);
+
+</script>
+
+
+</body>
+
+</html>

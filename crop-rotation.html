@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Crop Rotation Planner - AgriTrack</title>
+
+    <link rel="stylesheet"
+          href="assets/css/style.css">
+
+</head>
+
+<body>
+
+
+<!-- Navigation -->
+
+<nav>
+
+    <h2>AgriTrack</h2>
+
+    <ul>
+
+        <li>
+            <a href="index.html">Home</a>
+        </li>
+
+        <li>
+            <a href="dashboard.html">Dashboard</a>
+        </li>
+
+        <li>
+            <a href="crop.html">Crop</a>
+        </li>
+
+        <li>
+            <a href="iot.html">IoT</a>
+        </li>
+
+        <li>
+            <a href="weather.html">Weather</a>
+        </li>
+
+        <li>
+            <a href="profile.html">Profile</a>
+        </li>
+
+        <li>
+            <a href="expenses.html">Expenses</a>
+        </li>
+
+        <li>
+            <a href="seed.html">Seeds</a>
+        </li>
+
+        <li>
+            <a href="fertilizer.html">Fertilizer</a>
+        </li>
+
+        <li>
+            <a href="harvest.html">Harvest</a>
+        </li>
+
+        <li>
+            <a href="equipment.html">Equipment</a>
+        </li>
+
+        <li>
+            <a href="crop-rotation.html">Crop Rotation</a>
+        </li>
+
+    </ul>
+
+</nav>
+
+
+<!-- Header -->
+
+<header>
+
+    <h1>🌱 Crop Rotation Planner</h1>
+
+    <p>
+        Plan your next crop to maintain soil health
+    </p>
+
+</header>
+
+
+<!-- Main Container -->
+
+<div class="container">
+
+
+    <!-- Crop Selection -->
+
+    <div class="card">
+
+        <h2>🌾 Select Current Crop</h2>
+
+        <label for="currentCrop">
+            Current Crop
+        </label>
+
+        <select id="currentCrop">
+
+            <option value="">
+                -- Select Crop --
+            </option>
+
+            <option value="Tomato">
+                🍅 Tomato
+            </option>
+
+            <option value="Potato">
+                🥔 Potato
+            </option>
+
+            <option value="Rice">
+                🌾 Rice
+            </option>
+
+            <option value="Wheat">
+                🌾 Wheat
+            </option>
+
+        </select>
+
+
+        <br><br>
+
+
+        <button
+            onclick="planCropRotation()">
+
+            🌱 Plan Next Crop
+
+        </button>
+
+    </div>
+
+
+    <!-- Rotation Result -->
+
+    <div class="card">
+
+        <h2>📋 Rotation Recommendation</h2>
+
+        <div id="rotationResult">
+
+            <p>
+                Select your current crop to get
+                a crop rotation recommendation.
+            </p>
+
+        </div>
+
+    </div>
+
+
+</div>
+
+
+<!-- Footer -->
+
+<footer>
+
+    <p>
+        © 2026 AgriTrack |
+        Smart Farming Solution
+    </p>
+
+</footer>
+
+
+<!-- JavaScript -->
+
+<script src="assets/js/app.js"></script>
+
+</body>
+
+</html>

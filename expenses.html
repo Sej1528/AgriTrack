@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Farm Expense Tracker - AgriTrack</title>
+
+    <link rel="stylesheet"
+          href="assets/css/style.css">
+
+</head>
+
+
+<body>
+
+
+<!-- Navigation -->
+
+<nav>
+
+    <h2>AgriTrack</h2>
+
+    <ul>
+
+        <li>
+            <a href="index.html">Home</a>
+        </li>
+
+        <li>
+            <a href="dashboard.html">Dashboard</a>
+        </li>
+
+        <li>
+            <a href="crop.html">Crop</a>
+        </li>
+
+        <li>
+            <a href="iot.html">IoT</a>
+        </li>
+
+        <li>
+            <a href="profile.html">Profile</a>
+        </li>
+
+        <li>
+            <a href="expenses.html">Expenses</a>
+        </li>
+
+    </ul>
+
+</nav>
+
+
+<!-- Header -->
+
+<header>
+
+    <h1>💰 Farm Expense Tracker</h1>
+
+    <p>
+        Track and manage your farming expenses
+    </p>
+
+</header>
+
+
+<!-- Total Expense -->
+
+<section class="expense-summary">
+
+    <h2>Total Farm Expenses</h2>
+
+    <h1 id="totalExpense">
+        ₹0
+    </h1>
+
+</section>
+
+
+<!-- Add Expense -->
+
+<section class="expense-form-container">
+
+    <div class="expense-form">
+
+        <h2>➕ Add New Expense</h2>
+
+
+        <label for="expenseCategory">
+            Expense Category
+        </label>
+
+        <select id="expenseCategory">
+
+            <option value="">
+                Select Category
+            </option>
+
+            <option value="Seeds">
+                🌱 Seeds
+            </option>
+
+            <option value="Fertilizer">
+                🌾 Fertilizer
+            </option>
+
+            <option value="Labour">
+                👨‍🌾 Labour
+            </option>
+
+            <option value="Irrigation">
+                💧 Irrigation
+            </option>
+
+            <option value="Equipment">
+                🚜 Equipment
+            </option>
+
+            <option value="Pesticides">
+                🧪 Pesticides
+            </option>
+
+            <option value="Other">
+                📦 Other
+            </option>
+
+        </select>
+
+
+        <label for="expenseAmount">
+            Amount (₹)
+        </label>
+
+        <input
+            type="number"
+            id="expenseAmount"
+            placeholder="Enter amount"
+            min="1"
+        >
+
+
+        <label for="expenseDate">
+            Date
+        </label>
+
+        <input
+            type="date"
+            id="expenseDate"
+        >
+
+
+        <label for="expenseDescription">
+            Description
+        </label>
+
+        <input
+            type="text"
+            id="expenseDescription"
+            placeholder="Enter description"
+        >
+
+
+        <button
+            onclick="addExpense()">
+
+            ➕ Add Expense
+
+        </button>
+
+
+        <p id="expenseMessage"></p>
+
+    </div>
+
+</section>
+
+
+<!-- Expense History -->
+
+<section class="expense-history">
+
+    <h2>📋 Expense History</h2>
+
+
+    <div id="expenseList">
+
+        <p id="noExpenses">
+            No expenses added yet.
+        </p>
+
+    </div>
+
+</section>
+
+
+<!-- Footer -->
+
+<footer>
+
+    <p>
+        © 2026 AgriTrack | Smart Farming Solution
+    </p>
+
+</footer>
+
+
+<!-- JavaScript -->
+
+<script src="assets/js/app.js"></script>
+
+</body>
+
+</html>

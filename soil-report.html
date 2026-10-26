@@ -1,0 +1,838 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Soil Report | AgriTrack</title>
+
+    <link rel="stylesheet" href="assets/css/style.css">
+
+    <!-- OCR library -->
+    <script src="https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js"></script>
+
+    <style>
+        .soil-container {
+            max-width: 900px;
+            margin: 30px auto;
+            padding: 20px;
+        }
+
+        .soil-card {
+            background: #ffffff;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            margin-bottom: 25px;
+        }
+
+        .soil-card h1,
+        .soil-card h2 {
+            color: #2e7d32;
+        }
+
+        .upload-area {
+            border: 2px dashed #4caf50;
+            border-radius: 12px;
+            padding: 30px;
+            text-align: center;
+            background: #f1f8e9;
+        }
+
+        .upload-area input {
+            margin-top: 15px;
+            max-width: 100%;
+        }
+
+        .sample-report-area {
+            margin-top: 20px;
+            padding: 20px;
+            border-radius: 12px;
+            background: #fff8e1;
+            border-left: 5px solid #ffb300;
+            text-align: center;
+        }
+
+        .sample-report-button {
+            margin-top: 12px;
+            padding: 12px 18px;
+            border: none;
+            border-radius: 8px;
+            background: #ef6c00;
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .sample-report-button:hover {
+            background: #e65100;
+        }
+
+        .sample-area-select {
+            margin-top: 10px;
+            padding: 10px;
+            border: 1px solid #bbb;
+            border-radius: 6px;
+            font-size: 16px;
+        }
+
+        .report-preview {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .report-preview img {
+            max-width: 100%;
+            max-height: 500px;
+            border-radius: 10px;
+            border: 1px solid #ddd;
+        }
+
+        .action-button,
+        .save-button {
+            display: block;
+            width: 100%;
+            margin-top: 15px;
+            padding: 14px;
+            border: none;
+            border-radius: 8px;
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .action-button {
+            background: #2e7d32;
+        }
+
+        .action-button:hover {
+            background: #1b5e20;
+        }
+
+        .action-button:disabled {
+            background: #9e9e9e;
+            cursor: not-allowed;
+        }
+
+        .save-button {
+            background: #4caf50;
+        }
+
+        .save-button:hover {
+            background: #388e3c;
+        }
+
+        .soil-results {
+            margin-top: 25px;
+        }
+
+        .soil-result-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+        }
+
+        .soil-result-box {
+            background: #f1f8e9;
+            padding: 15px;
+            border-radius: 10px;
+            border-left: 5px solid #4caf50;
+        }
+
+        .soil-result-box label {
+            display: block;
+            font-weight: bold;
+            color: #2e7d32;
+            margin-bottom: 8px;
+        }
+
+        .soil-result-box input {
+            width: 100%;
+            box-sizing: border-box;
+            padding: 10px;
+            border: 1px solid #bbb;
+            border-radius: 6px;
+            font-size: 16px;
+        }
+
+        .info-message {
+            background: #fff8e1;
+            border-left: 5px solid #ffb300;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 20px;
+        }
+
+        .ocr-status {
+            margin-top: 15px;
+            padding: 12px;
+            border-radius: 8px;
+            background: #e3f2fd;
+            color: #1565c0;
+            display: none;
+        }
+
+        .ocr-text {
+            margin-top: 15px;
+            padding: 15px;
+            background: #f5f5f5;
+            border-radius: 8px;
+            white-space: pre-wrap;
+            max-height: 220px;
+            overflow-y: auto;
+            display: none;
+            font-size: 14px;
+        }
+
+        @media (max-width: 600px) {
+            .soil-result-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav>
+        <a href="index.html">🏠 Home</a>
+        <a href="dashboard.html">📊 Dashboard</a>
+        <a href="crop.html">🌱 Crops</a>
+        <a href="profile.html">👤 Profile</a>
+    </nav>
+
+    <div class="soil-container">
+
+        <div class="soil-card">
+
+            <h1>🌱 Soil Report</h1>
+
+            <p>
+                Upload your soil test report. AgriTrack will read the report
+                using OCR and extract the available soil values.
+            </p>
+
+            <div class="upload-area">
+
+                <h2>📄 Upload Soil Test Report</h2>
+
+                <p>
+                    Take a clear photo or select an image of your soil test report.
+                </p>
+
+                <input
+                    type="file"
+                    id="soilReportInput"
+                    accept="image/*"
+                    onchange="previewSoilReport()"
+                >
+
+            </div>
+
+            <div class="sample-report-area">
+                <strong>🧪 Don't have a soil report yet?</strong>
+                <p>
+                    Use a sample report for your AgriTrack demonstration.
+                    These are demo values only and can be replaced later with a real soil test report.
+                </p>
+
+                <label for="sampleFarmArea"><strong>Farm Area:</strong></label>
+                <select id="sampleFarmArea" class="sample-area-select">
+                    <option value="1">1 Acre</option>
+                    <option value="2">2 Acres</option>
+                    <option value="3">3 Acres</option>
+                    <option value="4">4 Acres</option>
+                    <option value="5">5 Acres</option>
+                </select>
+
+                <br>
+
+                <button
+                    class="sample-report-button"
+                    type="button"
+                    onclick="useSampleSoilReport()">
+                    🧪 Use Sample Report
+                </button>
+            </div>
+
+            <div id="soilReportPreview" class="report-preview"></div>
+
+            <button
+                id="readReportButton"
+                class="action-button"
+                type="button"
+                onclick="readSoilReport()"
+                disabled>
+                🔍 Read Soil Report
+            </button>
+
+            <div id="ocrStatus" class="ocr-status"></div>
+
+            <div id="ocrText" class="ocr-text"></div>
+
+            <div
+                id="soilResults"
+                class="soil-results"
+                style="display:none;">
+
+                <h2>📋 Extracted Soil Information</h2>
+
+                <p>
+                    Please check the extracted values before saving.
+                    OCR can sometimes misread numbers.
+                </p>
+
+                <div class="soil-result-grid">
+
+                    <div class="soil-result-box">
+                        <label for="farmArea">Farm Area</label>
+                        <input id="farmArea" type="text" placeholder="Not detected">
+                    </div>
+
+                    <div class="soil-result-box">
+                        <label for="soilType">Soil Type</label>
+                        <input id="soilType" type="text" placeholder="Not detected">
+                    </div>
+
+                    <div class="soil-result-box">
+                        <label for="soilPH">pH</label>
+                        <input id="soilPH" type="text" placeholder="Not detected">
+                    </div>
+
+                    <div class="soil-result-box">
+                        <label for="soilEC">Electrical Conductivity (EC)</label>
+                        <input id="soilEC" type="text" placeholder="Not detected">
+                    </div>
+
+                    <div class="soil-result-box">
+                        <label for="soilOrganicCarbon">Organic Carbon</label>
+                        <input id="soilOrganicCarbon" type="text" placeholder="Not detected">
+                    </div>
+
+                    <div class="soil-result-box">
+                        <label for="soilNitrogen">Nitrogen (N)</label>
+                        <input id="soilNitrogen" type="text" placeholder="Not detected">
+                    </div>
+
+                    <div class="soil-result-box">
+                        <label for="soilPhosphorus">Phosphorus (P)</label>
+                        <input id="soilPhosphorus" type="text" placeholder="Not detected">
+                    </div>
+
+                    <div class="soil-result-box">
+                        <label for="soilPotassium">Potassium (K)</label>
+                        <input id="soilPotassium" type="text" placeholder="Not detected">
+                    </div>
+
+                    <div class="soil-result-box">
+                        <label for="soilSulphur">Sulphur (S)</label>
+                        <input id="soilSulphur" type="text" placeholder="Not detected">
+                    </div>
+
+                    <div class="soil-result-box">
+                        <label for="soilZinc">Zinc (Zn)</label>
+                        <input id="soilZinc" type="text" placeholder="Not detected">
+                    </div>
+
+                    <div class="soil-result-box">
+                        <label for="soilIron">Iron (Fe)</label>
+                        <input id="soilIron" type="text" placeholder="Not detected">
+                    </div>
+
+                    <div class="soil-result-box">
+                        <label for="soilCopper">Copper (Cu)</label>
+                        <input id="soilCopper" type="text" placeholder="Not detected">
+                    </div>
+
+                    <div class="soil-result-box">
+                        <label for="soilManganese">Manganese (Mn)</label>
+                        <input id="soilManganese" type="text" placeholder="Not detected">
+                    </div>
+
+                    <div class="soil-result-box">
+                        <label for="soilBoron">Boron (B)</label>
+                        <input id="soilBoron" type="text" placeholder="Not detected">
+                    </div>
+
+                </div>
+
+                <div class="info-message">
+                    ⚠️ <strong>Important:</strong>
+                    <p>
+                        OCR is used only to read the uploaded report.
+                        Always verify the extracted values against the original
+                        soil test report before saving. The confirmed values
+                        will be used later by AgriTrack's recommendation system.
+                    </p>
+                </div>
+
+                <button
+                    class="save-button"
+                    type="button"
+                    onclick="saveSoilReport()">
+                    💾 Save Confirmed Soil Information
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <script>
+        let selectedReportImage = "";
+
+        function previewSoilReport() {
+
+            const input = document.getElementById("soilReportInput");
+            const preview = document.getElementById("soilReportPreview");
+            const readButton = document.getElementById("readReportButton");
+
+            if (!input.files || !input.files[0]) {
+                selectedReportImage = "";
+                preview.innerHTML = "";
+                readButton.disabled = true;
+                return;
+            }
+
+            const file = input.files[0];
+
+            if (!file.type.startsWith("image/")) {
+                alert("Please select an image file.");
+                input.value = "";
+                return;
+            }
+
+            const reader = new FileReader();
+
+            reader.onload = function(event) {
+
+                selectedReportImage = event.target.result;
+
+                preview.innerHTML = `
+                    <h3>📄 Uploaded Soil Report</h3>
+                    <img
+                        src="${selectedReportImage}"
+                        alt="Uploaded Soil Test Report">
+                `;
+
+                readButton.disabled = false;
+
+                document.getElementById("ocrStatus").style.display = "none";
+                document.getElementById("ocrText").style.display = "none";
+                document.getElementById("soilResults").style.display = "none";
+            };
+
+            reader.readAsDataURL(file);
+        }
+
+
+        function useSampleSoilReport() {
+
+            const farmArea =
+                document.getElementById("sampleFarmArea").value;
+
+            selectedReportImage = "";
+
+            document.getElementById("soilReportPreview").innerHTML = `
+                <div class="info-message">
+                    <strong>🧪 Sample Soil Report Loaded</strong>
+                    <p>
+                        This is demo data for a <strong>${farmArea} acre</strong> farm.
+                        It is not a real laboratory report.
+                    </p>
+                </div>
+            `;
+
+            setValue("farmArea", farmArea + (farmArea === "1" ? " Acre" : " Acres"));
+            setValue("soilType", "Medium Black Soil");
+            setValue("soilPH", "7.2");
+            setValue("soilEC", "0.49");
+            setValue("soilOrganicCarbon", "0.62");
+            setValue("soilNitrogen", "285");
+            setValue("soilPhosphorus", "38");
+            setValue("soilPotassium", "310");
+            setValue("soilSulphur", "22");
+            setValue("soilZinc", "1.8");
+            setValue("soilIron", "14.6");
+            setValue("soilCopper", "1.2");
+            setValue("soilManganese", "21.5");
+            setValue("soilBoron", "0.4");
+
+            const ocrText = document.getElementById("ocrText");
+            ocrText.textContent =
+                "Sample report data (demo):\n\n" +
+                "Farm Area: " + farmArea + " acre(s)\n" +
+                "Soil Type: Medium Black Soil\n" +
+                "pH: 7.2\n" +
+                "EC: 0.49 dS/m\n" +
+                "Organic Carbon: 0.62 %\n" +
+                "Nitrogen (N): 285 kg/ha\n" +
+                "Phosphorus (P): 38 kg/ha\n" +
+                "Potassium (K): 310 kg/ha\n" +
+                "Sulphur (S): 22 mg/kg\n" +
+                "Zinc (Zn): 1.8 mg/kg\n" +
+                "Iron (Fe): 14.6 mg/kg\n" +
+                "Copper (Cu): 1.2 mg/kg\n" +
+                "Manganese (Mn): 21.5 mg/kg\n" +
+                "Boron (B): 0.4 mg/kg";
+
+            ocrText.style.display = "block";
+
+            document.getElementById("ocrStatus").style.display = "block";
+            document.getElementById("ocrStatus").textContent =
+                "🧪 Sample report loaded. Please verify the demo values before saving.";
+
+            document.getElementById("soilResults").style.display = "block";
+        }
+
+
+        async function readSoilReport() {
+
+            if (!selectedReportImage) {
+                alert("Please upload a soil report image first.");
+                return;
+            }
+
+            const button = document.getElementById("readReportButton");
+            const status = document.getElementById("ocrStatus");
+            const ocrText = document.getElementById("ocrText");
+            const results = document.getElementById("soilResults");
+
+            button.disabled = true;
+            status.style.display = "block";
+            status.textContent = "🔍 Reading the soil report... Please wait.";
+            ocrText.style.display = "none";
+
+            try {
+
+                const result = await Tesseract.recognize(
+                    selectedReportImage,
+                    "eng",
+                    {
+                        logger: function(message) {
+
+                            if (message.status === "recognizing text") {
+
+                                const progress =
+                                    Math.round(message.progress * 100);
+
+                                status.textContent =
+                                    "🔍 Reading soil report... " +
+                                    progress +
+                                    "%";
+                            }
+                        }
+                    }
+                );
+
+                const text = result.data.text || "";
+
+                ocrText.textContent =
+                    "OCR text detected:\n\n" +
+                    (text.trim() || "No readable text found.");
+
+                ocrText.style.display = "block";
+
+                extractSoilValues(text);
+
+                results.style.display = "block";
+
+                status.textContent =
+                    "✅ Report reading completed. Please verify the values.";
+
+            } catch (error) {
+
+                console.error(error);
+
+                status.textContent =
+                    "❌ Could not read the report. Please upload a clearer image.";
+
+                alert(
+                    "The report could not be read. Please try a clear, well-lit image."
+                );
+
+            } finally {
+
+                button.disabled = false;
+            }
+        }
+
+
+        function extractSoilValues(text) {
+
+            const normalizedText =
+                text
+                    .replace(/\r/g, "\n")
+                    .replace(/[|]/g, "I");
+
+            setValue("soilPH", findValue(
+                normalizedText,
+                [
+                    /pH\s*[:=\-]?\s*(\d+(?:\.\d+)?)/i
+                ]
+            ));
+
+            setValue("soilEC", findValue(
+                normalizedText,
+                [
+                    /(?:EC|Electrical\s+Conductivity)\s*[:=\-]?\s*(\d+(?:\.\d+)?)/i
+                ]
+            ));
+
+            setValue("soilOrganicCarbon", findValue(
+                normalizedText,
+                [
+                    /(?:Organic\s+Carbon|O\.?\s*C\.?)\s*[:=\-]?\s*(\d+(?:\.\d+)?)/i
+                ]
+            ));
+
+            setValue("soilNitrogen", findValue(
+                normalizedText,
+                [
+                    /(?:Nitrogen|Available\s+N)\s*[:=\-]?\s*(\d+(?:\.\d+)?)/i
+                ]
+            ));
+
+            setValue("soilPhosphorus", findValue(
+                normalizedText,
+                [
+                    /(?:Phosphorus|Available\s+P|P2O5)\s*[:=\-]?\s*(\d+(?:\.\d+)?)/i
+                ]
+            ));
+
+            setValue("soilPotassium", findValue(
+                normalizedText,
+                [
+                    /(?:Potassium|Available\s+K|K2O)\s*[:=\-]?\s*(\d+(?:\.\d+)?)/i
+                ]
+            ));
+
+            setValue("soilSulphur", findValue(
+                normalizedText,
+                [
+                    /(?:Sulphur|Sulfur|Available\s+S)\s*[:=\-]?\s*(\d+(?:\.\d+)?)/i
+                ]
+            ));
+
+            setValue("soilZinc", findValue(
+                normalizedText,
+                [
+                    /(?:Zinc|Zn)\s*[:=\-]?\s*(\d+(?:\.\d+)?)/i
+                ]
+            ));
+
+            setValue("soilIron", findValue(
+                normalizedText,
+                [
+                    /(?:Iron|Fe)\s*[:=\-]?\s*(\d+(?:\.\d+)?)/i
+                ]
+            ));
+
+            setValue("soilCopper", findValue(
+                normalizedText,
+                [
+                    /(?:Copper|Cu)\s*[:=\-]?\s*(\d+(?:\.\d+)?)/i
+                ]
+            ));
+
+            setValue("soilManganese", findValue(
+                normalizedText,
+                [
+                    /(?:Manganese|Mn)\s*[:=\-]?\s*(\d+(?:\.\d+)?)/i
+                ]
+            ));
+
+            setValue("soilBoron", findValue(
+                normalizedText,
+                [
+                    /(?:Boron|B)\s*[:=\-]?\s*(\d+(?:\.\d+)?)/i
+                ]
+            ));
+
+            const soilType =
+                findTextValue(
+                    normalizedText,
+                    [
+                        /(?:Soil\s+Type|Texture)\s*[:=\-]?\s*([A-Za-z ]{3,40})/i
+                    ]
+                );
+
+            setValue("soilType", soilType);
+        }
+
+
+        function findValue(text, patterns) {
+
+            for (const pattern of patterns) {
+
+                const match = text.match(pattern);
+
+                if (match && match[1]) {
+                    return match[1].trim();
+                }
+            }
+
+            return "";
+        }
+
+
+        function findTextValue(text, patterns) {
+
+            for (const pattern of patterns) {
+
+                const match = text.match(pattern);
+
+                if (match && match[1]) {
+                    return match[1].trim();
+                }
+            }
+
+            return "";
+        }
+
+
+        function setValue(id, value) {
+
+            const element = document.getElementById(id);
+
+            if (!element) {
+                return;
+            }
+
+            element.value = value || "";
+        }
+
+
+        function saveSoilReport() {
+
+            const soilData = {
+
+                reportImage: selectedReportImage,
+
+                farmArea:
+                    document.getElementById("farmArea").value.trim(),
+
+                soilType:
+                    document.getElementById("soilType").value.trim(),
+
+                pH:
+                    document.getElementById("soilPH").value.trim(),
+
+                ec:
+                    document.getElementById("soilEC").value.trim(),
+
+                organicCarbon:
+                    document.getElementById("soilOrganicCarbon").value.trim(),
+
+                nitrogen:
+                    document.getElementById("soilNitrogen").value.trim(),
+
+                phosphorus:
+                    document.getElementById("soilPhosphorus").value.trim(),
+
+                potassium:
+                    document.getElementById("soilPotassium").value.trim(),
+
+                sulphur:
+                    document.getElementById("soilSulphur").value.trim(),
+
+                zinc:
+                    document.getElementById("soilZinc").value.trim(),
+
+                iron:
+                    document.getElementById("soilIron").value.trim(),
+
+                copper:
+                    document.getElementById("soilCopper").value.trim(),
+
+                manganese:
+                    document.getElementById("soilManganese").value.trim(),
+
+                boron:
+                    document.getElementById("soilBoron").value.trim(),
+
+                savedAt:
+                    new Date().toLocaleString()
+            };
+
+            localStorage.setItem(
+                "soilData",
+                JSON.stringify(soilData)
+            );
+
+            if (selectedReportImage) {
+                localStorage.setItem(
+                    "soilReportImage",
+                    selectedReportImage
+                );
+            } else {
+                localStorage.removeItem("soilReportImage");
+            }
+
+            alert(
+                "✅ Soil report and confirmed soil data saved successfully!"
+            );
+        }
+
+
+        document.addEventListener("DOMContentLoaded", function() {
+
+            const savedImage =
+                localStorage.getItem("soilReportImage");
+
+            const savedData =
+                JSON.parse(
+                    localStorage.getItem("soilData")
+                );
+
+            if (savedImage) {
+
+                selectedReportImage = savedImage;
+
+                document.getElementById("soilReportPreview").innerHTML = `
+                    <h3>📄 Saved Soil Report</h3>
+                    <img
+                        src="${savedImage}"
+                        alt="Saved Soil Test Report">
+                `;
+
+                document.getElementById(
+                    "readReportButton"
+                ).disabled = false;
+            }
+
+            if (savedData) {
+
+                document.getElementById("soilResults").style.display =
+                    "block";
+
+                const fields = {
+                    farmArea: savedData.farmArea,
+                    soilType: savedData.soilType,
+                    soilPH: savedData.pH,
+                    soilEC: savedData.ec,
+                    soilOrganicCarbon: savedData.organicCarbon,
+                    soilNitrogen: savedData.nitrogen,
+                    soilPhosphorus: savedData.phosphorus,
+                    soilPotassium: savedData.potassium,
+                    soilSulphur: savedData.sulphur,
+                    soilZinc: savedData.zinc,
+                    soilIron: savedData.iron,
+                    soilCopper: savedData.copper,
+                    soilManganese: savedData.manganese,
+                    soilBoron: savedData.boron
+                };
+
+                Object.keys(fields).forEach(function(id) {
+                    setValue(id, fields[id] || "");
+                });
+            }
+        });
+
+    </script>
+
+</body>
+</html>

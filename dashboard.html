@@ -1,0 +1,1520 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>AgriTrack Dashboard</title>
+
+    <link rel="stylesheet" href="assets/css/style.css">
+
+</head>
+
+
+<body>
+
+
+<!-- =====================================================
+     NAVIGATION
+     ===================================================== -->
+
+<nav>
+
+    <div class="language-selector">
+
+        <label for="languageSelect">🌐</label>
+
+        <select id="languageSelect"
+                onchange="changeDashboardLanguage()">
+
+            <option value="en">English</option>
+            <option value="mr">मराठी</option>
+            <option value="hi">हिंदी</option>
+
+        </select>
+
+    </div>
+
+
+    <h2>AgriTrack</h2>
+
+
+    <ul>
+
+        <li>
+            <a href="index.html" data-translate="home">
+                Home
+            </a>
+        </li>
+
+        <li>
+            <a href="dashboard.html" data-translate="dashboard">
+                Dashboard
+            </a>
+        </li>
+
+        <li>
+            <a href="index.html#features" data-translate="features">
+                Features
+            </a>
+        </li>
+
+        <li>
+            <a href="login.html" data-translate="login">
+                Login
+            </a>
+        </li>
+
+    </ul>
+
+</nav>
+
+
+
+<!-- =====================================================
+     DASHBOARD HEADER
+     ===================================================== -->
+
+<header>
+
+    <h1 data-translate="smartFarmingDashboard">
+        Smart Farming Dashboard
+    </h1>
+
+    <p data-translate="monitorFarm">
+        Monitor your farm using intelligent technology
+    </p>
+
+    <p id="lastUpdated">
+
+        <span data-translate="lastUpdated">
+            Last Updated:
+        </span>
+
+        --:--:--
+
+    </p>
+
+    <button
+        class="header-btn"
+        onclick="scrollToDashboard()"
+        data-translate="viewDashboard">
+
+        View Dashboard
+
+    </button>
+
+    <h3 id="dateTime"></h3>
+
+</header>
+
+
+
+<!-- =====================================================
+     DASHBOARD
+     ===================================================== -->
+
+<div
+    class="dashboard-container"
+    id="dashboard">
+
+
+    <!-- =================================================
+         DASHBOARD CARDS
+         ================================================= -->
+
+    <!-- =================================================
+         EXPECTED HARVEST
+         ================================================= -->
+
+    <div class="card">
+
+        <h2 data-translate="expectedHarvest">
+            🌾 Expected Harvest
+        </h2>
+
+        <div id="dashboardHarvest">
+
+            <p data-translate="noHarvestCalculated">
+                No harvest calculated yet.
+            </p>
+
+        </div>
+
+        <a
+            href="harvest.html"
+            data-translate="calculateHarvest">
+
+            🌾 Calculate Harvest
+
+        </a>
+
+    </div>
+
+
+
+    <!-- =================================================
+         EQUIPMENT RENTAL
+         ================================================= -->
+
+    <div class="card">
+
+        <h2 data-translate="equipmentRental">
+            🚜 Equipment Rental
+        </h2>
+
+        <div id="dashboardRental">
+
+            <p data-translate="noRentalCalculated">
+                No rental calculated yet.
+            </p>
+
+        </div>
+
+        <a
+            href="equipment.html"
+            data-translate="calculateRental">
+
+            🚜 Calculate Rental
+
+        </a>
+
+    </div>
+
+
+
+    <!-- =================================================
+         CROP ROTATION
+         ================================================= -->
+
+    <div class="card">
+
+        <h2 data-translate="cropRotation">
+            🌱 Crop Rotation
+        </h2>
+
+        <div id="dashboardRotation">
+
+            <p data-translate="noRotationRecommendation">
+                No rotation recommendation yet.
+            </p>
+
+        </div>
+
+        <a
+            href="crop-rotation.html"
+            data-translate="planCropRotation">
+
+            🌱 Plan Crop Rotation
+
+        </a>
+
+    </div>
+
+
+
+    <!-- =================================================
+         FERTILIZER RECOMMENDATION
+         ================================================= -->
+
+    <div class="card">
+
+        <h2 data-translate="fertilizerGuide">
+            🌿 Fertilizer Guide
+        </h2>
+
+        <div id="dashboardFertilizer">
+
+            <p data-translate="noFertilizerRecommendation">
+                No fertilizer recommendation yet.
+            </p>
+
+        </div>
+
+        <a
+            href="fertilizer.html"
+            data-translate="viewFertilizerGuide">
+
+            🌿 View Fertilizer Guide
+
+        </a>
+
+    </div>
+
+
+
+    <!-- =================================================
+         IRRIGATION RECOMMENDATION
+         ================================================= -->
+<div class="dashboard-card irrigation-card">
+
+    <h3 data-translate="irrigation">💧 Irrigation Recommendation</h3>
+
+    <h2 id="irrigationRecommendationDashboard">
+        Checking...
+    </h2>
+
+</div>
+   
+    <!-- =================================================
+         WEATHER API DATA
+         ================================================= -->
+
+    <div class="dashboard-card">
+
+        <h3 data-translate="weatherData">
+            🌤 Weather Information
+        </h3>
+
+        <p>
+
+            🌡
+            <span data-translate="temperature">
+                Temperature:
+            </span>
+
+            <span id="dashboardTemperature">
+                --
+            </span>
+
+        </p>
+
+        <p>
+
+            💨
+            <span data-translate="windSpeed">
+                Wind Speed:
+            </span>
+
+            <span id="dashboardWind">
+                --
+            </span>
+
+        </p>
+
+        <p>
+
+            💧
+            <span data-translate="humidity">
+                Humidity:
+            </span>
+
+            <span id="dashboardHumidity">
+                --
+            </span>
+
+        </p>
+
+        <p>
+
+            🌧
+            <span data-translate="rainChance">
+                Rain Chance:
+            </span>
+
+            <span id="dashboardRain">
+                --
+            </span>
+
+        </p>
+
+        <p id="weatherApiStatus"
+           data-translate="weatherWaiting">
+
+            Waiting for weather API data.
+
+        </p>
+
+        <a
+            href="weather.html"
+            data-translate="openWeather">
+
+            🌦️ Open Weather
+
+        </a>
+
+    </div>
+
+
+
+    <!-- =================================================
+         SOIL REPORT
+         ================================================= -->
+
+    <div class="dashboard-card">
+
+        <h3 data-translate="soilReport">
+            🧪 Soil Report
+        </h3>
+
+        <div id="dashboardSoilReport">
+
+            <p data-translate="noSoilReport">
+                No soil report saved yet.
+            </p>
+
+        </div>
+
+        <a
+            href="soil-report.html"
+            data-translate="openSoilReport">
+
+            🧪 Upload Soil Report
+
+        </a>
+
+    </div>
+
+
+
+    <!-- =================================================
+         ANALYTICS
+         ================================================= -->
+
+    <div class="dashboard-card">
+
+        <h3 data-translate="analytics">
+            📊 Analytics
+        </h3>
+
+        <p>
+
+            <span data-translate="cropGrowth">
+                Crop Growth:
+            </span>
+
+            <span id="dashboardCropGrowth">
+                Based on crop stage
+            </span>
+
+        </p>
+
+        <p>
+
+            <span data-translate="yieldPrediction">
+                Yield Prediction:
+            </span>
+
+            <span id="dashboardYield">
+                Based on harvest calculation
+            </span>
+
+        </p>
+
+        <p>
+
+            <span data-translate="totalExpenses">
+                Total Expenses:
+            </span>
+
+            <span id="dashboardExpenses">
+                ₹0
+            </span>
+
+        </p>
+
+    </div>
+
+
+
+    <!-- =================================================
+         WEATHER FORECAST
+         ================================================= -->
+
+    <div class="dashboard-card">
+
+        <h3 data-translate="weatherForecast">
+            🌦️ Weather Forecast
+        </h3>
+
+        <h2 id="weatherForecast">
+            --
+        </h2>
+
+        <p id="weatherStatus"
+           data-translate="weatherWaiting">
+
+            Waiting for weather API data.
+
+        </p>
+
+    </div>
+
+
+
+    <!-- =================================================
+         SEED RECOMMENDATION
+         ================================================= -->
+
+    <div class="card">
+
+        <h2 data-translate="seedRecommendation">
+            🌱 Seed Recommendation
+        </h2>
+
+        <div id="dashboardSeedRecommendation">
+
+            <p data-translate="noSeedRecommendation">
+                No seed recommendation yet.
+            </p>
+
+        </div>
+
+        <a
+            href="seed.html"
+            data-translate="openSeedRecommendation">
+
+            🌱 Open Seed Recommendation
+
+        </a>
+
+    </div>
+
+
+
+    <!-- =================================================
+         QUICK ACCESS
+         ================================================= -->
+
+    <section class="quick-access">
+
+        <h2 data-translate="agriTrackTools">
+            🚜 AgriTrack Tools
+        </h2>
+
+        <div class="quick-access-container">
+
+
+            <a
+                href="seed.html"
+                class="quick-card">
+
+                🌱
+
+                <span data-translate="seedRecommendation">
+                    Seed Recommendation
+                </span>
+
+            </a>
+
+
+            <a
+                href="fertilizer.html"
+                class="quick-card">
+
+                🌿
+
+                <span data-translate="organicFertilizer">
+                    Organic Fertilizer
+                </span>
+
+            </a>
+<a href="crop.html" class="quick-card">
+    🌱
+    <span data-translate="smartCropRecommendation">Smart Crop Recommendation</span>
+</a>
+
+            <a
+                href="harvest.html"
+                class="quick-card">
+
+                🌾
+
+                <span data-translate="harvestCalculator">
+                    Harvest Calculator
+                </span>
+
+            </a>
+
+
+            <a
+                href="equipment.html"
+                class="quick-card">
+
+                🚜
+
+                <span data-translate="equipmentRental">
+                    Equipment Rental
+                </span>
+
+            </a>
+
+
+            <a
+                href="crop-rotation.html"
+                class="quick-card">
+
+                🔄
+
+                <span data-translate="cropRotation">
+                    Crop Rotation
+                </span>
+
+            </a>
+
+
+            <a
+                href="weather.html"
+                class="quick-card">
+
+                🌦️
+
+                <span data-translate="weatherTips">
+                    Weather Tips
+                </span>
+
+            </a>
+
+
+            <a
+                href="soil-report.html"
+                class="quick-card">
+
+                🧪
+
+                <span data-translate="soilReport">
+                    Soil Report
+                </span>
+
+            </a>
+
+        </div>
+
+    </section>
+<section class="dashboard-card">
+
+    <h3 data-translate="smartCropRecommendation">🌱 Smart Crop Recommendation</h3>
+
+    <div id="dashboardSmartCrop">
+        <p data-translate="noCropRecommendation">
+            No crop recommendation yet.
+        </p>
+    </div>
+
+</section>
+
+</div>
+
+
+
+<!-- =====================================================
+     SMART FARM ALERTS
+     ===================================================== -->
+
+<div class="card">
+
+    <h3 data-translate="smartAlerts">
+        🔔 Smart Farm Alerts
+    </h3>
+
+    <ul id="alerts">
+
+        <li data-translate="alertSoil">
+            🧪 Soil report information is used for recommendations.
+        </li>
+
+        <li data-translate="alertWeather">
+            🌤 Weather information is used for irrigation guidance.
+        </li>
+
+        <li data-translate="alertCrop">
+            🌱 Crop stage is considered for farm recommendations.
+        </li>
+
+    </ul>
+
+</div>
+
+
+
+<!-- =====================================================
+     FOOTER
+     ===================================================== -->
+
+<footer>
+
+    <p data-translate="footer">
+        © 2026 AgriTrack | Smart Farming Solution
+    </p>
+
+</footer>
+
+
+
+<!-- =====================================================
+     AGRITRACK JAVASCRIPT
+     ===================================================== -->
+
+<script src="assets/js/app.js"></script>
+
+
+
+<!-- =====================================================
+     DASHBOARD LANGUAGE TRANSLATION
+     ===================================================== -->
+
+<script>
+
+function changeDashboardLanguage() {
+
+    const languageSelect =
+        document.getElementById("languageSelect");
+
+    if (!languageSelect) {
+        return;
+    }
+
+    const language =
+        languageSelect.value;
+
+
+    const translations = {
+
+        en: {
+
+            home: "Home",
+            dashboard: "Dashboard",
+            features: "Features",
+            login: "Login",
+
+            smartFarmingDashboard:
+                "Smart Farming Dashboard",
+
+            monitorFarm:
+                "Monitor your farm using intelligent technology",
+
+            lastUpdated:
+                "Last Updated:",
+
+            viewDashboard:
+                "View Dashboard",
+
+            cropStatus:
+                "🌱 Crop Status",
+
+            crop:
+                "Crop:",
+
+            growthStage:
+                "Growth Stage:",
+
+            expectedHarvest:
+                "🌾 Expected Harvest",
+
+            noHarvestCalculated:
+                "No harvest calculated yet.",
+
+            calculateHarvest:
+                "🌾 Calculate Harvest",
+
+            equipmentRental:
+                "🚜 Equipment Rental",
+
+            noRentalCalculated:
+                "No rental calculated yet.",
+
+            calculateRental:
+                "🚜 Calculate Rental",
+
+            cropRotation:
+                "🌱 Crop Rotation",
+
+            noRotationRecommendation:
+                "No rotation recommendation yet.",
+
+            planCropRotation:
+                "🌱 Plan Crop Rotation",
+
+            fertilizerGuide:
+                "🌿 Fertilizer Guide",
+
+            noFertilizerRecommendation:
+                "No fertilizer recommendation yet.",
+
+            viewFertilizerGuide:
+                "🌿 View Fertilizer Guide",
+
+            irrigation:
+                "💧 Irrigation Recommendation",
+
+            nextIrrigation:
+                "Next Irrigation:",
+
+            duration:
+                "Duration:",
+
+            mode:
+                "Method:",
+
+            irrigationApiNote:
+                "Based on crop, crop stage, soil report and weather information.",
+
+            weatherData:
+                "🌤 Weather Information",
+
+            temperature:
+                "🌡 Temperature:",
+
+            windSpeed:
+                "💨 Wind Speed:",
+
+            humidity:
+                "💧 Humidity:",
+
+            rainChance:
+                "🌧 Rain Chance:",
+
+            weatherWaiting:
+                "Waiting for weather API data.",
+
+            openWeather:
+                "🌦️ Open Weather",
+
+            soilReport:
+                "🧪 Soil Report",
+
+            noSoilReport:
+                "No soil report saved yet.",
+
+            openSoilReport:
+                "🧪 Upload Soil Report",
+
+            analytics:
+                "📊 Analytics",
+
+            cropGrowth:
+                "Crop Growth:",
+
+            yieldPrediction:
+                "Yield Prediction:",
+
+            totalExpenses:
+                "Total Expenses:",
+
+            weatherForecast:
+                "🌦️ Weather Forecast",
+
+            seedRecommendation:
+                "🌱 Seed Recommendation",
+
+            smartCropRecommendation:
+                "🌱 Smart Crop Recommendation",
+
+            noCropRecommendation:
+                "No crop recommendation yet.",
+
+            noSeedRecommendation:
+                "No seed recommendation yet.",
+
+            openSeedRecommendation:
+                "🌱 Open Seed Recommendation",
+
+            agriTrackTools:
+                "🚜 AgriTrack Tools",
+
+            organicFertilizer:
+                "Organic Fertilizer",
+
+            harvestCalculator:
+                "Harvest Calculator",
+
+            weatherTips:
+                "Weather Tips",
+
+            smartAlerts:
+                "🔔 Smart Farm Alerts",
+
+            alertSoil:
+                "🧪 Soil report information is used for recommendations.",
+
+            alertWeather:
+                "🌤 Weather information is used for irrigation guidance.",
+
+            alertCrop:
+                "🌱 Crop stage is considered for farm recommendations.",
+
+            footer:
+                "© 2026 AgriTrack | Smart Farming Solution"
+
+        },
+
+
+        mr: {
+
+            home:
+                "मुख्यपृष्ठ",
+
+            dashboard:
+                "डॅशबोर्ड",
+
+            features:
+                "वैशिष्ट्ये",
+
+            login:
+                "लॉगिन",
+
+            smartFarmingDashboard:
+                "स्मार्ट शेती डॅशबोर्ड",
+
+            monitorFarm:
+                "बुद्धिमान तंत्रज्ञानाचा वापर करून तुमच्या शेतीचे निरीक्षण करा",
+
+            lastUpdated:
+                "शेवटचे अपडेट:",
+
+            viewDashboard:
+                "डॅशबोर्ड पहा",
+
+            cropStatus:
+                "🌱 पिकाची स्थिती",
+
+            crop:
+                "पीक:",
+
+            growthStage:
+                "वाढीची अवस्था:",
+
+            expectedHarvest:
+                "🌾 अपेक्षित कापणी",
+
+            noHarvestCalculated:
+                "अजून कापणीची गणना केलेली नाही.",
+
+            calculateHarvest:
+                "🌾 कापणीची गणना करा",
+
+            equipmentRental:
+                "🚜 उपकरण भाडे",
+
+            noRentalCalculated:
+                "अजून भाड्याची गणना केलेली नाही.",
+
+            calculateRental:
+                "🚜 भाड्याची गणना करा",
+
+            cropRotation:
+                "🌱 पीक फेरपालट",
+
+            noRotationRecommendation:
+                "अजून फेरपालट शिफारस उपलब्ध नाही.",
+
+            planCropRotation:
+                "🌱 पीक फेरपालट योजना",
+
+            fertilizerGuide:
+                "🌿 खत मार्गदर्शक",
+
+            noFertilizerRecommendation:
+                "अजून खताची शिफारस उपलब्ध नाही.",
+
+            viewFertilizerGuide:
+                "🌿 खत मार्गदर्शक पहा",
+
+            irrigation:
+                "💧 सिंचन शिफारस",
+
+            nextIrrigation:
+                "पुढील सिंचन:",
+
+            duration:
+                "कालावधी:",
+
+            mode:
+                "पद्धत:",
+
+            irrigationApiNote:
+                "पीक, पिकाची अवस्था, मातीचा अहवाल आणि हवामानाच्या माहितीवर आधारित.",
+
+            weatherData:
+                "🌤 हवामान माहिती",
+
+            temperature:
+                "🌡 तापमान:",
+
+            windSpeed:
+                "💨 वाऱ्याचा वेग:",
+
+            humidity:
+                "💧 आर्द्रता:",
+
+            rainChance:
+                "🌧 पावसाची शक्यता:",
+
+            weatherWaiting:
+                "हवामान API माहितीची प्रतीक्षा आहे.",
+
+            openWeather:
+                "🌦️ हवामान उघडा",
+
+            soilReport:
+                "🧪 मातीचा अहवाल",
+
+            noSoilReport:
+                "अजून मातीचा अहवाल सेव्ह केलेला नाही.",
+
+            openSoilReport:
+                "🧪 मातीचा अहवाल अपलोड करा",
+
+            analytics:
+                "📊 विश्लेषण",
+
+            cropGrowth:
+                "पिकाची वाढ:",
+
+            yieldPrediction:
+                "उत्पादनाचा अंदाज:",
+
+            totalExpenses:
+                "एकूण खर्च:",
+
+            weatherForecast:
+                "🌦️ हवामानाचा अंदाज",
+
+            seedRecommendation:
+                "🌱 बियाणे शिफारस",
+
+            smartCropRecommendation:
+                "🌱 स्मार्ट पीक शिफारस",
+
+            noCropRecommendation:
+                "अजून पिकाची शिफारस उपलब्ध नाही.",
+
+            noSeedRecommendation:
+                "अजून बियाण्याची शिफारस उपलब्ध नाही.",
+
+            openSeedRecommendation:
+                "🌱 बियाणे शिफारस उघडा",
+
+            agriTrackTools:
+                "🚜 AgriTrack साधने",
+
+            organicFertilizer:
+                "सेंद्रिय खत",
+
+            harvestCalculator:
+                "कापणी गणक",
+
+            weatherTips:
+                "हवामान सूचना",
+
+            smartAlerts:
+                "🔔 स्मार्ट शेती सूचना",
+
+            alertSoil:
+                "🧪 मातीच्या अहवालाची माहिती शिफारसींसाठी वापरली जाते.",
+
+            alertWeather:
+                "🌤 सिंचन मार्गदर्शनासाठी हवामानाची माहिती वापरली जाते.",
+
+            alertCrop:
+                "🌱 शेतीच्या शिफारसींसाठी पिकाची अवस्था विचारात घेतली जाते.",
+
+            footer:
+                "© 2026 AgriTrack | स्मार्ट शेती उपाय"
+
+        },
+
+
+        hi: {
+
+            home:
+                "होम",
+
+            dashboard:
+                "डैशबोर्ड",
+
+            features:
+                "विशेषताएँ",
+
+            login:
+                "लॉगिन",
+
+            smartFarmingDashboard:
+                "स्मार्ट खेती डैशबोर्ड",
+
+            monitorFarm:
+                "बुद्धिमान तकनीक का उपयोग करके अपनी खेती की निगरानी करें",
+
+            lastUpdated:
+                "अंतिम अपडेट:",
+
+            viewDashboard:
+                "डैशबोर्ड देखें",
+
+            cropStatus:
+                "🌱 फसल की स्थिति",
+
+            crop:
+                "फसल:",
+
+            growthStage:
+                "वृद्धि अवस्था:",
+
+            expectedHarvest:
+                "🌾 अनुमानित कटाई",
+
+            noHarvestCalculated:
+                "अभी तक कटाई की गणना नहीं की गई है।",
+
+            calculateHarvest:
+                "🌾 कटाई की गणना करें",
+
+            equipmentRental:
+                "🚜 उपकरण किराया",
+
+            noRentalCalculated:
+                "अभी तक किराए की गणना नहीं की गई है।",
+
+            calculateRental:
+                "🚜 किराया गणना करें",
+
+            cropRotation:
+                "🌱 फसल चक्र",
+
+            noRotationRecommendation:
+                "अभी तक फसल चक्र की सलाह उपलब्ध नहीं है।",
+
+            planCropRotation:
+                "🌱 फसल चक्र योजना",
+
+            fertilizerGuide:
+                "🌿 उर्वरक मार्गदर्शिका",
+
+            noFertilizerRecommendation:
+                "अभी तक उर्वरक की सलाह उपलब्ध नहीं है।",
+
+            viewFertilizerGuide:
+                "🌿 उर्वरक मार्गदर्शिका देखें",
+
+            irrigation:
+                "💧 सिंचाई की सलाह",
+
+            nextIrrigation:
+                "अगली सिंचाई:",
+
+            duration:
+                "अवधि:",
+
+            mode:
+                "तरीका:",
+
+            irrigationApiNote:
+                "फसल, फसल की अवस्था, मिट्टी की रिपोर्ट और मौसम की जानकारी पर आधारित।",
+
+            weatherData:
+                "🌤 मौसम की जानकारी",
+
+            temperature:
+                "🌡 तापमान:",
+
+            windSpeed:
+                "💨 हवा की गति:",
+
+            humidity:
+                "💧 आर्द्रता:",
+
+            rainChance:
+                "🌧 बारिश की संभावना:",
+
+            weatherWaiting:
+                "मौसम API की जानकारी की प्रतीक्षा है।",
+
+            openWeather:
+                "🌦️ मौसम खोलें",
+
+            soilReport:
+                "🧪 मिट्टी की रिपोर्ट",
+
+            noSoilReport:
+                "अभी तक मिट्टी की रिपोर्ट सेव नहीं हुई है।",
+
+            openSoilReport:
+                "🧪 मिट्टी की रिपोर्ट अपलोड करें",
+
+            analytics:
+                "📊 विश्लेषण",
+
+            cropGrowth:
+                "फसल की वृद्धि:",
+
+            yieldPrediction:
+                "उत्पादन का अनुमान:",
+
+            totalExpenses:
+                "कुल खर्च:",
+
+            weatherForecast:
+                "🌦️ मौसम का पूर्वानुमान",
+
+            seedRecommendation:
+                "🌱 बीज की सलाह",
+
+            smartCropRecommendation:
+                "🌱 स्मार्ट फसल सलाह",
+
+            noCropRecommendation:
+                "अभी तक फसल की सलाह उपलब्ध नहीं है।",
+
+            noSeedRecommendation:
+                "अभी तक बीज की सलाह उपलब्ध नहीं है।",
+
+            openSeedRecommendation:
+                "🌱 बीज की सलाह खोलें",
+
+            agriTrackTools:
+                "🚜 AgriTrack उपकरण",
+
+            organicFertilizer:
+                "जैविक उर्वरक",
+
+            harvestCalculator:
+                "कटाई कैलकुलेटर",
+
+            weatherTips:
+                "मौसम सुझाव",
+
+            smartAlerts:
+                "🔔 स्मार्ट खेती अलर्ट",
+
+            alertSoil:
+                "🧪 मिट्टी की रिपोर्ट की जानकारी सलाह के लिए उपयोग की जाती है।",
+
+            alertWeather:
+                "🌤 सिंचाई मार्गदर्शन के लिए मौसम की जानकारी उपयोग की जाती है।",
+
+            alertCrop:
+                "🌱 खेती की सलाह के लिए फसल की अवस्था को ध्यान में रखा जाता है।",
+
+            footer:
+                "© 2026 AgriTrack | स्मार्ट खेती समाधान"
+
+        }
+
+    };
+
+
+    const selectedLanguage =
+        translations[language] || translations.en;
+
+
+    document
+        .querySelectorAll("[data-translate]")
+        .forEach(function(element) {
+
+            const key =
+                element.getAttribute("data-translate");
+
+            if (selectedLanguage[key]) {
+
+                element.textContent =
+                    selectedLanguage[key];
+
+            }
+
+        });
+
+
+    document.documentElement.lang =
+        language;
+
+    localStorage.setItem(
+        "selectedLanguage",
+        language
+    );
+
+}
+
+
+
+/* =====================================================
+   SOIL REPORT → DASHBOARD
+   ===================================================== */
+
+function updateDashboardSoilReport() {
+
+    const soilBox =
+        document.getElementById("dashboardSoilReport");
+
+    if (!soilBox) {
+        return;
+    }
+
+
+    const savedSoil =
+        JSON.parse(
+            localStorage.getItem("soilData")
+        );
+
+
+    if (!savedSoil) {
+
+        soilBox.innerHTML = `
+            <p>
+                No soil report saved yet.
+            </p>
+        `;
+
+        return;
+    }
+
+
+    soilBox.innerHTML = `
+
+        <p>
+            <strong>Soil Type:</strong>
+            ${savedSoil.soilType || "Not available"}
+        </p>
+
+        <p>
+            <strong>pH:</strong>
+            ${savedSoil.pH || "Not available"}
+        </p>
+
+        <p>
+            <strong>N:</strong>
+            ${savedSoil.nitrogen || "Not available"}
+        </p>
+
+        <p>
+            <strong>P:</strong>
+            ${savedSoil.phosphorus || "Not available"}
+        </p>
+
+        <p>
+            <strong>K:</strong>
+            ${savedSoil.potassium || "Not available"}
+        </p>
+
+    `;
+
+}
+
+
+
+/* =====================================================
+   WEATHER DATA
+   ===================================================== */
+function updateDashboardWeather() {
+
+    let weatherData = null;
+
+    let soilData = null;
+
+    let selectedCrop = null;
+
+    let selectedStage = null;
+
+
+    // =====================================
+    // READ WEATHER DATA
+    // =====================================
+
+    try {
+
+        weatherData =
+            JSON.parse(
+                localStorage.getItem("weatherData")
+            );
+
+    } catch (error) {
+
+        weatherData = null;
+
+    }
+
+
+    // =====================================
+    // READ SOIL REPORT
+    // =====================================
+
+    try {
+
+        soilData =
+            JSON.parse(
+                localStorage.getItem("soilData")
+            );
+
+    } catch (error) {
+
+        soilData = null;
+
+    }
+
+
+    // =====================================
+    // READ CROP
+    // =====================================
+
+    selectedCrop =
+        localStorage.getItem("selectedCrop");
+
+
+    // =====================================
+    // READ CROP STAGE
+    // =====================================
+
+    try {
+
+        selectedStage =
+            JSON.parse(
+                localStorage.getItem(
+                    "selectedCropStage"
+                )
+            );
+
+    } catch (error) {
+
+        selectedStage = null;
+
+    }
+
+
+    // =====================================
+    // UPDATE WEATHER
+    // =====================================
+
+    if (weatherData) {
+
+        const temperature =
+            document.getElementById(
+                "dashboardTemperature"
+            );
+
+        const wind =
+            document.getElementById(
+                "dashboardWind"
+            );
+
+        const humidity =
+            document.getElementById(
+                "dashboardHumidity"
+            );
+
+        const rain =
+            document.getElementById(
+                "dashboardRain"
+            );
+
+        const forecast =
+            document.getElementById(
+                "weatherForecast"
+            );
+
+        const status =
+            document.getElementById(
+                "weatherApiStatus"
+            );
+
+
+        if (
+            temperature &&
+            weatherData.temperature !== undefined
+        ) {
+
+            temperature.textContent =
+                weatherData.temperature + " °C";
+
+        }
+
+
+        if (
+            wind &&
+            weatherData.wind !== undefined
+        ) {
+
+            wind.textContent =
+                weatherData.wind + " km/h";
+
+        }
+
+
+        if (
+            humidity &&
+            weatherData.humidity !== undefined
+        ) {
+
+            humidity.textContent =
+                weatherData.humidity + "%";
+
+        }
+
+
+        if (
+            rain &&
+            weatherData.rain !== undefined
+        ) {
+
+            rain.textContent =
+                weatherData.rain + "%";
+
+        }
+
+
+        if (
+            forecast &&
+            weatherData.forecast
+        ) {
+
+            forecast.textContent =
+                weatherData.forecast;
+
+        }
+
+
+        if (status) {
+
+            status.textContent =
+                "Weather data updated from API.";
+
+        }
+
+    }
+
+
+    // Irrigation recommendation is handled by assets/js/app.js.
+
+}
+
+
+
+
+/* =====================================================
+   START DASHBOARD
+   ===================================================== */
+
+document.addEventListener(
+    "DOMContentLoaded",
+    function() {
+
+        const languageSelect =
+            document.getElementById(
+                "languageSelect"
+            );
+
+
+        if (languageSelect) {
+
+            languageSelect.value =
+                localStorage.getItem("selectedLanguage") || "en";
+
+            changeDashboardLanguage();
+
+        }
+
+
+        updateDashboardSoilReport();
+
+        updateDashboardWeather();
+
+    }
+);
+
+</script>
+
+
+</body>
+
+</html>

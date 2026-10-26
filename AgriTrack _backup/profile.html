@@ -1,0 +1,654 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile - AgriTrack</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+
+    <style>
+        .account-type-section {
+            text-align: center;
+            margin: 25px auto;
+        }
+
+        .account-type-section h2,
+        .profile-card h2,
+        .vendor-card h2,
+        .profile-summary h2 {
+            color: #2e7d32;
+        }
+
+        .account-type-container {
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+            flex-wrap: wrap;
+        }
+
+        .account-type-card {
+            width: 200px;
+            padding: 20px;
+            background: white;
+            border: 2px solid #ddd;
+            border-radius: 15px;
+            cursor: pointer;
+            transition: 0.3s;
+            text-align: center;
+        }
+
+        .account-type-card:hover {
+            transform: translateY(-5px);
+            border-color: #4caf50;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.15);
+        }
+
+        .account-type-card.selected {
+            border: 3px solid #4caf50;
+            background: #f1f8e9;
+            box-shadow: 0 0 0 3px #c8e6c9;
+        }
+
+        .account-icon {
+            font-size: 50px;
+            margin-bottom: 10px;
+        }
+
+        .account-type-card h3 {
+            margin: 5px 0;
+            color: #2e7d32;
+        }
+
+        .account-type-card p {
+            margin: 5px 0;
+            color: #555;
+        }
+
+        .vendor-container {
+            display: none;
+            max-width: 700px;
+            margin: 25px auto;
+        }
+
+        .vendor-card {
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.10);
+        }
+
+        .vendor-card h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .vendor-card label {
+            display: block;
+            margin-top: 12px;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        .vendor-card input,
+        .vendor-card select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            box-sizing: border-box;
+        }
+
+        .vendor-message {
+            margin-top: 20px;
+            padding: 15px;
+            background: #f1f8e9;
+            border-left: 5px solid #4caf50;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .language-selector {
+            margin: 10px;
+        }
+
+        .language-selector select {
+            padding: 8px;
+            border-radius: 6px;
+        }
+    </style>
+</head>
+
+<body>
+
+<!-- Navigation -->
+<nav>
+    <h2>AgriTrack</h2>
+
+    <ul>
+        <li><a href="index.html" data-translate="home">Home</a></li>
+        <li><a href="dashboard.html" data-translate="dashboard">Dashboard</a></li>
+        <li><a href="crop.html" data-translate="crop">Crop</a></li>
+        <li><a href="farm-data.html" data-translate="farmData">Farm Data</a></li>
+        <li><a href="weather.html" data-translate="weather">Weather</a></li>
+        <li><a href="profile.html" data-translate="profile">Profile</a></li>
+        <li><a href="expenses.html" data-translate="expenses">Expenses</a></li>
+    </ul>
+
+    <div class="language-selector">
+        <label for="languageSelect">🌐</label>
+        <select id="languageSelect" onchange="changeProfileLanguage()">
+            <option value="en">English</option>
+            <option value="mr">मराठी</option>
+            <option value="hi">हिंदी</option>
+        </select>
+    </div>
+</nav>
+
+<!-- Header -->
+<header>
+    <h1 data-translate="profileTitle">👤 AgriTrack Profile</h1>
+    <p data-translate="selectAccountType">Select your account type</p>
+</header>
+<!-- Account Type Selection -->
+<section class="account-type-section">
+    <h2 data-translate="chooseAccountType">Choose Account Type</h2>
+
+    <div class="account-type-container">
+
+        <div class="account-type-card selected"
+             id="farmerAccountCard"
+             onclick="showAccountType('farmer')">
+            <div class="account-icon">👨‍🌾</div>
+            <h3 data-translate="farmer">Farmer</h3>
+            <p data-translate="farmerDescription">
+                Manage crops and farming activities
+            </p>
+        </div>
+
+        <div class="account-type-card"
+             id="vendorAccountCard"
+             onclick="showAccountType('vendor')">
+            <div class="account-icon">🚜</div>
+            <h3 data-translate="vendor">Vendor</h3>
+            <p data-translate="vendorDescription">
+                Provide equipment and farming services
+            </p>
+        </div>
+
+    </div>
+</section>
+
+<!-- Farmer Profile -->
+<div id="farmerProfile">
+
+    <section class="profile-container">
+
+        <!-- Farmer Details -->
+        <div class="profile-card">
+            <h2 data-translate="farmerDetails">👨‍🌾 Farmer Details</h2>
+
+            <label for="farmerName" data-translate="farmerName">Farmer Name</label>
+            <input type="text" id="farmerName" value="Farmer Name" disabled>
+
+            <label for="farmerLocation" data-translate="location">Location</label>
+            <input type="text" id="farmerLocation" value="Maharashtra" disabled>
+
+            <label for="farmArea" data-translate="farmArea">Farm Area</label>
+            <input type="text" id="farmArea" value="5 Acres" disabled>
+        </div>
+
+        <!-- Crop Details -->
+        <div class="profile-card">
+            <h2 data-translate="cropDetails">🌾 Crop Details</h2>
+
+            <label for="mainCrop" data-translate="mainCrop">Main Crop</label>
+            <select id="mainCrop" disabled>
+                <option value="Tomato" data-translate="tomato">Tomato</option>
+                <option value="Wheat" data-translate="wheat">Wheat</option>
+                <option value="Rice" data-translate="rice">Rice</option>
+                <option value="Onion" data-translate="onion">Onion</option>
+                <option value="Cotton" data-translate="cotton">Cotton</option>
+            </select>
+
+            <label for="cropSeason" data-translate="season">Season</label>
+            <select id="cropSeason" disabled>
+                <option value="Kharif" data-translate="kharif">Kharif</option>
+                <option value="Rabi" data-translate="rabi">Rabi</option>
+                <option value="Zaid" data-translate="zaid">Zaid</option>
+            </select>
+
+            <label for="growthStageProfile" data-translate="growthStage">Growth Stage</label>
+            <select id="growthStageProfile" disabled>
+                <option value="Seedling" data-translate="seedling">Seedling</option>
+                <option value="Vegetative Growth" data-translate="vegetativeGrowth">
+                    Vegetative Growth
+                </option>
+                <option value="Flowering" data-translate="flowering">Flowering</option>
+                <option value="Fruit Development" data-translate="fruitDevelopment">
+                    Fruit Development
+                </option>
+                <option value="Harvest" data-translate="harvest">Harvest</option>
+            </select>
+        </div>
+
+        <!-- Soil Information -->
+        <div class="profile-card">
+            <h2 data-translate="soilInformation">🌱 Soil Information</h2>
+
+            <label for="soilType" data-translate="soilType">Soil Type</label>
+            <select id="soilType" disabled>
+                <option value="Black Soil" data-translate="blackSoil">Black Soil</option>
+                <option value="Red Soil" data-translate="redSoil">Red Soil</option>
+                <option value="Alluvial Soil" data-translate="alluvialSoil">
+                    Alluvial Soil
+                </option>
+                <option value="Loamy Soil" data-translate="loamySoil">Loamy Soil</option>
+                <option value="Sandy Soil" data-translate="sandySoil">Sandy Soil</option>
+            </select>
+
+            <label for="profileMoisture" data-translate="moistureLevel">
+                Moisture Level
+            </label>
+            <input type="text" id="profileMoisture" value="65%" disabled>
+
+            <label for="nutrientStatus" data-translate="nutrientStatus">
+                Nutrient Status
+            </label>
+            <select id="nutrientStatus" disabled>
+                <option value="Normal" data-translate="normal">Normal</option>
+                <option value="Low" data-translate="low">Low</option>
+                <option value="High" data-translate="high">High</option>
+            </select>
+        </div>
+
+    </section>
+
+    <!-- Edit and Save Buttons -->
+    <div class="profile-buttons">
+        <button id="editProfileBtn"
+                onclick="enableProfileEditing()"
+                data-translate="editProfile">
+            ✏️ Edit Profile
+        </button>
+
+        <button id="saveProfileBtn"
+                onclick="saveProfile()"
+                style="display:none;"
+                data-translate="saveProfile">
+            💾 Save Profile
+        </button>
+    </div>
+
+    <!-- Farm Summary -->
+    <section class="profile-summary">
+        <h2 data-translate="farmSummary">📊 Farm Summary</h2>
+
+        <div class="summary-container">
+
+            <div class="summary-box">
+                <h3 data-translate="mainCrop">🌾 Main Crop</h3>
+                <h2 id="summaryCrop">Tomato</h2>
+            </div>
+
+            <div class="summary-box">
+                <h3 data-translate="farmArea">📏 Farm Area</h3>
+                <h2 id="summaryArea">5 Acres</h2>
+            </div>
+
+            <div class="summary-box">
+                <h3 data-translate="soil">🌱 Soil</h3>
+                <h2 id="summarySoil">Black Soil</h2>
+            </div>
+
+            <div class="summary-box">
+                <h3 data-translate="moisture">💧 Moisture</h3>
+                <h2 id="summaryMoisture">65%</h2>
+            </div>
+
+        </div>
+    </section>
+
+</div>
+<!-- Vendor Profile -->
+<div id="vendorProfile" class="vendor-container">
+
+    <div class="vendor-card">
+
+        <h2 data-translate="vendorDetails">🚜 Vendor Details</h2>
+
+        <label for="vendorName" data-translate="vendorName">Vendor Name</label>
+        <input
+            type="text"
+            id="vendorName"
+            placeholder="Enter vendor name"
+            data-translate-placeholder="enterVendorName"
+        >
+
+        <label for="vendorLocation" data-translate="vendorLocation">Location</label>
+        <input
+            type="text"
+            id="vendorLocation"
+            placeholder="Enter your location"
+            data-translate-placeholder="enterLocation"
+        >
+
+        <label for="vendorContact" data-translate="contactNumber">Contact Number</label>
+        <input
+            type="tel"
+            id="vendorContact"
+            placeholder="Enter contact number"
+            data-translate-placeholder="enterContact"
+        >
+
+        <label for="vendorEquipment" data-translate="equipmentType">Equipment Type</label>
+        <select id="vendorEquipment">
+            <option value="Tractor" data-translate="tractor">Tractor</option>
+            <option value="Rotavator" data-translate="rotavator">Rotavator</option>
+            <option value="Cultivator" data-translate="cultivator">Cultivator</option>
+            <option value="Harvester" data-translate="harvester">Harvester</option>
+            <option value="Other" data-translate="other">Other</option>
+        </select>
+
+        <div class="vendor-message">
+            <p data-translate="vendorMessage">
+                You can use the vendor section to share your equipment and farming services.
+            </p>
+        </div>
+
+    </div>
+
+</div>
+
+<!-- Footer -->
+<footer>
+    <p data-translate="footerText">
+        © 2026 AgriTrack | Smart Farming Solution
+    </p>
+</footer>
+
+<script>
+const profileTranslations = {
+    en: {
+        home: "Home", dashboard: "Dashboard", crop: "Crop",
+        farmData: "Farm Data", weather: "Weather", profile: "Profile",
+        expenses: "Expenses", profileTitle: "👤 AgriTrack Profile",
+        selectAccountType: "Select your account type",
+        chooseAccountType: "Choose Account Type",
+        farmer: "Farmer", vendor: "Vendor",
+        farmerDescription: "Manage crops and farming activities",
+        vendorDescription: "Provide equipment and farming services",
+        farmerDetails: "👨‍🌾 Farmer Details", farmerName: "Farmer Name",
+        location: "Location", farmArea: "Farm Area",
+        cropDetails: "🌾 Crop Details", mainCrop: "Main Crop",
+        season: "Season", growthStage: "Growth Stage",
+        soilInformation: "🌱 Soil Information", soilType: "Soil Type",
+        moistureLevel: "Moisture Level", nutrientStatus: "Nutrient Status",
+        tomato: "Tomato", wheat: "Wheat", rice: "Rice",
+        onion: "Onion", cotton: "Cotton", kharif: "Kharif",
+        rabi: "Rabi", zaid: "Zaid", seedling: "Seedling",
+        vegetativeGrowth: "Vegetative Growth", flowering: "Flowering",
+        fruitDevelopment: "Fruit Development", harvest: "Harvest",
+        blackSoil: "Black Soil", redSoil: "Red Soil",
+        alluvialSoil: "Alluvial Soil", loamySoil: "Loamy Soil",
+        sandySoil: "Sandy Soil", normal: "Normal",
+        low: "Low", high: "High", editProfile: "✏️ Edit Profile",
+        saveProfile: "💾 Save Profile", farmSummary: "📊 Farm Summary",
+        soil: "🌱 Soil", moisture: "💧 Moisture",
+        vendorDetails: "🚜 Vendor Details", vendorName: "Vendor Name",
+        vendorLocation: "Location", contactNumber: "Contact Number",
+        equipmentType: "Equipment Type", tractor: "Tractor",
+        rotavator: "Rotavator", cultivator: "Cultivator",
+        harvester: "Harvester", other: "Other",
+        vendorMessage: "Use this section to share your equipment and farming services.",
+        enterVendorName: "Enter vendor name",
+        enterLocation: "Enter your location",
+        enterContact: "Enter contact number",
+        footerText: "© 2026 AgriTrack | Smart Farming Solution",
+        profileSaved: "Profile saved successfully!",
+        vendorSaved: "Vendor details saved successfully!"
+    },
+
+    mr: {
+        home: "मुख्यपृष्ठ", dashboard: "डॅशबोर्ड", crop: "पीक",
+        farmData: "शेती माहिती", weather: "हवामान", profile: "प्रोफाइल",
+        expenses: "खर्च", profileTitle: "👤 AgriTrack प्रोफाइल",
+        selectAccountType: "तुमच्या खात्याचा प्रकार निवडा",
+        chooseAccountType: "खात्याचा प्रकार निवडा",
+        farmer: "शेतकरी", vendor: "विक्रेता",
+        farmerDescription: "पिके आणि शेतीचे व्यवस्थापन करा",
+        vendorDescription: "शेतीची उपकरणे आणि सेवा उपलब्ध करा",
+        farmerDetails: "👨‍🌾 शेतकऱ्याची माहिती", farmerName: "शेतकऱ्याचे नाव",
+        location: "ठिकाण", farmArea: "शेतीचे क्षेत्रफळ",
+        cropDetails: "🌾 पिकाची माहिती", mainCrop: "मुख्य पीक",
+        season: "हंगाम", growthStage: "वाढीची अवस्था",
+        soilInformation: "🌱 मातीची माहिती", soilType: "मातीचा प्रकार",
+        moistureLevel: "ओलाव्याची पातळी", nutrientStatus: "पोषकद्रव्यांची स्थिती",
+        tomato: "टोमॅटो", wheat: "गहू", rice: "तांदूळ",
+        onion: "कांदा", cotton: "कापूस", kharif: "खरीप",
+        rabi: "रब्बी", zaid: "उन्हाळी", seedling: "रोप अवस्था",
+        vegetativeGrowth: "वाढीची अवस्था", flowering: "फुलोरा",
+        fruitDevelopment: "फळधारणा", harvest: "कापणी",
+        blackSoil: "काळी माती", redSoil: "लाल माती",
+        alluvialSoil: "गाळाची माती", loamySoil: "पोयट्याची माती",
+        sandySoil: "वालुकामय माती", normal: "सामान्य",
+        low: "कमी", high: "जास्त", editProfile: "✏️ प्रोफाइल बदला",
+        saveProfile: "💾 प्रोफाइल जतन करा", farmSummary: "📊 शेतीचा सारांश",
+        soil: "🌱 माती", moisture: "💧 ओलावा",
+        vendorDetails: "🚜 विक्रेत्याची माहिती", vendorName: "विक्रेत्याचे नाव",
+        vendorLocation: "ठिकाण", contactNumber: "संपर्क क्रमांक",
+        equipmentType: "उपकरणाचा प्रकार", tractor: "ट्रॅक्टर",
+        rotavator: "रोटाव्हेटर", cultivator: "कल्टिव्हेटर",
+        harvester: "कापणी यंत्र", other: "इतर",
+        vendorMessage: "या विभागात तुमची शेतीची उपकरणे आणि सेवा यांची माहिती द्या.",
+        enterVendorName: "विक्रेत्याचे नाव लिहा",
+        enterLocation: "तुमचे ठिकाण लिहा",
+        enterContact: "संपर्क क्रमांक लिहा",
+        footerText: "© 2026 AgriTrack | स्मार्ट शेती उपाय",
+        profileSaved: "प्रोफाइल यशस्वीरित्या जतन झाले!",
+        vendorSaved: "विक्रेत्याची माहिती जतन झाली!"
+    },
+
+    hi: {
+        home: "होम", dashboard: "डैशबोर्ड", crop: "फसल",
+        farmData: "खेत की जानकारी", weather: "मौसम", profile: "प्रोफ़ाइल",
+        expenses: "खर्च", profileTitle: "👤 AgriTrack प्रोफ़ाइल",
+        selectAccountType: "अपने खाते का प्रकार चुनें",
+        chooseAccountType: "खाते का प्रकार चुनें",
+        farmer: "किसान", vendor: "विक्रेता",
+        farmerDescription: "फसलों और खेती का प्रबंधन करें",
+        vendorDescription: "खेती के उपकरण और सेवाएँ उपलब्ध कराएँ",
+        farmerDetails: "👨‍🌾 किसान की जानकारी", farmerName: "किसान का नाम",
+        location: "स्थान", farmArea: "खेत का क्षेत्रफल",
+        cropDetails: "🌾 फसल की जानकारी", mainCrop: "मुख्य फसल",
+        season: "मौसम", growthStage: "विकास की अवस्था",
+        soilInformation: "🌱 मिट्टी की जानकारी", soilType: "मिट्टी का प्रकार",
+        moistureLevel: "नमी का स्तर", nutrientStatus: "पोषक तत्वों की स्थिति",
+        tomato: "टमाटर", wheat: "गेहूँ", rice: "चावल",
+        onion: "प्याज़", cotton: "कपास", kharif: "खरीफ",
+        rabi: "रबी", zaid: "जायद", seedling: "पौध अवस्था",
+        vegetativeGrowth: "वनस्पतिक वृद्धि", flowering: "फूल आने की अवस्था",
+        fruitDevelopment: "फल विकास", harvest: "कटाई",
+        blackSoil: "काली मिट्टी", redSoil: "लाल मिट्टी",
+        alluvialSoil: "जलोढ़ मिट्टी", loamySoil: "दोमट मिट्टी",
+        sandySoil: "रेतीली मिट्टी", normal: "सामान्य",
+        low: "कम", high: "अधिक", editProfile: "✏️ प्रोफ़ाइल बदलें",
+        saveProfile: "💾 प्रोफ़ाइल सेव करें", farmSummary: "📊 खेत का सारांश",
+        soil: "🌱 मिट्टी", moisture: "💧 नमी",
+        vendorDetails: "🚜 विक्रेता की जानकारी", vendorName: "विक्रेता का नाम",
+        vendorLocation: "स्थान", contactNumber: "संपर्क नंबर",
+        equipmentType: "उपकरण का प्रकार", tractor: "ट्रैक्टर",
+        rotavator: "रोटावेटर", cultivator: "कल्टीवेटर",
+        harvester: "हार्वेस्टर", other: "अन्य",
+        vendorMessage: "इस भाग में अपने खेती के उपकरणों और सेवाओं की जानकारी दें।",
+        enterVendorName: "विक्रेता का नाम दर्ज करें",
+        enterLocation: "अपना स्थान दर्ज करें",
+        enterContact: "संपर्क नंबर दर्ज करें",
+        footerText: "© 2026 AgriTrack | स्मार्ट खेती समाधान",
+        profileSaved: "प्रोफ़ाइल सफलतापूर्वक सेव हुई!",
+        vendorSaved: "विक्रेता की जानकारी सेव हुई!"
+    }
+};
+
+function changeProfileLanguage() {
+    const language = document.getElementById("languageSelect").value;
+    localStorage.setItem("selectedLanguage", language);
+    applyProfileLanguage(language);
+}
+
+function applyProfileLanguage(language) {
+    const translations = profileTranslations[language] || profileTranslations.en;
+
+    document.querySelectorAll("[data-translate]").forEach(element => {
+        const key = element.getAttribute("data-translate");
+        if (translations[key]) {
+            element.textContent = translations[key];
+        }
+    });
+
+    document.querySelectorAll("[data-translate-placeholder]").forEach(element => {
+        const key = element.getAttribute("data-translate-placeholder");
+        if (translations[key]) {
+            element.placeholder = translations[key];
+        }
+    });
+
+    document.documentElement.lang = language;
+}
+
+function showAccountType(type) {
+    const farmerProfile = document.getElementById("farmerProfile");
+    const vendorProfile = document.getElementById("vendorProfile");
+
+    farmerProfile.style.display = type === "farmer" ? "block" : "none";
+    vendorProfile.style.display = type === "vendor" ? "block" : "none";
+
+    document.getElementById("farmerAccountCard")
+        .classList.toggle("selected", type === "farmer");
+    document.getElementById("vendorAccountCard")
+        .classList.toggle("selected", type === "vendor");
+
+    localStorage.setItem("accountType", type);
+}
+
+function enableProfileEditing() {
+    [
+        "farmerName",
+        "farmerLocation",
+        "farmArea",
+        "mainCrop",
+        "cropSeason",
+        "growthStageProfile",
+        "soilType",
+        "nutrientStatus"
+    ].forEach(id => {
+        document.getElementById(id).disabled = false;
+    });
+
+    document.getElementById("editProfileBtn").style.display = "none";
+    document.getElementById("saveProfileBtn").style.display = "inline-block";
+}
+
+function updateFarmSummary() {
+    document.getElementById("summaryCrop").textContent =
+        document.getElementById("mainCrop").value;
+
+    document.getElementById("summaryArea").textContent =
+        document.getElementById("farmArea").value;
+
+    document.getElementById("summarySoil").textContent =
+        document.getElementById("soilType").value;
+
+    document.getElementById("summaryMoisture").textContent =
+        document.getElementById("profileMoisture").value;
+}
+
+function saveProfile() {
+    const profile = {
+        farmerName: document.getElementById("farmerName").value,
+        farmerLocation: document.getElementById("farmerLocation").value,
+        farmArea: document.getElementById("farmArea").value,
+        mainCrop: document.getElementById("mainCrop").value,
+        cropSeason: document.getElementById("cropSeason").value,
+        growthStageProfile: document.getElementById("growthStageProfile").value,
+        soilType: document.getElementById("soilType").value,
+        profileMoisture: document.getElementById("profileMoisture").value,
+        nutrientStatus: document.getElementById("nutrientStatus").value
+    };
+
+    localStorage.setItem("farmerProfile", JSON.stringify(profile));
+
+    [
+        "farmerName",
+        "farmerLocation",
+        "farmArea",
+        "mainCrop",
+        "cropSeason",
+        "growthStageProfile",
+        "soilType",
+        "nutrientStatus"
+    ].forEach(id => {
+        document.getElementById(id).disabled = true;
+    });
+
+    document.getElementById("editProfileBtn").style.display = "inline-block";
+    document.getElementById("saveProfileBtn").style.display = "none";
+
+    updateFarmSummary();
+
+    alert((profileTranslations[localStorage.getItem("selectedLanguage")] ||
+        profileTranslations.en).profileSaved);
+}
+
+function saveVendorProfile() {
+    const vendor = {
+        vendorName: document.getElementById("vendorName").value.trim(),
+        vendorLocation: document.getElementById("vendorLocation").value.trim(),
+        vendorContact: document.getElementById("vendorContact").value.trim(),
+        vendorEquipment: document.getElementById("vendorEquipment").value
+    };
+
+    localStorage.setItem("vendorProfile", JSON.stringify(vendor));
+
+    const language = localStorage.getItem("selectedLanguage") || "en";
+    alert(profileTranslations[language].vendorSaved);
+}
+
+document.addEventListener("DOMContentLoaded", function () {
+    const savedLanguage = localStorage.getItem("selectedLanguage") || "en";
+    document.getElementById("languageSelect").value = savedLanguage;
+    applyProfileLanguage(savedLanguage);
+
+    const savedProfile = localStorage.getItem("farmerProfile");
+
+    if (savedProfile) {
+        const profile = JSON.parse(savedProfile);
+
+        Object.keys(profile).forEach(key => {
+            const element = document.getElementById(key);
+            if (element) element.value = profile[key];
+        });
+    }
+
+    updateFarmSummary();
+
+    const accountType = localStorage.getItem("accountType") || "farmer";
+    showAccountType(accountType);
+
+    const savedVendor = localStorage.getItem("vendorProfile");
+
+    if (savedVendor) {
+        const vendor = JSON.parse(savedVendor);
+
+        Object.keys(vendor).forEach(key => {
+            const element = document.getElementById(key);
+            if (element) element.value = vendor[key];
+        });
+    }
+});
+</script>
+
+<script src="assets/js/app.js"></script>
+
+</body>
+</html>

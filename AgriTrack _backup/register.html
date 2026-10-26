@@ -1,0 +1,183 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AgriTrack Register</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+
+<body>
+
+<header>
+    <h1>🌱 AgriTrack</h1>
+    <p data-translate="headerSubtitle">Create your AgriTrack account</p>
+
+    <label for="languageSelect" data-translate="languageLabel">Language:</label>
+    <select id="languageSelect" onchange="changeRegisterLanguage()">
+        <option value="en">English</option>
+        <option value="mr">मराठी</option>
+        <option value="hi">हिन्दी</option>
+    </select>
+</header>
+
+<div class="container">
+    <div class="card">
+
+        <h2 data-translate="registerTitle">Register</h2>
+
+        <label for="accountType" data-translate="accountTypeLabel">Account Type</label>
+        <select id="accountType">
+            <option value="farmer" data-translate="farmerOption">Farmer</option>
+            <option value="vendor" data-translate="vendorOption">Vendor</option>
+        </select>
+        <br><br>
+
+        <label for="registerName" data-translate="nameLabel">Full Name</label>
+        <input type="text" id="registerName"
+               data-translate-placeholder="namePlaceholder"
+               placeholder="Enter your full name" required>
+        <br><br>
+
+        <label for="registerMobile" data-translate="mobileLabel">Mobile Number</label>
+        <input type="tel" id="registerMobile"
+               data-translate-placeholder="mobilePlaceholder"
+               placeholder="Enter mobile number" required>
+        <br><br>
+
+        <label for="registerEmail" data-translate="emailLabel">Email</label>
+        <input type="email" id="registerEmail"
+               data-translate-placeholder="emailPlaceholder"
+               placeholder="Enter email address" required>
+        <br><br>
+
+        <label for="registerPassword" data-translate="passwordLabel">Create Password</label>
+        <input type="password" id="registerPassword"
+               data-translate-placeholder="passwordPlaceholder"
+               placeholder="Create a password" required>
+        <br><br>
+
+        <button type="button" onclick="registerUser()" data-translate="registerButton">
+            Register
+        </button>
+
+        <p id="registerMessage" aria-live="polite"></p>
+
+        <p>
+            <span data-translate="alreadyRegistered">Already registered?</span>
+            <a href="login.html" data-translate="loginLink">Login here</a>
+        </p>
+
+        <p>
+            <a href="index.html" data-translate="backHome">← Back to Home</a>
+        </p>
+
+    </div>
+</div>
+
+<footer>
+    <p data-translate="footerText">© 2026 AgriTrack | Smart Farming Solution</p>
+</footer>
+
+<script>
+const registerTranslations = {
+    en: {
+        headerSubtitle: "Create your AgriTrack account",
+        languageLabel: "Language:",
+        registerTitle: "Register",
+        accountTypeLabel: "Account Type",
+        farmerOption: "Farmer",
+        vendorOption: "Vendor",
+        nameLabel: "Full Name",
+        namePlaceholder: "Enter your full name",
+        mobileLabel: "Mobile Number",
+        mobilePlaceholder: "Enter mobile number",
+        emailLabel: "Email",
+        emailPlaceholder: "Enter email address",
+        passwordLabel: "Create Password",
+        passwordPlaceholder: "Create a password",
+        registerButton: "Register",
+        alreadyRegistered: "Already registered?",
+        loginLink: "Login here",
+        backHome: "← Back to Home",
+        footerText: "© 2026 AgriTrack | Smart Farming Solution"
+    },
+    mr: {
+        headerSubtitle: "तुमचे AgriTrack खाते तयार करा",
+        languageLabel: "भाषा:",
+        registerTitle: "नोंदणी",
+        accountTypeLabel: "खात्याचा प्रकार",
+        farmerOption: "शेतकरी",
+        vendorOption: "विक्रेता",
+        nameLabel: "पूर्ण नाव",
+        namePlaceholder: "तुमचे पूर्ण नाव टाका",
+        mobileLabel: "मोबाईल क्रमांक",
+        mobilePlaceholder: "मोबाईल क्रमांक टाका",
+        emailLabel: "ईमेल",
+        emailPlaceholder: "ईमेल पत्ता टाका",
+        passwordLabel: "पासवर्ड तयार करा",
+        passwordPlaceholder: "पासवर्ड तयार करा",
+        registerButton: "नोंदणी करा",
+        alreadyRegistered: "आधीच नोंदणी केली आहे?",
+        loginLink: "येथे लॉगिन करा",
+        backHome: "← मुख्यपृष्ठावर परत जा",
+        footerText: "© 2026 AgriTrack | स्मार्ट शेती उपाय"
+    },
+    hi: {
+        headerSubtitle: "अपना AgriTrack खाता बनाएँ",
+        languageLabel: "भाषा:",
+        registerTitle: "पंजीकरण",
+        accountTypeLabel: "खाते का प्रकार",
+        farmerOption: "किसान",
+        vendorOption: "विक्रेता",
+        nameLabel: "पूरा नाम",
+        namePlaceholder: "अपना पूरा नाम दर्ज करें",
+        mobileLabel: "मोबाइल नंबर",
+        mobilePlaceholder: "मोबाइल नंबर दर्ज करें",
+        emailLabel: "ईमेल",
+        emailPlaceholder: "ईमेल पता दर्ज करें",
+        passwordLabel: "पासवर्ड बनाएँ",
+        passwordPlaceholder: "पासवर्ड बनाएँ",
+        registerButton: "पंजीकरण करें",
+        alreadyRegistered: "पहले से पंजीकृत हैं?",
+        loginLink: "यहाँ लॉगिन करें",
+        backHome: "← होम पेज पर वापस जाएँ",
+        footerText: "© 2026 AgriTrack | स्मार्ट खेती समाधान"
+    }
+};
+
+function changeRegisterLanguage() {
+    const language = document.getElementById("languageSelect").value;
+    const translations = registerTranslations[language] || registerTranslations.en;
+
+    document.documentElement.lang = language;
+    localStorage.setItem("selectedLanguage", language);
+
+    document.querySelectorAll("[data-translate]").forEach(element => {
+        const key = element.getAttribute("data-translate");
+        if (translations[key]) {
+            element.textContent = translations[key];
+        }
+    });
+
+    document.querySelectorAll("[data-translate-placeholder]").forEach(element => {
+        const key = element.getAttribute("data-translate-placeholder");
+        if (translations[key]) {
+            element.placeholder = translations[key];
+        }
+    });
+}
+
+document.addEventListener("DOMContentLoaded", function () {
+    const savedLanguage = localStorage.getItem("selectedLanguage") || "en";
+    document.getElementById("languageSelect").value = savedLanguage;
+    changeRegisterLanguage();
+});
+</script>
+
+<script src="assets/js/app.js"></script>
+
+</body>
+</html>

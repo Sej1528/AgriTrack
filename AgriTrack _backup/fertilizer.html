@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Organic Fertilizer Guide - AgriTrack</title>
+
+    <link rel="stylesheet"
+          href="assets/css/style.css">
+
+</head>
+
+<body>
+
+
+<!-- Navigation -->
+
+<nav>
+
+    <h2>AgriTrack</h2>
+
+    <ul>
+
+        <li>
+            <a href="index.html">Home</a>
+        </li>
+
+        <li>
+            <a href="dashboard.html">Dashboard</a>
+        </li>
+
+        <li>
+            <a href="crop.html">Crop</a>
+        </li>
+
+        <li>
+            <a href="iot.html">IoT</a>
+        </li>
+
+        <li>
+            <a href="profile.html">Profile</a>
+        </li>
+
+        <li>
+            <a href="expenses.html">Expenses</a>
+        </li>
+
+        <li>
+            <a href="seed.html">Seeds</a>
+        </li>
+
+        <li>
+            <a href="fertilizer.html">Fertilizer</a>
+        </li>
+
+    </ul>
+
+</nav>
+
+
+<!-- Header -->
+
+<header>
+
+    <h1>🌿 Organic Fertilizer Guide</h1>
+
+    <p>
+        Find suitable organic fertilizers for your crop
+    </p>
+
+</header>
+
+
+<!-- Main Container -->
+
+<div class="container">
+
+
+    <!-- Crop Selection -->
+
+    <div class="card">
+
+        <h2>🌱 Select Your Crop</h2>
+
+
+        <label for="fertilizerCrop">
+            Crop
+        </label>
+
+
+        <select id="fertilizerCrop">
+
+            <option value="">
+                -- Select Crop --
+            </option>
+
+            <option value="Tomato">
+                🍅 Tomato
+            </option>
+
+            <option value="Potato">
+                🥔 Potato
+            </option>
+
+            <option value="Rice">
+                🌾 Rice
+            </option>
+
+            <option value="Wheat">
+                🌾 Wheat
+            </option>
+
+        </select>
+
+
+        <br><br>
+
+
+        <button
+            onclick="showFertilizerGuide()">
+
+            🌿 Get Fertilizer Guide
+
+        </button>
+
+    </div>
+
+
+    <!-- Fertilizer Result -->
+
+    <div class="card">
+
+        <h2>🧪 Organic Fertilizer Recommendation</h2>
+
+
+        <div id="fertilizerRecommendation">
+
+            <p>
+                Select a crop to view its
+                organic fertilizer recommendation.
+            </p>
+
+        </div>
+
+    </div>
+
+
+</div>
+
+
+<!-- Footer -->
+
+<footer>
+
+    <p>
+        © 2026 AgriTrack |
+        Smart Farming Solution
+    </p>
+
+</footer>
+
+
+<!-- JavaScript -->
+
+<script src="assets/js/app.js"></script>
+
+</body>
+
+</html>

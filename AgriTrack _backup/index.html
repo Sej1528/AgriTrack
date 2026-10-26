@@ -1,0 +1,660 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>AgriTrack | Smart Agriculture Management System</title>
+
+    <link
+        rel="stylesheet"
+        href="assets/css/style.css"
+    >
+    
+<link rel="manifest" href="./manifest.json">
+<meta name="theme-color" content="#2e7d32">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link rel="icon" type="image/png" href="./icons/icon-192.png">
+</head>
+
+
+<body>
+
+
+    <!-- Navigation Bar -->
+
+    <nav>
+
+        <h2>AgriTrack</h2>
+
+        <ul>
+
+            <li>
+                <a
+                    href="index.html"
+                    data-translate="home"
+                >
+                    Home
+                </a>
+            </li>
+
+            <li>
+                <a
+                    href="dashboard.html"
+                    data-translate="dashboard"
+                >
+                    Dashboard
+                </a>
+            </li>
+
+            <li>
+                <a
+                    href="#features"
+                    data-translate="features"
+                >
+                    Features
+                </a>
+            </li>
+
+            <li>
+                <a
+                    href="#contact"
+                    data-translate="contact"
+                >
+                    Contact
+                </a>
+            </li>
+
+            <li>
+                <a
+                    href="login.html"
+                    data-translate="login"
+                >
+                    Login
+                </a>
+            </li>
+
+            <li>
+
+                <select
+                    id="languageSelect"
+                    onchange="changeLanguage()"
+                    aria-label="Select Language"
+                >
+
+                    <option value="en">
+                        English
+                    </option>
+
+                    <option value="mr">
+                        मराठी
+                    </option>
+
+                    <option value="hi">
+                        हिंदी
+                    </option>
+
+                </select>
+
+            </li>
+
+        </ul>
+
+    </nav>
+
+
+
+    <!-- Hero Section -->
+
+    <section class="hero">
+
+        <div class="hero-text">
+
+            <h1>
+                AgriTrack
+            </h1>
+
+
+            <h2 data-translate="heroTitle">
+                Smart Agriculture Management System
+            </h2>
+
+
+            <p data-translate="heroDescription">
+
+                Empowering farmers with smart technology,
+                weather information, crop management,
+                intelligent recommendations and
+                data-driven farming solutions.
+
+            </p>
+
+
+            <div class="hero-buttons">
+
+                <a href="dashboard.html">
+
+                    <button data-translate="viewDashboard">
+                        View Dashboard
+                    </button>
+
+                </a>
+
+
+                <a href="#features">
+
+                    <button data-translate="exploreFeatures">
+                        Explore Features
+                    </button>
+
+                </a>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- Features Section -->
+
+    <section
+        class="features"
+        id="features"
+    >
+
+        <h2 data-translate="smartFarmingFeatures">
+            Our Smart Farming Features
+        </h2>
+
+
+        <p
+            class="section-description"
+            data-translate="featuresDescription"
+        >
+
+            Smart tools designed to help farmers
+            monitor, manage and improve their
+            farming activities.
+
+        </p>
+
+
+
+        <div class="features-container">
+
+
+            <!-- Feature 1 -->
+
+            <div class="card">
+
+                <h3 data-translate="cropMonitoring">
+                    🌱 Crop Monitoring
+                </h3>
+
+                <p data-translate="cropMonitoringDesc">
+
+                    Track crop growth stages and monitor
+                    overall plant health.
+
+                </p>
+
+            </div>
+
+
+
+            <!-- Feature 2 -->
+
+            <div class="card">
+
+                <h3 data-translate="smartIrrigation">
+                    💧 Smart Irrigation
+                </h3>
+
+                <p data-translate="smartIrrigationDesc">
+
+                    Manage water efficiently using
+                    weather information, soil data
+                    and crop requirements.
+
+                </p>
+
+            </div>
+
+
+
+            <!-- Feature 3 -->
+
+            <div class="card">
+
+                <h3 data-translate="farmData">
+                    📡 Farm Data & API Monitoring
+                </h3>
+
+                <p data-translate="farmDataDesc">
+
+                    Use weather API information and
+                    saved soil report data for
+                    smart farming decisions.
+
+                </p>
+
+            </div>
+
+
+
+            <!-- Feature 4 -->
+
+            <div class="card">
+
+                <h3 data-translate="fertigationManagement">
+                    🌾 Fertigation Management
+                </h3>
+
+                <p data-translate="fertigationManagementDesc">
+
+                    Provide nutrients according to
+                    different crop growth stages.
+
+                </p>
+
+            </div>
+
+
+
+            <!-- Feature 5 -->
+
+            <div class="card">
+
+                <h3 data-translate="weatherAlerts">
+                    🌦 Weather Alerts
+                </h3>
+
+                <p data-translate="weatherAlertsDesc">
+
+                    Get weather updates and useful
+                    farming suggestions.
+
+                </p>
+
+            </div>
+
+
+
+            <!-- Feature 6 -->
+
+            <div class="card">
+
+                <h3 data-translate="analytics">
+                    📊 Analytics
+                </h3>
+
+                <p data-translate="analyticsDesc">
+
+                    Analyze farming data to improve
+                    productivity and decision-making.
+
+                </p>
+
+            </div>
+
+
+        </div>
+
+    </section>
+
+
+
+    <!-- Contact Section -->
+
+    <section
+        class="contact"
+        id="contact"
+    >
+
+        <h2 data-translate="contactAgriTrack">
+            Contact AgriTrack
+        </h2>
+
+
+        <p data-translate="contactDescription">
+
+            Have questions about smart farming?
+            Get in touch with us.
+
+        </p>
+
+    </section>
+
+
+
+    <!-- Footer -->
+
+    <footer>
+
+        <p data-translate="footer">
+
+            © 2026 AgriTrack | Smart Farming Solution
+
+        </p>
+
+    </footer>
+
+
+
+    <!-- Language Script -->
+
+    <script>
+
+        const translations = {
+
+            en: {
+
+                home: "Home",
+
+                dashboard: "Dashboard",
+
+                features: "Features",
+
+                contact: "Contact",
+
+                login: "Login",
+
+                heroTitle:
+                    "Smart Agriculture Management System",
+
+                heroDescription:
+                    "Empowering farmers with smart technology, weather information, crop management, intelligent recommendations and data-driven farming solutions.",
+
+                viewDashboard:
+                    "View Dashboard",
+
+                exploreFeatures:
+                    "Explore Features",
+
+                smartFarmingFeatures:
+                    "Our Smart Farming Features",
+
+                featuresDescription:
+                    "Smart tools designed to help farmers monitor, manage and improve their farming activities.",
+
+                cropMonitoring:
+                    "🌱 Crop Monitoring",
+
+                cropMonitoringDesc:
+                    "Track crop growth stages and monitor overall plant health.",
+
+                smartIrrigation:
+                    "💧 Smart Irrigation",
+
+                smartIrrigationDesc:
+                    "Manage water efficiently using weather information, soil data and crop requirements.",
+
+                farmData:
+                    "📡 Farm Data & API Monitoring",
+
+                farmDataDesc:
+                    "Use weather API information and saved soil report data for smart farming decisions.",
+
+                fertigationManagement:
+                    "🌾 Fertigation Management",
+
+                fertigationManagementDesc:
+                    "Provide nutrients according to different crop growth stages.",
+
+                weatherAlerts:
+                    "🌦 Weather Alerts",
+
+                weatherAlertsDesc:
+                    "Get weather updates and useful farming suggestions.",
+
+                analytics:
+                    "📊 Analytics",
+
+                analyticsDesc:
+                    "Analyze farming data to improve productivity and decision-making.",
+
+                contactAgriTrack:
+                    "Contact AgriTrack",
+
+                contactDescription:
+                    "Have questions about smart farming? Get in touch with us.",
+
+                footer:
+                    "© 2026 AgriTrack | Smart Farming Solution"
+
+            },
+
+
+            mr: {
+
+                home: "मुख्यपृष्ठ",
+
+                dashboard: "डॅशबोर्ड",
+
+                features: "वैशिष्ट्ये",
+
+                contact: "संपर्क",
+
+                login: "लॉगिन",
+
+                heroTitle:
+                    "स्मार्ट शेती व्यवस्थापन प्रणाली",
+
+                heroDescription:
+                    "स्मार्ट तंत्रज्ञान, हवामानाची माहिती, पीक व्यवस्थापन, बुद्धिमान शिफारसी आणि माहितीवर आधारित शेती उपायांद्वारे शेतकऱ्यांना सक्षम करणे.",
+
+                viewDashboard:
+                    "डॅशबोर्ड पहा",
+
+                exploreFeatures:
+                    "वैशिष्ट्ये पहा",
+
+                smartFarmingFeatures:
+                    "आमची स्मार्ट शेती वैशिष्ट्ये",
+
+                featuresDescription:
+                    "शेतकऱ्यांना त्यांच्या शेतीच्या कामांचे निरीक्षण, व्यवस्थापन आणि सुधारणा करण्यास मदत करणारी स्मार्ट साधने.",
+
+                cropMonitoring:
+                    "🌱 पीक निरीक्षण",
+
+                cropMonitoringDesc:
+                    "पिकाच्या वाढीच्या टप्प्यांचा मागोवा घ्या आणि पिकाच्या एकूण आरोग्याचे निरीक्षण करा.",
+
+                smartIrrigation:
+                    "💧 स्मार्ट सिंचन",
+
+                smartIrrigationDesc:
+                    "हवामानाची माहिती, मातीची माहिती आणि पिकाच्या गरजेनुसार पाण्याचा कार्यक्षम वापर करा.",
+
+                farmData:
+                    "📡 शेती माहिती आणि API निरीक्षण",
+
+                farmDataDesc:
+                    "स्मार्ट शेतीसाठी हवामान API आणि जतन केलेल्या मातीच्या अहवालातील माहितीचा वापर करा.",
+
+                fertigationManagement:
+                    "🌾 खत व्यवस्थापन",
+
+                fertigationManagementDesc:
+                    "पिकाच्या वेगवेगळ्या वाढीच्या टप्प्यांनुसार पोषक द्रव्ये द्या.",
+
+                weatherAlerts:
+                    "🌦 हवामान सूचना",
+
+                weatherAlertsDesc:
+                    "हवामानाची माहिती आणि उपयुक्त शेतीविषयक सूचना मिळवा.",
+
+                analytics:
+                    "📊 विश्लेषण",
+
+                analyticsDesc:
+                    "उत्पादनक्षमता आणि निर्णयक्षमता सुधारण्यासाठी शेतीच्या माहितीचे विश्लेषण करा.",
+
+                contactAgriTrack:
+                    "AgriTrack शी संपर्क साधा",
+
+                contactDescription:
+                    "स्मार्ट शेतीबद्दल काही प्रश्न आहेत? आमच्याशी संपर्क साधा.",
+
+                footer:
+                    "© 2026 AgriTrack | स्मार्ट शेती उपाय"
+
+            },
+
+
+            hi: {
+
+                home: "होम",
+
+                dashboard: "डैशबोर्ड",
+
+                features: "विशेषताएँ",
+
+                contact: "संपर्क",
+
+                login: "लॉगिन",
+
+                heroTitle:
+                    "स्मार्ट कृषि प्रबंधन प्रणाली",
+
+                heroDescription:
+                    "स्मार्ट तकनीक, मौसम की जानकारी, फसल प्रबंधन, बुद्धिमान सुझाव और डेटा आधारित कृषि समाधानों के माध्यम से किसानों को सक्षम बनाना।",
+
+                viewDashboard:
+                    "डैशबोर्ड देखें",
+
+                exploreFeatures:
+                    "विशेषताएँ देखें",
+
+                smartFarmingFeatures:
+                    "हमारी स्मार्ट कृषि सुविधाएँ",
+
+                featuresDescription:
+                    "किसानों को अपनी कृषि गतिविधियों की निगरानी, प्रबंधन और सुधार करने में मदद करने वाले स्मार्ट उपकरण।",
+
+                cropMonitoring:
+                    "🌱 फसल निगरानी",
+
+                cropMonitoringDesc:
+                    "फसल की वृद्धि के चरणों को ट्रैक करें और फसल के स्वास्थ्य की निगरानी करें।",
+
+                smartIrrigation:
+                    "💧 स्मार्ट सिंचाई",
+
+                smartIrrigationDesc:
+                    "मौसम की जानकारी, मिट्टी के डेटा और फसल की आवश्यकताओं के अनुसार पानी का कुशल उपयोग करें।",
+
+                farmData:
+                    "📡 कृषि डेटा और API निगरानी",
+
+                farmDataDesc:
+                    "स्मार्ट कृषि निर्णयों के लिए मौसम API और सुरक्षित मिट्टी रिपोर्ट डेटा का उपयोग करें।",
+
+                fertigationManagement:
+                    "🌾 उर्वरक प्रबंधन",
+
+                fertigationManagementDesc:
+                    "फसल की विभिन्न वृद्धि अवस्थाओं के अनुसार पोषक तत्व प्रदान करें।",
+
+                weatherAlerts:
+                    "🌦 मौसम चेतावनी",
+
+                weatherAlertsDesc:
+                    "मौसम की जानकारी और उपयोगी कृषि सुझाव प्राप्त करें।",
+
+                analytics:
+                    "📊 विश्लेषण",
+
+                analyticsDesc:
+                    "उत्पादकता और निर्णय लेने में सुधार के लिए कृषि डेटा का विश्लेषण करें।",
+
+                contactAgriTrack:
+                    "AgriTrack से संपर्क करें",
+
+                contactDescription:
+                    "स्मार्ट कृषि के बारे में कोई प्रश्न है? हमसे संपर्क करें।",
+
+                footer:
+                    "© 2026 AgriTrack | स्मार्ट कृषि समाधान"
+
+            }
+
+        };
+
+
+        function changeLanguage() {
+
+            const language =
+                document.getElementById(
+                    "languageSelect"
+                ).value;
+
+            const elements =
+                document.querySelectorAll(
+                    "[data-translate]"
+                );
+
+            elements.forEach(function (element) {
+
+                const key =
+                    element.getAttribute(
+                        "data-translate"
+                    );
+
+                if (
+                    translations[language] &&
+                    translations[language][key]
+                ) {
+
+                    element.textContent =
+                        translations[language][key];
+
+                }
+
+            });
+
+            localStorage.setItem(
+                "selectedLanguage",
+                language
+            );
+
+            document.documentElement.lang =
+                language;
+
+        }
+
+
+        document.addEventListener(
+            "DOMContentLoaded",
+            function () {
+
+                const savedLanguage =
+                    localStorage.getItem(
+                        "selectedLanguage"
+                    ) || "en";
+
+                document.getElementById(
+                    "languageSelect"
+                ).value = savedLanguage;
+
+                changeLanguage();
+
+            }
+        );
+
+</script>
+
+<script src="./aws/assets/js/app.js" defer></script>
+</body>
+
+</html>

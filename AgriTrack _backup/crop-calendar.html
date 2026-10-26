@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Crop Calendar - AgriTrack</title>
+
+    <link rel="stylesheet"
+          href="assets/css/style.css">
+</head>
+
+<body>
+
+    <!-- Navigation -->
+    <nav>
+
+        <h2>AgriTrack</h2>
+
+        <ul>
+
+            <li>
+                <a href="index.html">Home</a>
+            </li>
+
+            <li>
+                <a href="dashboard.html">Dashboard</a>
+            </li>
+
+            <li>
+                <a href="crop-calendar.html">
+                    Crop Calendar
+                </a>
+            </li>
+
+            <li>
+                <a href="irrigation.html">
+                    Irrigation
+                </a>
+            </li>
+
+        </ul>
+
+    </nav>
+
+
+    <!-- Header -->
+    <header>
+
+        <h1>🌱 Crop Calendar</h1>
+
+        <p>
+            Track crop growth and important farming activities
+        </p>
+
+    </header>
+
+
+    <!-- Main Container -->
+    <div class="container">
+
+        <!-- Crop Selection -->
+        <div class="card">
+
+            <h2>🌾 Select Your Crop</h2>
+
+            <label for="cropCalendarSelect">
+                Choose Crop:
+            </label>
+
+            <select id="cropCalendarSelect">
+
+                <option value="">
+                    -- Select Crop --
+                </option>
+
+                <option value="tomato">
+                    Tomato
+                </option>
+
+                <option value="potato">
+                    Potato
+                </option>
+
+                <option value="rice">
+                    Rice
+                </option>
+
+                <option value="wheat">
+                    Wheat
+                </option>
+
+            </select>
+
+        </div>
+
+
+        <!-- Crop Information -->
+        <div class="card">
+
+            <h2>📅 Crop Information</h2>
+
+            <p>
+                🌱 Crop:
+                <span id="calendarCrop">
+                    -
+                </span>
+            </p>
+
+            <p>
+                📅 Sowing Date:
+                <span id="calendarSowing">
+                    -
+                </span>
+            </p>
+            <p>
+    ⏳ Days Since Sowing:
+    <strong id="calendarDaysPassed">
+        0 days
+    </strong>
+</p>
+
+            <p>
+                ⏳ Crop Duration:
+                <span id="calendarDuration">
+                    -
+                </span>
+            </p>
+
+            <p>
+                🌾 Expected Harvest:
+                <span id="calendarHarvest">
+                    -
+                </span>
+            </p>
+            <div class="crop-progress-section">
+
+    <h3>📈 Crop Progress</h3>
+
+    <div class="crop-progress-bar">
+
+        <div
+            id="calendarProgressFill"
+            class="crop-progress-fill">
+        </div>
+
+    </div>
+
+    <p>
+        Progress:
+        <strong id="calendarProgress">
+            0%
+        </strong>
+    </p>
+
+    <p>
+        Current Stage:
+        <strong id="calendarCurrentStage">
+            -
+        </strong>
+    </p>
+
+</div>
+
+        </div>
+
+
+        <!-- Growth Stages -->
+        <div class="card">
+
+    <h2>🌿 Crop Growth Timeline</h2>
+
+    <div id="growthTimeline">
+
+        <p>
+            Select a crop to view its growth timeline.
+        </p>
+
+    </div>
+
+</div>
+
+
+        <!-- Farming Activities -->
+        <div class="card">
+
+            <h2>🧑‍🌾 Farming Activities</h2>
+
+            <ul id="farmingActivities">
+
+                <li>
+                    Select a crop to view recommended activities.
+                </li>
+
+            </ul>
+
+        </div>
+        <div class="card">
+
+    <h2>🔔 Farming Reminders</h2>
+
+    <div id="cropReminders">
+
+        <p>
+            Select a crop to view reminders.
+        </p>
+
+    </div>
+
+</div>
+
+    </div>
+
+
+    <!-- Footer -->
+    <footer>
+
+        <p>
+            © 2026 AgriTrack | Smart Farming Solution
+        </p>
+
+    </footer>
+
+
+    <!-- JavaScript -->
+    <script src="assets/js/app.js"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,2793 @@
+/* ==============================
+   GENERAL
+   ============================== */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    background-color: #f1f8e9;
+    color: #333;
+}
+
+
+/* ==============================
+   NAVIGATION BAR
+   ============================== */
+
+nav {
+    background-color: #1b5e20;
+    color: white;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    padding: 15px 30px;
+}
+
+nav h2 {
+    font-size: 28px;
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+    gap: 25px;
+}
+
+nav ul li {
+    font-size: 16px;
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+}
+
+nav a:hover {
+    color: #c8e6c9;
+}
+
+
+/* ==============================
+   HERO SECTION
+   ============================== */
+
+.hero {
+    min-height: 420px;
+
+    background:
+        linear-gradient(
+            rgba(0, 80, 20, 0.55),
+            rgba(0, 80, 20, 0.55)
+        ),
+        url("../images/farm-bg.jpg");
+
+    background-size: cover;
+    background-position: center;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    color: white;
+    text-align: center;
+
+    padding: 60px 20px;
+}
+
+.hero-text {
+    max-width: 800px;
+}
+
+.hero-text h1 {
+    font-size: 55px;
+    margin-bottom: 10px;
+}
+
+.hero-text h2 {
+    font-size: 28px;
+    margin-bottom: 20px;
+}
+
+.hero-text p {
+    max-width: 650px;
+    margin: auto;
+
+    font-size: 18px;
+    line-height: 1.6;
+}
+
+
+/* ==============================
+   HERO BUTTONS
+   ============================== */
+
+.hero-buttons {
+    margin-top: 25px;
+
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+
+    flex-wrap: wrap;
+}
+
+.hero-buttons a {
+    text-decoration: none;
+}
+
+.hero-buttons button {
+    margin-top: 0;
+    padding: 12px 25px;
+
+    background-color: #4caf50;
+    color: white;
+
+    border: none;
+    border-radius: 25px;
+
+    cursor: pointer;
+    font-size: 16px;
+
+    transition: 0.3s;
+}
+
+.hero-buttons button:hover {
+    background-color: #388e3c;
+    transform: translateY(-2px);
+}
+
+
+/* ==============================
+   FEATURES SECTION
+   ============================== */
+
+.features {
+    text-align: center;
+    padding: 60px 30px;
+}
+
+.features h2 {
+    color: #2e7d32;
+    font-size: 32px;
+    margin-bottom: 10px;
+}
+
+.section-description {
+    color: #555;
+    font-size: 16px;
+    margin-bottom: 35px;
+}
+
+
+/* ==============================
+   FEATURE CARD CONTAINER
+   ============================== */
+
+.features-container {
+    max-width: 1200px;
+
+    margin: 0 auto;
+
+    display: grid;
+
+    grid-template-columns: repeat(3, 1fr);
+
+    gap: 25px;
+}
+
+
+/* ==============================
+   FEATURE CARDS
+   ============================== */
+
+.card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    min-height: 210px;
+
+    background: white;
+
+    padding: 30px 25px;
+
+    border-radius: 15px;
+
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+
+    transition: 0.3s;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+
+    box-shadow:
+        0 8px 18px rgba(0, 0, 0, 0.2);
+}
+
+.card h3 {
+    color: #388e3c;
+
+    margin-bottom: 15px;
+
+    font-size: 20px;
+}
+
+.card p {
+    font-size: 15px;
+
+    line-height: 1.5;
+
+    color: #444;
+}
+
+
+/* ==============================
+   BUTTON
+   ============================== */
+
+button {
+    margin-top: 15px;
+
+    padding: 12px 25px;
+
+    background-color: #2e7d32;
+    color: white;
+
+    border: none;
+    border-radius: 8px;
+
+    cursor: pointer;
+
+    font-size: 15px;
+}
+
+button:hover {
+    background-color: #1b5e20;
+}
+
+
+/* ==============================
+   CONTACT SECTION
+   ============================== */
+
+.contact {
+    text-align: center;
+
+    padding: 60px 20px;
+
+    background-color: #e8f5e9;
+}
+
+.contact h2 {
+    color: #2e7d32;
+
+    margin-bottom: 15px;
+}
+
+.contact p {
+    color: #555;
+
+    font-size: 16px;
+}
+
+
+/* ==============================
+   FOOTER
+   ============================== */
+
+footer {
+    background-color: #2e7d32;
+
+    color: white;
+
+    text-align: center;
+
+    padding: 18px;
+
+    margin-top: 0;
+}
+
+
+/* ==============================
+   INPUT FIELDS
+   ============================== */
+
+input {
+    width: 90%;
+
+    padding: 12px;
+
+    border-radius: 8px;
+
+    border: 1px solid gray;
+}
+
+
+/* ==============================
+   DASHBOARD
+   ============================== */
+
+.dashboard-container {
+    display: flex;
+
+    flex-wrap: wrap;
+
+    justify-content: center;
+
+    gap: 20px;
+
+    padding: 20px;
+}
+
+.dashboard-card {
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    justify-content: flex-start;
+
+    width: 260px;
+
+    min-height: 220px;
+
+    background: white;
+
+    padding: 25px;
+
+    border-radius: 15px;
+
+    box-shadow: 0 4px 10px gray;
+}
+
+
+/* ==============================
+   CHART CARDS
+   ============================== */
+
+.chart-card {
+    width: 500px;
+    max-width: 90%;
+}
+
+.chart-card {
+    width: 500px;
+    max-width: 90%;
+    height: 380px;
+}
+
+.chart-card canvas {
+    width: 100% !important;
+    height: 300px !important;
+    margin-top: 20px;
+}
+
+
+/* ==============================
+   PROGRESS CIRCLE
+   ============================== */
+
+.progress-circle {
+    width: 120px;
+
+    height: 120px;
+
+    border-radius: 50%;
+
+    background: conic-gradient(
+        #4caf50 65%,
+        #ddd 0%
+    );
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    margin: 15px auto;
+
+    position: relative;
+}
+
+.progress-circle::before {
+    content: "";
+
+    width: 90px;
+
+    height: 90px;
+
+    background: white;
+
+    border-radius: 50%;
+
+    position: absolute;
+}
+
+.progress-value {
+    position: relative;
+
+    font-size: 22px;
+
+    font-weight: bold;
+
+    color: #2e7d32;
+}
+
+
+/* ==============================
+   PROGRESS BAR
+   ============================== */
+
+.progress-bar {
+    width: 100%;
+
+    height: 8px;
+
+    background: #ddd;
+
+    border-radius: 10px;
+
+    margin-top: 10px;
+
+    overflow: hidden;
+}
+
+.progress-fill {
+    height: 100%;
+
+    width: 0%;
+
+    background: #ff9800;
+
+    border-radius: 10px;
+
+    transition: width 0.5s ease;
+}
+
+
+/* ==============================
+   PUMP BUTTON
+   ============================== */
+
+.pump-btn {
+    background: #4caf50;
+
+    color: white;
+
+    border: none;
+
+    padding: 10px 20px;
+
+    border-radius: 8px;
+
+    cursor: pointer;
+
+    font-size: 16px;
+
+    margin-top: 10px;
+}
+
+.pump-btn:hover {
+    background: #388e3c;
+}
+
+
+/* ==============================
+   DATE & TIME
+   ============================== */
+
+#dateTime {
+    margin-top: 15px;
+
+    color: white;
+
+    font-size: 18px;
+
+    font-weight: bold;
+}
+
+
+/* ==============================
+   ALERTS
+   ============================== */
+
+#alerts {
+    list-style: none;
+
+    padding: 0;
+}
+
+#alerts li {
+    padding: 10px;
+
+    margin: 10px 0;
+
+    background: #f5f5f5;
+
+    border-left: 5px solid #4caf50;
+
+    border-radius: 8px;
+
+    font-weight: bold;
+}
+
+
+/* ==============================
+   LAST UPDATED
+   ============================== */
+
+#lastUpdated {
+    text-align: center;
+
+    color: white;
+
+    margin: 10px 0;
+
+    font-size: 14px;
+
+    font-weight: bold;
+}
+
+
+/* ==============================
+   HEADER BUTTON
+   ============================== */
+
+.header-btn {
+    margin-top: 15px;
+
+    padding: 12px 28px;
+
+    font-size: 16px;
+
+    border: none;
+
+    border-radius: 30px;
+
+    background-color: #4caf50;
+
+    color: white;
+
+    cursor: pointer;
+
+    transition: 0.3s;
+}
+
+.header-btn:hover {
+    background-color: #388e3c;
+
+    transform: scale(1.05);
+}
+
+
+/* ==============================
+   RESPONSIVE DESIGN
+   ============================== */
+
+/* Tablet */
+
+@media (max-width: 900px) {
+
+    .features-container {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+}
+
+
+/* Mobile */
+
+@media (max-width: 600px) {
+
+    nav {
+        flex-direction: column;
+
+        gap: 15px;
+
+        padding: 15px;
+    }
+
+    nav ul {
+        gap: 15px;
+
+        flex-wrap: wrap;
+
+        justify-content: center;
+    }
+
+    .hero {
+        min-height: 450px;
+    }
+
+    .hero-text h1 {
+        font-size: 40px;
+    }
+
+    .hero-text h2 {
+        font-size: 22px;
+    }
+
+    .hero-text p {
+        font-size: 16px;
+    }
+
+    .features {
+        padding: 40px 15px;
+    }
+
+    .features-container {
+        grid-template-columns: 1fr;
+    }
+
+    .card {
+        min-height: 190px;
+    }
+
+}
+/* ==============================
+   CROP MANAGEMENT
+   ============================== */
+
+.crop-selection {
+    text-align: center;
+    padding: 40px 20px 20px;
+}
+
+.crop-selection h2 {
+    color: #2e7d32;
+    margin-bottom: 20px;
+}
+
+.crop-selection select {
+    width: 250px;
+    padding: 12px 15px;
+
+    border: 2px solid #4caf50;
+    border-radius: 8px;
+
+    background: white;
+
+    font-size: 16px;
+    cursor: pointer;
+}
+
+
+/* Crop Overview */
+
+.crop-dashboard {
+    max-width: 1200px;
+
+    margin: 20px auto;
+
+    padding: 20px;
+
+    display: grid;
+
+    grid-template-columns: repeat(3, 1fr);
+
+    gap: 25px;
+}
+
+
+.crop-card {
+    background: white;
+
+    padding: 25px;
+
+    border-radius: 15px;
+
+    text-align: center;
+
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+
+    min-height: 210px;
+
+    transition: 0.3s;
+}
+
+.crop-card:hover {
+    transform: translateY(-5px);
+
+    box-shadow:
+        0 8px 18px rgba(0, 0, 0, 0.2);
+}
+
+.crop-card h3 {
+    color: #388e3c;
+
+    margin-bottom: 15px;
+}
+
+.crop-card h2 {
+    color: #2e7d32;
+
+    margin: 15px 0;
+}
+
+.crop-card p {
+    margin: 8px 0;
+
+    line-height: 1.5;
+}
+
+
+/* Crop Progress */
+
+.crop-progress {
+    width: 100%;
+
+    height: 12px;
+
+    background: #ddd;
+
+    border-radius: 10px;
+
+    overflow: hidden;
+
+    margin: 20px 0 10px;
+}
+
+.crop-progress-fill {
+    width: 60%;
+
+    height: 100%;
+
+    background: #4caf50;
+
+    border-radius: 10px;
+}
+
+
+/* Plant Health */
+
+.health-good {
+    color: #2e7d32 !important;
+}
+
+
+/* Crop Requirements */
+
+.crop-requirements {
+    text-align: center;
+
+    padding: 50px 20px;
+
+    background: #e8f5e9;
+}
+
+.crop-requirements h2 {
+    color: #2e7d32;
+
+    margin-bottom: 30px;
+}
+
+.requirement-container {
+    max-width: 1200px;
+
+    margin: auto;
+
+    display: grid;
+
+    grid-template-columns: repeat(4, 1fr);
+
+    gap: 20px;
+}
+
+.requirement-card {
+    background: white;
+
+    padding: 25px;
+
+    border-radius: 15px;
+
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.12);
+
+    transition: 0.3s;
+}
+
+.requirement-card:hover {
+    transform: translateY(-5px);
+}
+
+.requirement-card h3 {
+    color: #388e3c;
+
+    margin-bottom: 15px;
+}
+
+.requirement-card h2 {
+    color: #2e7d32;
+
+    margin-bottom: 10px;
+}
+
+
+/* Recommendations */
+
+.recommendations {
+    text-align: center;
+
+    padding: 50px 20px;
+}
+
+.recommendations > h2 {
+    color: #2e7d32;
+
+    margin-bottom: 30px;
+}
+
+.recommendation-container {
+    max-width: 1200px;
+
+    margin: auto;
+
+    display: grid;
+
+    grid-template-columns: repeat(3, 1fr);
+
+    gap: 25px;
+}
+
+.recommendation-card {
+    background: white;
+
+    padding: 25px;
+
+    border-radius: 15px;
+
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.recommendation-card h3 {
+    color: #388e3c;
+
+    margin-bottom: 15px;
+}
+
+.recommendation-card h2 {
+    color: #2e7d32;
+
+    margin-bottom: 10px;
+}
+
+.recommendation-card p {
+    line-height: 1.5;
+}
+
+
+/* Growth Stages */
+
+.growth-stages {
+    text-align: center;
+
+    padding: 50px 20px;
+
+    background: #f1f8e9;
+}
+
+.growth-stages > h2 {
+    color: #2e7d32;
+
+    margin-bottom: 30px;
+}
+
+.stage-container {
+    max-width: 1200px;
+
+    margin: auto;
+
+    display: grid;
+
+    grid-template-columns: repeat(5, 1fr);
+
+    gap: 15px;
+}
+
+.stage-card {
+    background: white;
+
+    padding: 20px;
+
+    border-radius: 15px;
+
+    min-height: 220px;
+
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.12);
+}
+
+.stage-card h3 {
+    color: #388e3c;
+
+    margin-bottom: 10px;
+}
+
+.stage-card h4 {
+    margin-bottom: 15px;
+
+    color: #2e7d32;
+}
+
+.stage-card p {
+    line-height: 1.5;
+
+    margin-bottom: 20px;
+}
+
+.stage-card span {
+    font-weight: bold;
+}
+
+
+/* Stage status */
+
+.stage-card.completed {
+    border-top: 5px solid #4caf50;
+}
+
+.stage-card.current {
+    border-top: 5px solid #ff9800;
+
+    transform: scale(1.03);
+}
+
+.stage-card.upcoming {
+    border-top: 5px solid #bdbdbd;
+}
+
+
+/* Crop responsive design */
+
+@media (max-width: 900px) {
+
+    .crop-dashboard {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .requirement-container {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .recommendation-container {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .stage-container {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+}
+
+
+@media (max-width: 600px) {
+
+    .crop-dashboard {
+        grid-template-columns: 1fr;
+    }
+
+    .requirement-container {
+        grid-template-columns: 1fr;
+    }
+
+    .recommendation-container {
+        grid-template-columns: 1fr;
+    }
+
+    .stage-container {
+        grid-template-columns: 1fr;
+    }
+
+    .crop-selection select {
+        width: 90%;
+    }
+
+}
+/* =========================================
+   IoT MONITORING
+   ========================================= */
+
+.iot-dashboard {
+
+    max-width: 1200px;
+
+    margin: 30px auto;
+
+    padding: 20px;
+
+    display: grid;
+
+    grid-template-columns: repeat(3, 1fr);
+
+    gap: 25px;
+
+}
+
+
+.iot-card {
+
+    background: white;
+
+    padding: 25px;
+
+    border-radius: 15px;
+
+    text-align: center;
+
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+
+    min-height: 190px;
+
+    transition: 0.3s;
+
+}
+
+
+.iot-card:hover {
+
+    transform: translateY(-5px);
+
+}
+
+
+.iot-card h3 {
+
+    color: #388e3c;
+
+    margin-bottom: 15px;
+
+}
+
+
+.iot-card h2 {
+
+    color: #2e7d32;
+
+    margin: 15px 0;
+
+}
+
+
+.iot-card p {
+
+    font-size: 16px;
+
+}
+
+
+.iot-progress {
+
+    width: 100%;
+
+    height: 10px;
+
+    background: #ddd;
+
+    border-radius: 10px;
+
+    overflow: hidden;
+
+    margin-top: 20px;
+
+}
+
+
+.iot-progress-fill {
+
+    height: 100%;
+
+    width: 65%;
+
+    background: #4caf50;
+
+    border-radius: 10px;
+
+    transition: width 0.5s ease;
+
+}
+
+
+/* IoT Summary */
+
+.iot-summary {
+
+    text-align: center;
+
+    padding: 50px 20px;
+
+    background: #e8f5e9;
+
+}
+
+
+.iot-summary h2 {
+
+    color: #2e7d32;
+
+    margin-bottom: 30px;
+
+}
+
+
+.iot-summary-container {
+
+    max-width: 1200px;
+
+    margin: auto;
+
+    display: grid;
+
+    grid-template-columns: repeat(3, 1fr);
+
+    gap: 25px;
+
+}
+
+
+.summary-card {
+
+    background: white;
+
+    padding: 25px;
+
+    border-radius: 15px;
+
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.12);
+
+}
+
+
+.summary-card h3 {
+
+    color: #388e3c;
+
+    margin-bottom: 15px;
+
+}
+
+
+.summary-card h2 {
+
+    color: #2e7d32;
+
+}
+
+
+/* IoT Alerts */
+
+.iot-alerts {
+
+    max-width: 1000px;
+
+    margin: 40px auto;
+
+    padding: 30px;
+
+    text-align: center;
+
+}
+
+
+.iot-alerts h2 {
+
+    color: #2e7d32;
+
+    margin-bottom: 25px;
+
+}
+
+
+.iot-alerts ul {
+
+    list-style: none;
+
+    padding: 0;
+
+}
+
+
+.iot-alerts li {
+
+    background: white;
+
+    padding: 15px;
+
+    margin: 10px 0;
+
+    border-left: 5px solid #4caf50;
+
+    border-radius: 8px;
+
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+
+    font-weight: bold;
+
+}
+
+
+/* Responsive */
+
+@media (max-width: 900px) {
+
+    .iot-dashboard {
+
+        grid-template-columns: repeat(2, 1fr);
+
+    }
+
+    .iot-summary-container {
+
+        grid-template-columns: repeat(2, 1fr);
+
+    }
+
+}
+
+
+@media (max-width: 600px) {
+
+    .iot-dashboard {
+
+        grid-template-columns: 1fr;
+
+    }
+
+    .iot-summary-container {
+
+        grid-template-columns: 1fr;
+
+    }
+
+}
+/* =========================================
+   FARMER PROFILE
+   ========================================= */
+
+.profile-container {
+
+    max-width: 1100px;
+
+    margin: 40px auto;
+
+    padding: 20px;
+
+    display: grid;
+
+    grid-template-columns: repeat(3, 1fr);
+
+    gap: 25px;
+
+}
+
+
+.profile-card {
+
+    background: white;
+
+    padding: 25px;
+
+    border-radius: 15px;
+
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+
+}
+
+
+.profile-card h2 {
+
+    color: #2e7d32;
+
+    margin-bottom: 20px;
+
+    text-align: center;
+
+}
+
+
+.profile-card label {
+
+    display: block;
+
+    margin-top: 15px;
+
+    margin-bottom: 5px;
+
+    font-weight: bold;
+
+}
+
+
+.profile-card input,
+.profile-card select {
+
+    width: 100%;
+
+    padding: 11px;
+
+    border: 1px solid #ccc;
+
+    border-radius: 8px;
+
+    font-size: 15px;
+
+}
+
+
+.profile-card input:disabled,
+.profile-card select:disabled {
+
+    background-color: #f5f5f5;
+
+    cursor: not-allowed;
+
+}
+
+
+/* Profile Buttons */
+
+.profile-buttons {
+
+    text-align: center;
+
+    margin: 20px;
+
+}
+
+
+.profile-buttons button {
+
+    margin: 5px;
+
+    padding: 12px 25px;
+
+}
+
+
+/* Profile Summary */
+
+.profile-summary {
+
+    background: #e8f5e9;
+
+    padding: 40px 20px;
+
+    text-align: center;
+
+}
+
+
+.profile-summary h2 {
+
+    color: #2e7d32;
+
+    margin-bottom: 25px;
+
+}
+
+
+.summary-container {
+
+    max-width: 1100px;
+
+    margin: auto;
+
+    display: grid;
+
+    grid-template-columns: repeat(4, 1fr);
+
+    gap: 20px;
+
+}
+
+
+.summary-box {
+
+    background: white;
+
+    padding: 20px;
+
+    border-radius: 12px;
+
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.12);
+
+}
+
+
+.summary-box h3 {
+
+    color: #388e3c;
+
+}
+
+
+.summary-box h2 {
+
+    margin-top: 10px;
+
+    color: #2e7d32;
+
+}
+
+
+/* Responsive */
+
+@media (max-width: 900px) {
+
+    .profile-container {
+
+        grid-template-columns: 1fr 1fr;
+
+    }
+
+    .summary-container {
+
+        grid-template-columns: 1fr 1fr;
+
+    }
+
+}
+
+
+@media (max-width: 600px) {
+
+    .profile-container {
+
+        grid-template-columns: 1fr;
+
+    }
+
+    .summary-container {
+
+        grid-template-columns: 1fr;
+
+    }
+
+}
+/* =========================================
+   LOGIN / AUTHENTICATION
+   ========================================= */
+
+.auth-container {
+
+    min-height: 500px;
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    padding: 40px 20px;
+
+}
+
+
+.auth-card {
+
+    width: 400px;
+
+    max-width: 95%;
+
+    background: white;
+
+    padding: 35px;
+
+    border-radius: 15px;
+
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+
+    text-align: center;
+
+}
+
+
+.auth-card h2 {
+
+    color: #2e7d32;
+
+    margin-bottom: 25px;
+
+}
+
+
+.auth-card label {
+
+    display: block;
+
+    text-align: left;
+
+    margin-top: 15px;
+
+    margin-bottom: 6px;
+
+    font-weight: bold;
+
+}
+
+
+.auth-card input[type="text"],
+.auth-card input[type="password"] {
+
+    width: 100%;
+
+    padding: 12px;
+
+    border: 1px solid #ccc;
+
+    border-radius: 8px;
+
+    font-size: 15px;
+
+}
+
+
+.remember-row {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 8px;
+
+    margin-top: 15px;
+
+}
+
+
+.remember-row input {
+
+    width: auto;
+
+}
+
+
+.remember-row label {
+
+    margin: 0;
+
+}
+
+
+.auth-btn {
+
+    width: 100%;
+
+    margin-top: 20px;
+
+    padding: 12px;
+
+    font-size: 16px;
+
+}
+
+
+.auth-message {
+
+    margin-top: 15px;
+
+    font-weight: bold;
+
+    min-height: 20px;
+
+}
+
+
+.register-text {
+
+    margin-top: 20px;
+
+}
+
+
+.auth-card a {
+
+    color: #2e7d32;
+
+    font-weight: bold;
+
+    text-decoration: none;
+
+}
+
+
+.auth-card a:hover {
+
+    text-decoration: underline;
+
+}
+/* =========================================
+   FARM EXPENSE TRACKER
+   ========================================= */
+
+.expense-summary {
+    max-width: 600px;
+    margin: 35px auto;
+    padding: 30px;
+    background: white;
+    text-align: center;
+    border-radius: 15px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.expense-summary h2 {
+    color: #388e3c;
+    margin-bottom: 10px;
+}
+
+.expense-summary h1 {
+    color: #2e7d32;
+    font-size: 35px;
+}
+
+
+/* Add Expense Form */
+
+.expense-form-container {
+    max-width: 600px;
+    margin: 30px auto;
+    padding: 20px;
+}
+
+.expense-form {
+    background: white;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.expense-form h2 {
+    text-align: center;
+    color: #2e7d32;
+    margin-bottom: 25px;
+}
+
+.expense-form label {
+    display: block;
+    margin-top: 15px;
+    margin-bottom: 6px;
+    font-weight: bold;
+}
+
+.expense-form input,
+.expense-form select {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 15px;
+}
+
+.expense-form button {
+    display: block;
+    margin: 25px auto 10px;
+    padding: 12px 25px;
+}
+
+
+/* Expense History */
+
+.expense-history {
+    max-width: 1000px;
+    margin: 40px auto;
+    padding: 20px;
+}
+
+.expense-history h2 {
+    text-align: center;
+    color: #2e7d32;
+    margin-bottom: 25px;
+}
+
+
+/* Individual Expense */
+
+.expense-item {
+    background: white;
+    padding: 20px;
+    margin: 15px 0;
+    border-radius: 12px;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.12);
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+}
+
+.expense-info h3 {
+    color: #388e3c;
+    margin-bottom: 8px;
+}
+
+.expense-info p {
+    margin: 5px 0;
+}
+
+
+/* Expense Amount */
+
+.expense-amount {
+    font-size: 20px;
+    font-weight: bold;
+    color: #2e7d32;
+}
+
+
+/* Delete Button */
+
+.delete-expense {
+    background-color: #d32f2f;
+    padding: 9px 15px;
+    border-radius: 7px;
+}
+
+.delete-expense:hover {
+    background-color: #b71c1c;
+}
+
+
+/* Message */
+
+#expenseMessage {
+    text-align: center;
+    font-weight: bold;
+    min-height: 20px;
+}
+
+
+/* Mobile */
+
+@media (max-width: 600px) {
+
+    .expense-item {
+        flex-direction: column;
+        text-align: center;
+    }
+
+}
+/* =========================================
+   WEATHER & FARMING TIPS
+   ========================================= */
+
+.weather-container {
+    max-width: 1200px;
+    margin: 35px auto;
+    padding: 20px;
+
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 25px;
+}
+
+.weather-card {
+    background: white;
+    padding: 25px;
+
+    border-radius: 15px;
+
+    text-align: center;
+
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+
+    transition: 0.3s;
+}
+
+.weather-card:hover {
+    transform: translateY(-5px);
+}
+
+.weather-card h3 {
+    color: #388e3c;
+    margin-bottom: 15px;
+}
+
+.weather-card h2 {
+    color: #2e7d32;
+    margin: 15px 0;
+    font-size: 28px;
+}
+
+.weather-card p {
+    font-size: 15px;
+}
+
+
+/* =========================================
+   FARMING RECOMMENDATIONS
+   ========================================= */
+
+.farming-tips {
+    background: #e8f5e9;
+
+    padding: 45px 20px;
+
+    text-align: center;
+}
+
+.farming-tips > h2 {
+    color: #2e7d32;
+
+    margin-bottom: 30px;
+}
+
+.tips-container {
+    max-width: 1100px;
+
+    margin: auto;
+
+    display: grid;
+
+    grid-template-columns: repeat(4, 1fr);
+
+    gap: 20px;
+}
+
+.tip-card {
+    background: white;
+
+    padding: 25px;
+
+    border-radius: 15px;
+
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.12);
+
+    min-height: 160px;
+}
+
+.tip-card h3 {
+    color: #388e3c;
+
+    margin-bottom: 15px;
+}
+
+.tip-card p {
+    line-height: 1.6;
+}
+
+
+/* =========================================
+   WEATHER ALERTS
+   ========================================= */
+
+.weather-alerts {
+    max-width: 1000px;
+
+    margin: 40px auto;
+
+    padding: 20px;
+
+    text-align: center;
+}
+
+.weather-alerts h2 {
+    color: #2e7d32;
+
+    margin-bottom: 25px;
+}
+
+.weather-alerts ul {
+    list-style: none;
+
+    padding: 0;
+}
+
+.weather-alerts li {
+    background: white;
+
+    padding: 15px;
+
+    margin: 10px 0;
+
+    border-left: 5px solid #4caf50;
+
+    border-radius: 8px;
+
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+
+    font-weight: bold;
+}
+
+
+/* =========================================
+   RESPONSIVE WEATHER PAGE
+   ========================================= */
+
+@media (max-width: 900px) {
+
+    .weather-container {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .tips-container {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+}
+
+@media (max-width: 600px) {
+
+    .weather-container {
+        grid-template-columns: 1fr;
+    }
+
+    .tips-container {
+        grid-template-columns: 1fr;
+    }
+
+}
+/* =========================================
+   FARM ANALYTICS
+   ========================================= */
+
+.analytics-summary {
+    max-width: 1200px;
+    margin: 35px auto;
+    padding: 20px;
+
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+}
+
+.analytics-card {
+    background: white;
+    padding: 25px;
+
+    border-radius: 15px;
+
+    text-align: center;
+
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+
+    transition: 0.3s;
+}
+
+.analytics-card:hover {
+    transform: translateY(-5px);
+}
+
+.analytics-card h3 {
+    color: #388e3c;
+    margin-bottom: 15px;
+}
+
+.analytics-card h2 {
+    color: #2e7d32;
+    font-size: 28px;
+    margin: 10px 0;
+}
+
+
+/* =========================================
+   ANALYTICS CHARTS
+   ========================================= */
+
+.analytics-charts {
+    max-width: 1100px;
+    margin: 30px auto;
+
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+
+    gap: 25px;
+
+    padding: 20px;
+}
+
+.analytics-chart-card {
+    background: white;
+
+    padding: 25px;
+
+    border-radius: 15px;
+
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+
+    text-align: center;
+}
+
+.analytics-chart-card h2 {
+    color: #2e7d32;
+    margin-bottom: 20px;
+}
+
+.analytics-chart-card canvas {
+    width: 100% !important;
+    height: 300px !important;
+}
+
+
+/* =========================================
+   FARM PERFORMANCE
+   ========================================= */
+
+.farm-performance {
+    max-width: 600px;
+
+    margin: 40px auto;
+
+    padding: 30px;
+
+    background: white;
+
+    border-radius: 15px;
+
+    text-align: center;
+
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.farm-performance h2 {
+    color: #2e7d32;
+
+    margin-bottom: 25px;
+}
+
+.performance-circle {
+    width: 150px;
+    height: 150px;
+
+    margin: 20px auto;
+
+    border-radius: 50%;
+
+    background: conic-gradient(
+        #4caf50 85%,
+        #ddd 0%
+    );
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+}
+
+.performance-circle::before {
+    content: "";
+
+    position: absolute;
+
+    width: 110px;
+    height: 110px;
+
+    background: white;
+
+    border-radius: 50%;
+}
+
+#performanceValue {
+    position: relative;
+
+    font-size: 28px;
+
+    font-weight: bold;
+
+    color: #2e7d32;
+}
+
+#performanceStatus {
+    color: #388e3c;
+
+    font-size: 24px;
+}
+
+
+/* =========================================
+   SMART RECOMMENDATIONS
+   ========================================= */
+
+.analytics-recommendations {
+    max-width: 900px;
+
+    margin: 40px auto;
+
+    padding: 30px;
+
+    background: #e8f5e9;
+
+    border-radius: 15px;
+
+    text-align: center;
+}
+
+.analytics-recommendations h2 {
+    color: #2e7d32;
+
+    margin-bottom: 25px;
+}
+
+.analytics-recommendations ul {
+    list-style: none;
+
+    padding: 0;
+}
+
+.analytics-recommendations li {
+    background: white;
+
+    padding: 15px;
+
+    margin: 12px 0;
+
+    border-left: 5px solid #4caf50;
+
+    border-radius: 8px;
+
+    text-align: left;
+
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+
+/* =========================================
+   ANALYTICS RESPONSIVE DESIGN
+   ========================================= */
+
+@media (max-width: 900px) {
+
+    .analytics-summary {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .analytics-charts {
+        grid-template-columns: 1fr;
+    }
+
+}
+
+@media (max-width: 600px) {
+
+    .analytics-summary {
+        grid-template-columns: 1fr;
+    }
+
+    .analytics-chart-card canvas {
+        height: 250px !important;
+    }
+
+}
+/* =====================================
+   CROP CALENDAR TIMELINE
+   ===================================== */
+
+#growthTimeline {
+    position: relative;
+    margin: 20px 0;
+    padding-left: 30px;
+}
+
+
+/* Vertical timeline line */
+
+#growthTimeline::before {
+    content: "";
+    position: absolute;
+    left: 12px;
+    top: 0;
+    bottom: 0;
+    width: 3px;
+    background: #4caf50;
+}
+
+
+/* Individual stage */
+
+.growth-stage {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 25px;
+}
+
+
+/* Stage number */
+
+.stage-number {
+    position: relative;
+    z-index: 2;
+
+    width: 30px;
+    height: 30px;
+
+    border-radius: 50%;
+
+    background: #4caf50;
+    color: white;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-weight: bold;
+}
+
+
+/* Stage content */
+
+.stage-content {
+    flex: 1;
+
+    padding: 12px 15px;
+
+    border-radius: 10px;
+
+    background: #f5f5f5;
+
+    border-left: 4px solid #4caf50;
+}
+
+
+/* Stage heading */
+
+.stage-content h3 {
+    margin: 0 0 5px 0;
+}
+
+
+/* Stage description */
+
+.stage-content p {
+    margin: 0;
+
+    font-size: 14px;
+
+    color: #666;
+}
+/* =====================================
+   CROP PROGRESS
+   ===================================== */
+
+.crop-progress-section {
+    margin-top: 20px;
+}
+
+.crop-progress-bar {
+    width: 100%;
+    height: 15px;
+
+    background: #ddd;
+
+    border-radius: 10px;
+
+    overflow: hidden;
+
+    margin: 10px 0;
+}
+
+.crop-progress-fill {
+    width: 0%;
+
+    height: 100%;
+
+    background: #4caf50;
+
+    border-radius: 10px;
+
+    transition: width 0.5s ease;
+}
+/* =====================================
+   CURRENT CROP STAGE
+   ===================================== */
+
+.growth-stage.current-stage .stage-content {
+    border-left: 5px solid #2e7d32;
+    background: #e8f5e9;
+    transform: scale(1.02);
+}
+
+.growth-stage.current-stage .stage-number {
+    background: #2e7d32;
+    transform: scale(1.15);
+}
+
+.growth-stage.current-stage h3 {
+    font-weight: bold;
+}
+/* =====================================
+   SEED RECOMMENDATION
+   ===================================== */
+
+.seed-result {
+    margin-top: 15px;
+    padding: 20px;
+
+    border-radius: 12px;
+
+    background: #f1f8e9;
+
+    border-left: 5px solid #4caf50;
+}
+
+.seed-result h3 {
+    margin-top: 0;
+
+    color: #2e7d32;
+}
+
+.seed-result h2 {
+    margin: 10px 0;
+
+    color: #1b5e20;
+}
+
+.seed-result p {
+    margin: 8px 0;
+}
+
+.seed-result strong {
+    color: #2e7d32;
+}
+/* =====================================
+   SEED EXPLANATION
+   ===================================== */
+
+.seed-explanation {
+    margin-top: 15px;
+    padding: 15px;
+
+    background: #ffffff;
+
+    border-radius: 10px;
+
+    border-left: 4px solid #66bb6a;
+}
+
+.seed-explanation h3 {
+    margin-top: 0;
+
+    color: #2e7d32;
+}
+
+.seed-explanation p {
+    line-height: 1.6;
+}
+/* =====================================
+   ORGANIC FERTILIZER GUIDE
+   ===================================== */
+
+.fertilizer-result {
+    margin-top: 15px;
+    padding: 20px;
+
+    border-radius: 12px;
+
+    background: #f1f8e9;
+
+    border-left: 5px solid #4caf50;
+}
+
+.fertilizer-result h3 {
+    margin-top: 0;
+    color: #2e7d32;
+}
+
+.fertilizer-result h2 {
+    margin: 10px 0;
+    color: #1b5e20;
+}
+
+.fertilizer-result p {
+    margin: 10px 0;
+    line-height: 1.6;
+}
+
+.fertilizer-result strong {
+    color: #2e7d32;
+}
+/* =====================================
+   HARVEST YIELD CALCULATOR
+   ===================================== */
+
+.harvest-result {
+    margin-top: 15px;
+    padding: 20px;
+
+    border-radius: 12px;
+
+    background: #f1f8e9;
+
+    border-left: 5px solid #4caf50;
+}
+
+.harvest-result h3 {
+    margin-top: 0;
+    color: #2e7d32;
+}
+
+.harvest-result h2 {
+    margin: 10px 0;
+    color: #1b5e20;
+}
+
+.harvest-result p {
+    margin: 10px 0;
+    line-height: 1.6;
+}
+
+.harvest-result strong {
+    color: #2e7d32;
+}
+/* =====================================
+   EQUIPMENT RENTAL SYSTEM
+   ===================================== */
+
+.rental-result {
+    margin-top: 15px;
+    padding: 20px;
+
+    border-radius: 12px;
+
+    background: #f1f8e9;
+
+    border-left: 5px solid #4caf50;
+}
+
+.rental-result h3 {
+    margin-top: 0;
+    color: #2e7d32;
+}
+
+.rental-result h2 {
+    margin: 10px 0;
+    color: #1b5e20;
+}
+
+.rental-result p {
+    margin: 10px 0;
+    line-height: 1.6;
+}
+
+.rental-result strong {
+    color: #2e7d32;
+}
+/* =====================================
+   CROP ROTATION PLANNER
+   ===================================== */
+
+.rotation-result {
+    margin-top: 15px;
+    padding: 20px;
+
+    border-radius: 12px;
+
+    background: #f1f8e9;
+
+    border-left: 5px solid #4caf50;
+}
+
+.rotation-result h3 {
+    margin-top: 0;
+    color: #2e7d32;
+}
+
+.rotation-result h2 {
+    margin: 10px 0;
+    color: #1b5e20;
+}
+
+.rotation-result p {
+    margin: 10px 0;
+    line-height: 1.6;
+}
+
+.rotation-result strong {
+    color: #2e7d32;
+}
+/* =====================================
+   QUICK ACCESS
+   ===================================== */
+
+.quick-access {
+    margin: 30px 0;
+    text-align: center;
+}
+
+.quick-access h2 {
+    color: #2e7d32;
+    margin-bottom: 20px;
+}
+
+.quick-access-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+}
+
+.quick-card {
+    width: 180px;
+    min-height: 110px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    gap: 10px;
+
+    padding: 20px;
+
+    background: #f1f8e9;
+
+    border-radius: 12px;
+
+    border-left: 5px solid #4caf50;
+
+    text-decoration: none;
+
+    color: #2e7d32;
+
+    font-weight: bold;
+
+    transition: 0.3s;
+}
+
+.quick-card:first-line {
+    font-size: 28px;
+}
+
+.quick-card:hover {
+    transform: translateY(-5px);
+}
+/* ==========================================
+   CROP IMAGE SELECTION
+   ========================================== */
+
+.crop-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 12px;
+    margin: 15px 0;
+}
+
+.crop-image-card {
+    background: white;
+    border-radius: 10px;
+    overflow: hidden;
+    cursor: pointer;
+    border: 2px solid #e0e0e0;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.10);
+    transition: 0.3s ease;
+    text-align: center;
+}
+
+.crop-image-card:hover {
+    transform: translateY(-4px);
+    border-color: #4caf50;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.crop-image-card img {
+    width: 100%;
+    height: 100px;
+    object-fit: cover;
+    display: block;
+}
+
+.crop-image-name {
+    padding: 7px;
+    font-size: 24px;
+    background: #f1f8e9;
+}
+
+/* Selected crop message */
+
+#selectedCropMessage {
+    margin-top: 15px;
+    padding: 12px;
+    background: #f1f8e9;
+    border-left: 4px solid #4caf50;
+    border-radius: 8px;
+    text-align: center;
+}
+
+#selectedCropMessage h3 {
+    margin: 0 0 5px 0;
+    color: #2e7d32;
+    font-size: 18px;
+}
+
+#selectedCropMessage p {
+    margin: 5px;
+    font-size: 17px;
+    font-weight: bold;
+    color: #1b5e20;
+}
+/* CROP CARDS - FINAL COMPACT LAYOUT */
+
+.crop-grid {
+    display: grid !important;
+    grid-template-columns: repeat(5, 1fr) !important;
+    gap: 12px !important;
+    width: 100% !important;
+    margin: 15px auto !important;
+}
+
+.crop-image-card {
+    width: 100% !important;
+    height: 125px !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    overflow: hidden !important;
+    border-radius: 10px !important;
+    cursor: pointer !important;
+}
+
+.crop-image-card img {
+    width: 100% !important;
+    height: 95px !important;
+    object-fit: cover !important;
+    display: block !important;
+}
+
+.crop-image-name {
+    height: 30px !important;
+    padding: 3px !important;
+    font-size: 20px !important;
+    line-height: 24px !important;
+}
+
+/* Keep selected message small */
+#selectedCropMessage {
+    margin: 10px 0 !important;
+    padding: 8px !important;
+}
+
+#selectedCropMessage h3 {
+    margin: 0 !important;
+    font-size: 16px !important;
+}
+
+#selectedCropMessage p {
+    margin: 3px !important;
+    font-size: 15px !important;
+}
+.crop-image-container {
+    display: grid !important;
+    grid-template-columns: repeat(5, 1fr) !important;
+    gap: 12px !important;
+    width: 100% !important;
+}
+
+.crop-image-card {
+    width: 100% !important;
+    height: 125px !important;
+    overflow: hidden !important;
+    border-radius: 10px !important;
+    cursor: pointer !important;
+}
+
+.crop-image-card img {
+    width: 100% !important;
+    height: 95px !important;
+    object-fit: cover !important;
+    display: block !important;
+}
+
+.crop-image-name {
+    height: 30px !important;
+    padding: 2px !important;
+    font-size: 20px !important;
+    text-align: center !important;
+}
+.crop-image-card.selected-crop {
+    border: 3px solid #4caf50 !important;
+    box-shadow: 0 0 0 3px #c8e6c9, 0 6px 15px rgba(0, 0, 0, 0.20) !important;
+    transform: translateY(-4px);
+}
+/* =====================================
+   COMPACT DASHBOARD CARDS
+===================================== */
+
+.dashboard-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 18px;
+    padding: 20px;
+}
+
+.dashboard-card {
+    width: 250px;
+    min-height: auto;
+    height: auto;
+
+    padding: 16px;
+
+    border-radius: 12px;
+
+    background: white;
+
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.15);
+
+    align-self: flex-start;
+}
+
+.dashboard-card h3 {
+    font-size: 18px;
+    margin-bottom: 8px;
+    text-align: center;
+}
+
+.dashboard-card p {
+    font-size: 14px;
+    line-height: 1.35;
+    margin: 5px 0;
+}
+
+/* Compact irrigation information */
+.dashboard-card strong {
+    font-size: 14px;
+}
+/* =====================================
+   SMART CROP RECOMMENDATION
+===================================== */
+
+.crop-recommendation {
+    margin: 30px auto;
+    padding: 25px;
+    max-width: 1000px;
+
+    background: #ffffff;
+
+    border-radius: 15px;
+
+    box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+
+    text-align: center;
+}
+
+.crop-recommendation h2 {
+    color: #2e7d32;
+    margin-bottom: 10px;
+}
+
+.crop-recommendation p {
+    color: #555;
+    line-height: 1.5;
+}
+
+.crop-recommendation button {
+    margin-top: 15px;
+
+    padding: 12px 22px;
+
+    border: none;
+    border-radius: 8px;
+
+    background: #4caf50;
+    color: white;
+
+    font-size: 16px;
+    font-weight: bold;
+
+    cursor: pointer;
+}
+
+.crop-recommendation button:hover {
+    background: #388e3c;
+}
+
+.smart-crop-result {
+    margin-top: 20px;
+    padding: 18px;
+
+    background: #f1f8e9;
+
+    border-left: 5px solid #4caf50;
+
+    border-radius: 8px;
+
+    text-align: left;
+}

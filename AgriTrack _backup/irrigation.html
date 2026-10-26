@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Irrigation Scheduler - AgriTrack</title>
+
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+
+<body>
+
+    <!-- Navigation -->
+    <nav>
+        <h2>AgriTrack</h2>
+
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="dashboard.html">Dashboard</a></li>
+            <li><a href="crop.html">Crop</a></li>
+            <li><a href="iot.html">IoT</a></li>
+            <li><a href="irrigation.html">Irrigation</a></li>
+        </ul>
+    </nav>
+
+
+    <!-- Header -->
+    <header>
+
+        <h1>💧 Irrigation Scheduler</h1>
+
+        <p>
+            Plan and manage irrigation for your farm
+        </p>
+
+    </header>
+
+
+    <!-- Scheduler -->
+    <div class="container">
+
+        <div class="card">
+
+            <h2>Schedule Irrigation</h2>
+
+            <br>
+
+            <label for="irrigationCrop">
+                Select Crop:
+            </label>
+
+            <br>
+
+            <select id="irrigationCrop">
+
+                <option value="Tomato">🍅 Tomato</option>
+
+                <option value="Wheat">🌾 Wheat</option>
+
+                <option value="Rice">🌾 Rice</option>
+
+                <option value="Potato">🥔 Potato</option>
+
+                <option value="Onion">🧅 Onion</option>
+
+            </select>
+
+            <br><br>
+
+
+            <label for="irrigationDate">
+                Irrigation Date:
+            </label>
+
+            <br>
+
+            <input
+                type="date"
+                id="irrigationDate"
+            >
+
+            <br><br>
+
+
+            <label for="irrigationTime">
+                Irrigation Time:
+            </label>
+
+            <br>
+
+            <input
+                type="time"
+                id="irrigationTime"
+            >
+
+            <br><br>
+
+
+            <label for="irrigationDuration">
+                Duration (minutes):
+            </label>
+
+            <br>
+
+            <input
+                type="number"
+                id="irrigationDuration"
+                placeholder="Enter duration"
+                min="1"
+            >
+
+            <br><br>
+
+
+            <label for="irrigationMode">
+                Irrigation Mode:
+            </label>
+
+            <br>
+
+            <select id="irrigationMode">
+
+                <option value="Automatic">
+                    Automatic
+                </option>
+
+                <option value="Manual">
+                    Manual
+                </option>
+
+            </select>
+
+            <br><br>
+
+
+            <button onclick="scheduleIrrigation()">
+                ➕ Schedule Irrigation
+            </button>
+
+        </div>
+
+
+        <!-- Scheduled Irrigation -->
+        <div class="card">
+
+            <h2>📋 Scheduled Irrigation</h2>
+
+            <div id="irrigationList">
+
+                <p>
+                    No irrigation scheduled yet.
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- Footer -->
+    <footer>
+
+        <p>
+            © 2026 AgriTrack | Smart Farming Solution
+        </p>
+
+    </footer>
+
+
+    <!-- JavaScript -->
+    <script src="assets/js/app.js"></script>
+
+</body>
+
+</html>

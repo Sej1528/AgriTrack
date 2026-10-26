@@ -1,0 +1,156 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AgriTrack Login</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+
+<body>
+
+<header>
+    <h1>🌱 AgriTrack</h1>
+    <p data-translate="headerSubtitle">Login to Smart Agriculture System</p>
+
+    <label for="languageSelect" data-translate="languageLabel">Language:</label>
+    <select id="languageSelect" onchange="changeLoginLanguage()">
+        <option value="en">English</option>
+        <option value="mr">मराठी</option>
+        <option value="hi">हिन्दी</option>
+    </select>
+</header>
+
+<div class="auth-container">
+    <div class="auth-card">
+
+        <h2 data-translate="loginTitle">🔐 Login</h2>
+
+        <label for="loginUsername" data-translate="usernameLabel">Username / Email</label>
+        <input
+            type="text"
+            id="loginUsername"
+            data-translate-placeholder="usernamePlaceholder"
+            placeholder="Enter username or email"
+        >
+
+        <label for="loginPassword" data-translate="passwordLabel">Password</label>
+        <input
+            type="password"
+            id="loginPassword"
+            data-translate-placeholder="passwordPlaceholder"
+            placeholder="Enter password"
+        >
+
+        <div class="remember-row">
+            <input type="checkbox" id="rememberMe">
+            <label for="rememberMe" data-translate="rememberMe">Remember me</label>
+        </div>
+
+        <button onclick="loginUser()" class="auth-btn" data-translate="loginButton">
+            Login
+        </button>
+
+        <p id="loginMessage" class="auth-message" aria-live="polite"></p>
+
+        <p class="register-text">
+            <span data-translate="newUser">New user?</span>
+            <a href="register.html" data-translate="createAccount">Create an account</a>
+        </p>
+
+        <p>
+            <a href="index.html" data-translate="backHome">← Back to Home</a>
+        </p>
+
+    </div>
+</div>
+
+<footer>
+    <p data-translate="footerText">© 2026 AgriTrack | Smart Farming Solution</p>
+</footer>
+
+<script>
+const loginTranslations = {
+    en: {
+        headerSubtitle: "Login to Smart Agriculture System",
+        languageLabel: "Language:",
+        loginTitle: "🔐 Login",
+        usernameLabel: "Username / Email",
+        usernamePlaceholder: "Enter username or email",
+        passwordLabel: "Password",
+        passwordPlaceholder: "Enter password",
+        rememberMe: "Remember me",
+        loginButton: "Login",
+        newUser: "New user?",
+        createAccount: "Create an account",
+        backHome: "← Back to Home",
+        footerText: "© 2026 AgriTrack | Smart Farming Solution"
+    },
+    mr: {
+        headerSubtitle: "स्मार्ट शेती प्रणालीमध्ये लॉगिन करा",
+        languageLabel: "भाषा:",
+        loginTitle: "🔐 लॉगिन",
+        usernameLabel: "वापरकर्तानाव / ईमेल",
+        usernamePlaceholder: "वापरकर्तानाव किंवा ईमेल टाका",
+        passwordLabel: "पासवर्ड",
+        passwordPlaceholder: "पासवर्ड टाका",
+        rememberMe: "मला लक्षात ठेवा",
+        loginButton: "लॉगिन",
+        newUser: "नवीन वापरकर्ता?",
+        createAccount: "खाते तयार करा",
+        backHome: "← मुख्यपृष्ठावर परत जा",
+        footerText: "© 2026 AgriTrack | स्मार्ट शेती उपाय"
+    },
+    hi: {
+        headerSubtitle: "स्मार्ट कृषि प्रणाली में लॉगिन करें",
+        languageLabel: "भाषा:",
+        loginTitle: "🔐 लॉगिन",
+        usernameLabel: "उपयोगकर्ता नाम / ईमेल",
+        usernamePlaceholder: "उपयोगकर्ता नाम या ईमेल दर्ज करें",
+        passwordLabel: "पासवर्ड",
+        passwordPlaceholder: "पासवर्ड दर्ज करें",
+        rememberMe: "मुझे याद रखें",
+        loginButton: "लॉगिन",
+        newUser: "नए उपयोगकर्ता हैं?",
+        createAccount: "खाता बनाएँ",
+        backHome: "← होम पेज पर वापस जाएँ",
+        footerText: "© 2026 AgriTrack | स्मार्ट खेती समाधान"
+    }
+};
+
+function changeLoginLanguage() {
+    const selector = document.getElementById("languageSelect");
+    const language = selector.value;
+    const translations = loginTranslations[language] || loginTranslations.en;
+
+    document.documentElement.lang = language;
+    localStorage.setItem("selectedLanguage", language);
+
+    document.querySelectorAll("[data-translate]").forEach(element => {
+        const key = element.getAttribute("data-translate");
+        if (translations[key]) {
+            element.textContent = translations[key];
+        }
+    });
+
+    document.querySelectorAll("[data-translate-placeholder]").forEach(element => {
+        const key = element.getAttribute("data-translate-placeholder");
+        if (translations[key]) {
+            element.placeholder = translations[key];
+        }
+    });
+}
+
+document.addEventListener("DOMContentLoaded", function () {
+    const savedLanguage = localStorage.getItem("selectedLanguage") || "en";
+    document.getElementById("languageSelect").value = savedLanguage;
+    changeLoginLanguage();
+});
+</script>
+
+<script src="assets/js/app.js"></script>
+
+</body>
+</html>

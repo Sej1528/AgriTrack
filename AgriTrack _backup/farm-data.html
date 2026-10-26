@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Farm Data - AgriTrack</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+
+<body>
+
+<nav>
+    <h2>AgriTrack</h2>
+
+    <ul>
+        <li><a href="index.html" data-translate="home">Home</a></li>
+        <li><a href="dashboard.html" data-translate="dashboard">Dashboard</a></li>
+        <li><a href="profile.html" data-translate="profile">Profile</a></li>
+        <li><a href="crop.html" data-translate="crop">Crop</a></li>
+        <li><a href="weather.html" data-translate="weather">Weather</a></li>
+        <li><a href="soil-report.html" data-translate="soilReport">Soil Report</a></li>
+    </ul>
+
+    <div class="language-selector">
+        <label for="languageSelect">🌐</label>
+        <select id="languageSelect" onchange="changeFarmDataLanguage()">
+            <option value="en">English</option>
+            <option value="mr">मराठी</option>
+            <option value="hi">हिंदी</option>
+        </select>
+    </div>
+</nav>
+
+<header>
+    <h1 data-translate="smartFarmData">🌾 Smart Farm Data</h1>
+
+    <p data-translate="farmDataDescription">
+        API-based farm information and smart recommendations
+    </p>
+
+    <p id="farmDataLastUpdated">
+        <span data-translate="lastUpdated">Last Updated:</span> --
+    </p>
+</header>
+
+<!-- API DATA -->
+<section class="iot-dashboard">
+
+    <!-- Temperature -->
+    <div class="iot-card">
+        <h3 data-translate="temperature">🌡️ Temperature</h3>
+        <h2 id="apiTemperature">--</h2>
+        <p>
+            <span data-translate="source">Source:</span>
+            <span data-translate="weatherAPI">Weather API</span>
+        </p>
+    </div>
+
+    <!-- Humidity -->
+    <div class="iot-card">
+        <h3 data-translate="humidity">💨 Humidity</h3>
+        <h2 id="apiHumidity">--</h2>
+        <p>
+            <span data-translate="source">Source:</span>
+            <span data-translate="weatherAPI">Weather API</span>
+        </p>
+    </div>
+
+    <!-- Rain Forecast -->
+    <div class="iot-card">
+        <h3 data-translate="rainForecast">🌧️ Rain Forecast</h3>
+        <h2 id="apiRain">--</h2>
+        <p>
+            <span data-translate="source">Source:</span>
+            <span data-translate="weatherAPI">Weather API</span>
+        </p>
+    </div>
+
+    <!-- Wind Speed -->
+    <div class="iot-card">
+        <h3 data-translate="windSpeed">💨 Wind Speed</h3>
+        <h2 id="apiWind">--</h2>
+        <p>
+            <span data-translate="source">Source:</span>
+            <span data-translate="weatherAPI">Weather API</span>
+        </p>
+    </div>
+
+    <!-- Soil Report -->
+    <div class="iot-card">
+        <h3 data-translate="soilReport">🧪 Soil Report</h3>
+        <h2 id="soilReportStatus" data-translate="notAvailable">
+            Not Available
+        </h2>
+        <p>
+            <span data-translate="source">Source:</span>
+            <span data-translate="farmerUploadedReport">
+                Farmer Uploaded Report
+            </span>
+        </p>
+    </div>
+
+    <!-- Current Crop -->
+    <div class="iot-card">
+        <h3 data-translate="currentCrop">🌱 Current Crop</h3>
+        <h2 id="farmCrop">--</h2>
+        <p>
+            <span data-translate="cropStage">Crop stage:</span>
+            <span id="farmCropStage">--</span>
+        </p>
+    </div>
+
+</section>
+
+<!-- Smart Recommendation -->
+<section class="iot-summary">
+
+    <h2 data-translate="smartFarmRecommendation">
+        🧠 Smart Farm Recommendation
+    </h2>
+
+    <div class="iot-summary-container">
+
+        <!-- Irrigation -->
+        <div class="summary-card">
+            <h3 data-translate="irrigation">💧 Irrigation</h3>
+
+            <h2 id="irrigationDecision"
+                data-translate="checking">
+                Checking...
+            </h2>
+
+            <p id="irrigationMessage"
+               data-translate="irrigationCheckingMessage">
+                Irrigation recommendation will be generated
+                using weather, soil and crop information.
+            </p>
+        </div>
+
+        <!-- Fertilizer -->
+        <div class="summary-card">
+            <h3 data-translate="fertilizer">🌿 Fertilizer</h3>
+
+            <h2 id="fertilizerDecision"
+                data-translate="available">
+                Available
+            </h2>
+
+            <p data-translate="fertilizerMessage">
+                Fertilizer recommendations use crop
+                and confirmed soil-report information.
+            </p>
+        </div>
+
+        <!-- Weather Advice -->
+        <div class="summary-card">
+            <h3 data-translate="weatherAdvice">🌦️ Weather Advice</h3>
+
+            <h2 id="weatherDecision"
+                data-translate="checking">
+                Checking...
+            </h2>
+
+            <p id="weatherMessage"
+               data-translate="weatherCheckingMessage">
+                Weather-based advice will appear here.
+            </p>
+        </div>
+
+    </div>
+</section>
+
+<!-- Information -->
+<section class="iot-alerts">
+
+    <h2 data-translate="aboutAgriTrackData">
+        ℹ️ About AgriTrack Data
+    </h2>
+
+    <ul>
+        <li data-translate="weatherApiInfo">
+            🌦️ Weather information is obtained through APIs.
+        </li>
+
+        <li data-translate="soilReportInfo">
+            🧪 Soil information comes from the farmer's
+            uploaded soil-test report.
+        </li>
+
+        <li data-translate="cropInfo">
+            🌱 Crop and crop-stage information is used
+            for recommendations.
+        </li>
+
+        <li data-translate="irrigationInfo">
+            💧 Irrigation advice is software-generated
+            and does not require physical sensors.
+        </li>
+
+        <li data-translate="noIoTHardware">
+            ❌ AgriTrack does not require IoT hardware
+            for this system.
+        </li>
+    </ul>
+</section>
+
+<!-- Footer -->
+<footer>
+    <p data-translate="footerText">
+        © 2026 AgriTrack | Smart Farming Solution
+    </p>
+</footer>
+
+<script>
+const farmDataTranslations = {
+    en: {
+        home: "Home",
+        dashboard: "Dashboard",
+        profile: "Profile",
+        crop: "Crop",
+        weather: "Weather",
+        soilReport: "🧪 Soil Report",
+        smartFarmData: "🌾 Smart Farm Data",
+        farmDataDescription: "API-based farm information and smart recommendations",
+        lastUpdated: "Last Updated:",
+        temperature: "🌡️ Temperature",
+        humidity: "💨 Humidity",
+        rainForecast: "🌧️ Rain Forecast",
+        windSpeed: "💨 Wind Speed",
+        source: "Source:",
+        weatherAPI: "Weather API",
+        farmerUploadedReport: "Farmer Uploaded Report",
+        currentCrop: "🌱 Current Crop",
+        cropStage: "Crop stage:",
+        notAvailable: "Not Available",
+        smartFarmRecommendation: "🧠 Smart Farm Recommendation",
+        irrigation: "💧 Irrigation",
+        checking: "Checking...",
+        irrigationCheckingMessage: "Irrigation recommendation will be generated using weather, soil and crop information.",
+        fertilizer: "🌿 Fertilizer",
+        available: "Available",
+        fertilizerMessage: "Fertilizer recommendations use crop and confirmed soil-report information.",
+        weatherAdvice: "🌦️ Weather Advice",
+        weatherCheckingMessage: "Weather-based advice will appear here.",
+        aboutAgriTrackData: "ℹ️ About AgriTrack Data",
+        weatherApiInfo: "🌦️ Weather information is obtained through APIs.",
+        soilReportInfo: "🧪 Soil information comes from the farmer's uploaded soil-test report.",
+        cropInfo: "🌱 Crop and crop-stage information is used for recommendations.",
+        irrigationInfo: "💧 Irrigation advice is software-generated and does not require physical sensors.",
+        noIoTHardware: "❌ AgriTrack does not require IoT hardware for this system.",
+        footerText: "© 2026 AgriTrack | Smart Farming Solution"
+    },
+
+    mr: {
+        home: "मुख्यपृष्ठ",
+        dashboard: "डॅशबोर्ड",
+        profile: "प्रोफाइल",
+        crop: "पीक",
+        weather: "हवामान",
+        soilReport: "🧪 मातीचा अहवाल",
+        smartFarmData: "🌾 स्मार्ट शेती माहिती",
+        farmDataDescription: "API आधारित शेती माहिती आणि स्मार्ट शिफारसी",
+        lastUpdated: "शेवटचे अपडेट:",
+        temperature: "🌡️ तापमान",
+        humidity: "💨 आर्द्रता",
+        rainForecast: "🌧️ पावसाचा अंदाज",
+        windSpeed: "💨 वाऱ्याचा वेग",
+        source: "स्रोत:",
+        weatherAPI: "हवामान API",
+        farmerUploadedReport: "शेतकऱ्याने अपलोड केलेला अहवाल",
+        currentCrop: "🌱 सध्याचे पीक",
+        cropStage: "पिकाची अवस्था:",
+        notAvailable: "उपलब्ध नाही",
+        smartFarmRecommendation: "🧠 स्मार्ट शेती शिफारस",
+        irrigation: "💧 सिंचन",
+        checking: "तपासत आहे...",
+        irrigationCheckingMessage: "हवामान, माती आणि पिकाच्या माहितीचा वापर करून सिंचनाची शिफारस तयार केली जाईल.",
+        fertilizer: "🌿 खत",
+        available: "उपलब्ध",
+        fertilizerMessage: "खताच्या शिफारसीसाठी पीक आणि पुष्टी केलेल्या मातीच्या अहवालाची माहिती वापरली जाते.",
+        weatherAdvice: "🌦️ हवामानाचा सल्ला",
+        weatherCheckingMessage: "हवामानावर आधारित सल्ला येथे दिसेल.",
+        aboutAgriTrackData: "ℹ️ AgriTrack माहितीबद्दल",
+        weatherApiInfo: "🌦️ हवामानाची माहिती API द्वारे मिळवली जाते.",
+        soilReportInfo: "🧪 मातीची माहिती शेतकऱ्याने अपलोड केलेल्या मातीच्या चाचणी अहवालातून घेतली जाते.",
+        cropInfo: "🌱 शिफारसींसाठी पीक आणि पिकाच्या अवस्थेची माहिती वापरली जाते.",
+        irrigationInfo: "💧 सिंचनाचा सल्ला सॉफ्टवेअरद्वारे तयार केला जातो आणि त्यासाठी प्रत्यक्ष सेन्सरची आवश्यकता नाही.",
+        noIoTHardware: "❌ या प्रणालीसाठी AgriTrack ला IoT हार्डवेअरची आवश्यकता नाही.",
+        footerText: "© 2026 AgriTrack | स्मार्ट शेती उपाय"
+    },
+
+    hi: {
+        home: "होम",
+        dashboard: "डैशबोर्ड",
+        profile: "प्रोफाइल",
+        crop: "फसल",
+        weather: "मौसम",
+        soilReport: "🧪 मिट्टी की रिपोर्ट",
+        smartFarmData: "🌾 स्मार्ट कृषि डेटा",
+        farmDataDescription: "API आधारित कृषि जानकारी और स्मार्ट सलाह",
+        lastUpdated: "अंतिम अपडेट:",
+        temperature: "🌡️ तापमान",
+        humidity: "💨 आर्द्रता",
+        rainForecast: "🌧️ बारिश का पूर्वानुमान",
+        windSpeed: "💨 हवा की गति",
+        source: "स्रोत:",
+        weatherAPI: "मौसम API",
+        farmerUploadedReport: "किसान द्वारा अपलोड की गई रिपोर्ट",
+        currentCrop: "🌱 वर्तमान फसल",
+        cropStage: "फसल की अवस्था:",
+        notAvailable: "उपलब्ध नहीं",
+        smartFarmRecommendation: "🧠 स्मार्ट कृषि सलाह",
+        irrigation: "💧 सिंचाई",
+        checking: "जाँच हो रही है...",
+        irrigationCheckingMessage: "मौसम, मिट्टी और फसल की जानकारी का उपयोग करके सिंचाई की सलाह तैयार की जाएगी।",
+        fertilizer: "🌿 उर्वरक",
+        available: "उपलब्ध",
+        fertilizerMessage: "उर्वरक की सलाह के लिए फसल और पुष्टि की गई मिट्टी की रिपोर्ट की जानकारी का उपयोग किया जाता है।",
+        weatherAdvice: "🌦️ मौसम सलाह",
+        weatherCheckingMessage: "मौसम आधारित सलाह यहां दिखाई देगी।",
+        aboutAgriTrackData: "ℹ️ AgriTrack डेटा के बारे में",
+        weatherApiInfo: "🌦️ मौसम की जानकारी API के माध्यम से प्राप्त की जाती है।",
+        soilReportInfo: "🧪 मिट्टी की जानकारी किसान द्वारा अपलोड की गई मिट्टी की जांच रिपोर्ट से ली जाती है।",
+        cropInfo: "🌱 सलाह के लिए फसल और फसल की अवस्था की जानकारी का उपयोग किया जाता है।",
+        irrigationInfo: "💧 सिंचाई की सलाह सॉफ्टवेयर द्वारा तैयार की जाती है और इसके लिए वास्तविक सेंसर की आवश्यकता नहीं है।",
+        noIoTHardware: "❌ इस प्रणाली के लिए AgriTrack को IoT हार्डवेयर की आवश्यकता नहीं है।",
+        footerText: "© 2026 AgriTrack | स्मार्ट कृषि समाधान"
+    }
+};
+
+function changeFarmDataLanguage() {
+    const language = document.getElementById("languageSelect").value;
+
+    localStorage.setItem("selectedLanguage", language);
+
+    document.querySelectorAll("[data-translate]").forEach(function(element) {
+        const key = element.getAttribute("data-translate");
+        const translatedText = farmDataTranslations[language]?.[key];
+
+        if (translatedText) {
+            element.textContent = translatedText;
+        }
+    });
+}
+
+document.addEventListener("DOMContentLoaded", function() {
+    const languageSelect = document.getElementById("languageSelect");
+
+    if (languageSelect) {
+        languageSelect.value =
+            localStorage.getItem("selectedLanguage") || "en";
+
+        changeFarmDataLanguage();
+    }
+});
+</script>
+
+<script src="assets/js/app.js"></script>
+</body>
+</html>
+

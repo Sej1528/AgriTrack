@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Seed Recommendation - AgriTrack</title>
+
+    <link rel="stylesheet"
+          href="assets/css/style.css">
+
+</head>
+
+<body>
+
+<!-- Navigation -->
+
+<nav>
+
+    <h2>AgriTrack</h2>
+
+    <ul>
+
+        <li>
+            <a href="index.html">Home</a>
+        </li>
+
+        <li>
+            <a href="dashboard.html">Dashboard</a>
+        </li>
+
+        <li>
+            <a href="crop.html">Crop</a>
+        </li>
+
+        <li>
+            <a href="iot.html">IoT</a>
+        </li>
+
+        <li>
+            <a href="profile.html">Profile</a>
+        </li>
+
+        <li>
+            <a href="expenses.html">Expenses</a>
+        </li>
+
+        <li>
+            <a href="seed.html">Seeds</a>
+        </li>
+
+    </ul>
+
+</nav>
+
+
+<!-- Header -->
+
+<header>
+
+    <h1>🌱 Seed Recommendation</h1>
+
+    <p>
+        Get suitable seed recommendations for your farm
+    </p>
+
+</header>
+
+
+<!-- Main Container -->
+
+<div class="container">
+
+
+    <!-- Selection Card -->
+
+    <div class="card">
+
+        <h2>🌾 Enter Farm Details</h2>
+
+
+        <!-- Crop -->
+
+        <label for="seedCrop">
+            Select Crop
+        </label>
+
+        <select id="seedCrop">
+
+            <option value="">
+                -- Select Crop --
+            </option>
+
+            <option value="Tomato">
+                🍅 Tomato
+            </option>
+
+            <option value="Potato">
+                🥔 Potato
+            </option>
+
+            <option value="Rice">
+                🌾 Rice
+            </option>
+
+            <option value="Wheat">
+                🌾 Wheat
+            </option>
+
+        </select>
+
+
+        <!-- Soil -->
+
+        <label for="soilType">
+            Soil Type
+        </label>
+
+        <select id="soilType">
+
+            <option value="">
+                -- Select Soil --
+            </option>
+
+            <option value="Loamy">
+                Loamy Soil
+            </option>
+
+            <option value="Sandy">
+                Sandy Soil
+            </option>
+
+            <option value="Clay">
+                Clay Soil
+            </option>
+
+            <option value="Black">
+                Black Soil
+            </option>
+
+        </select>
+
+
+        <!-- Season -->
+
+        <label for="seedSeason">
+            Season
+        </label>
+
+        <select id="seedSeason">
+
+            <option value="">
+                -- Select Season --
+            </option>
+
+            <option value="Kharif">
+                🌧️ Kharif
+            </option>
+
+            <option value="Rabi">
+                ❄️ Rabi
+            </option>
+
+            <option value="Zaid">
+                ☀️ Zaid
+            </option>
+
+        </select>
+
+
+        <!-- Water -->
+
+        <label for="waterAvailability">
+            Water Availability
+        </label>
+
+        <select id="waterAvailability">
+
+            <option value="">
+                -- Select Water Availability --
+            </option>
+
+            <option value="High">
+                💧 High
+            </option>
+
+            <option value="Medium">
+                💧 Medium
+            </option>
+
+            <option value="Low">
+                💧 Low
+            </option>
+
+        </select>
+
+
+        <br><br>
+
+
+        <button
+            onclick="recommendSeeds()">
+
+            🌱 Get Seed Recommendation
+
+        </button>
+
+    </div>
+
+
+    <!-- Recommendation -->
+
+    <div class="card">
+
+        <h2>🌱 Recommended Seeds</h2>
+
+
+        <div id="seedRecommendation">
+
+            <p>
+                Select your farm details to get
+                seed recommendations.
+            </p>
+
+        </div>
+
+    </div>
+
+
+</div>
+
+
+<!-- Footer -->
+
+<footer>
+
+    <p>
+        © 2026 AgriTrack |
+        Smart Farming Solution
+    </p>
+
+</footer>
+
+
+<!-- JavaScript -->
+
+<script src="assets/js/app.js"></script>
+
+</body>
+
+</html>
